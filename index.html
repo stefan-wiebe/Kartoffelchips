@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta charset="UTF-8">
+		<title>Kartoffelchips</title>
+        <script src="src/Main.js"></script>
+        
+	</head>
+	<body>
+		<div id="game">
+        
+        </div>
+        
+        <script type="text/javascript" src="https://rawgithub.com/craftyjs/Crafty/release/dist/crafty-min.js"></script>
+        <script>            
+            Crafty.init(1280,720, document.getElementById('game'));
+            Crafty.pixelart(true);
+            Crafty.viewport.scale(2);
+            var gridSize = 32;
+            
+            function snapToGrid(gridSize, value) {
+                if (!isNaN(value) && !isNaN(gridSize)) {
+                    var overlap = value % gridSize;
+                    if (overlap < gridSize / 2) {
+                        value -= overlap;
+                    } else {
+                        value += gridSize - (overlap);
+                    }
+                }
+                
+                return value;
+            }
+            
+            Crafty.sprite(32, 32, "textures/Emitter.png", {emitter:[0,0]});
+            
+            Crafty.c("Emitter", {
+                tileRotation: 0,
+                dragged: false,
+                init: function() {
+                    this.requires("emitter, DOM, Color, Draggable")
+                        .attr({x: 0, y:0, w: 32, h:32});
+                    
+                    this.bind("StartDrag", function() {
+                        this.dragged = true;
+                    });
+                    
+                    this.disableDrag();
+                    
+                    this.bind("StopDrag", function() {
+                        this.dragged = false;
+                        this.x = snapToGrid(gridSize, this.x);
+                        this.y = snapToGrid(gridSize, this.y);
+                        this.disableDrag();
+                    });
+                    
+                    this.bind("MouseDown", function() {
+                        this.tileRotation = ((this.tileRotation < 3) ? this.tileRotation + 1 : 0);
+                        this.sprite(this.tileRotation, 0);
+                        Crafty.e("Delay").delay(this.enableDrag(), 250);
+                    });
+                }
+            });
+            
+            emitter1 = Crafty.e("Emitter");
+                
+        </script>
+	</body>
+</html>
