@@ -1,0 +1,14 @@
+canvas {
+margin-left: -512px;
+	left: 50%;
+	top: 50%;
+	margin-top:-384px;
+	position: absolute;
+    image-rendering: optimizeSpeed;
+    image-rendering: crisp-edges;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    -ms-interpolation-mode: nearest-neighbor;
+    box-shadow: 0.02rem 0.02rem 1rem hsla(0,0%,0%,0.5);
+}
