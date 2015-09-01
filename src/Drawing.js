@@ -102,6 +102,49 @@ Drawing.drawLaserBeam = function() {
 
 };
 
+Drawing.drawHalfLaserBeamInCell = function(color, rotation, x, y) {
+	ctx.strokeStyle = 'red';
+	ctx.strokeWidth = 4;
+	ctx.beginPath();
+	switch (rotation) {
+		case 0:
+			ctx.moveTo((x*spriteSize) + spriteSize/2, y*spriteSize + spriteSize);
+			ctx.lineTo((x*spriteSize) + spriteSize/2, y*spriteSize / 2);
+			break;
+		case 1:
+			ctx.moveTo(x*spriteSize / 2, y*spriteSize + spriteSize/2);
+			ctx.lineTo(x*spriteSize + spriteSize,  y*spriteSize + spriteSize/2);	
+			break;
+		case 2:
+			ctx.moveTo((x*spriteSize) + spriteSize/2, y*spriteSize / 2);
+			ctx.lineTo((x*spriteSize) + spriteSize/2, y*spriteSize + spriteSize);
+			break;
+		case 3:
+			ctx.moveTo(x*spriteSize + spriteSize,  y*spriteSize + spriteSize/2);
+			ctx.lineTo(x*spriteSize / 2, y*spriteSize + spriteSize/2);
+			break;
+	}
+	ctx.stroke();
+}
+
+/*
+    ▄▄▄▄▀▀▀▀▀▀▀▀▄▄▄▄▄▄
+    █                  ▀▀▄
+   █                      █
+  █      ▄██▀▄▄     ▄▄▄   █
+ ▀ ▄▄▄  █▀▀▀▀▄▄█   ██▄▄█   █
+█ █ ▄ ▀▄▄▄▀        █        █
+█ █ █▀▄▄     █▀    ▀▄  ▄▀▀▀▄ █
+ █▀▄ █▄ █▀▄▄ ▀ ▀▀ ▄▄▀    █  █
+  █  ▀▄▀█▄▄ █▀▀▀▄▄▄▄▀▀█▀██ █
+   █  ██  ▀█▄▄▄█▄▄█▄████ █
+    █   ▀▀▄ █   █ ███████ █
+     ▀▄   ▀▀▄▄▄█▄█▄█▄█▄▀  █
+       ▀▄▄               █
+          ▀▀▄▄            █
+              ▀▄▄▄▄▄     █
+*/
+
 Drawing.drawLaserBeamInCell = function(color,rotation, x, y) {
     var result = true;
 	var i = 0;
