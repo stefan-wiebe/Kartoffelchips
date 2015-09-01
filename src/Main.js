@@ -14,7 +14,7 @@ var selectedTool = -1;
 var fullMouseX = 0;
 var fullMouseY = 0;
 
-var gameState = GameState.IN_MENU;
+var gameState;
 
 function initGame() {
     for (var i = 0; i < 16; i++) {
@@ -31,6 +31,8 @@ function initGame() {
     loadSprite('activator');
     loadSprite('mouse');
     loadSprite('logo');
+
+    gameState = GameState.IN_MENU;
     var mHandler = new Mouse();
 
     requestAnimationFrame(tick);
