@@ -3,7 +3,11 @@ var Mouse = function () {
 	c.addEventListener('mousemove', Mouse.move);
 };
 Mouse.click = function() {
-	
+
+	if (mouseX == 15 && mouseY > 0 && mouseY <= toolsByType.length) {
+        // in inventory
+        console.log('block clicked');
+    }
 
 };
 
