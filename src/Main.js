@@ -51,7 +51,7 @@ function tick() {
 }
 
 function blockExistsAt(x, y) {
-	var blockFound = map[x][y] != TilesEnum.CLEAR;
+	var blockFound = map[x][y] != Tiles.CLEAR;
 	var i = 0;
 	while (i < predefinedBlocks.length && !blockFound) {
 		blockFound = predefinedBlocks[i].x == x && predefinedBlocks[i].y == y;
