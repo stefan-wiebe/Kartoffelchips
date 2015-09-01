@@ -1,4 +1,4 @@
-var TILES = {
+var Tiles = {
     CORNER_LEFT_TOP: 0,
     CORNER_LEFT_BOTTOM: 1,
     CORNER_RIGHT_TOP: 2,
