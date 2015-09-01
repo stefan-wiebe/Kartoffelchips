@@ -11,6 +11,8 @@ var predefinedBlocks = [];
 var mouseX = 0;
 var mouseY = 0;
 var selectedTool = -1;
+var fullMouseX = 0;
+var fullMouseY = 0;
 
 function initGame() {
     for (var i = 0; i < 16; i++) {
@@ -25,8 +27,22 @@ function initGame() {
     loadSprite('inventory');
     loadSprite('mirror');
     loadSprite('activator');
+    loadSprite('mouse');
     var mHandler = new Mouse();
+    lockMouse();
+
     requestAnimationFrame(tick);
+}
+
+function lockMouse() {
+  c.requestPointerLock = c.requestPointerLock ||
+           c.mozRequestPointerLock ||
+           c.webkitRequestPointerLock;
+
+document.exitPointerLock = document.exitPointerLock ||
+         document.mozExitPointerLock ||
+         document.webkitExitPointerLock;
+    c.requestPointerLock();
 }
 
 function loadSprite(spriteName) {
@@ -44,6 +60,7 @@ function tick() {
     Drawing.drawLaserBeam();
     Drawing.drawToolbox();
     Drawing.drawMouse();
+    Drawing.drawCursor();
     requestAnimationFrame(tick);
 }
 

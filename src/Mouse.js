@@ -37,6 +37,9 @@ Mouse.click = function(e) {
 Mouse.move = function(e) {
     var relativeXPosition = (e.pageX - c.offsetLeft);
     var relativeYPosition = (e.pageY - c.offsetTop);
+
+    fullMouseX = relativeXPosition;
+    fullMouseY = relativeYPosition;
     var x = Math.floor(relativeXPosition / spriteSize);
     var y = Math.floor(relativeYPosition / spriteSize);
     console.log('X: ' + x + ' Y: ' + y);

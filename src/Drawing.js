@@ -24,6 +24,10 @@ Drawing.drawSprite = function(spriteName, spriteIndex, x, y) {
         }
     }
 };
+
+Drawing.drawCursor = function() {
+    ctx.drawImage(sprites['mouse'],fullMouseX, fullMouseY);
+}
 Drawing.drawMouse = function() {
     if (selectedTool != -1) {
         Drawing.drawSprite(tools[selectedTool].toString(), tools[selectedTool].rotation, mouseX, mouseY);
