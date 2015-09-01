@@ -239,6 +239,9 @@ Drawing.drawToolbox = function() {
 		Util.log('Drawing ' + toolsByType[i].toString() + ' at ' + (i+1));
 		Drawing.drawSprite(toolsByType[i].toString(), 0, 15, (i+1));
 		Drawing.drawSprite('inventory', 0,15, (i+1));
+		ctx.fillStyle = 'white';
+		ctx.font="14px Courier New";
+		ctx.fillText(toolsByType[i].length, (spriteSize*16) - 20, (spriteSize*(i+2))- 10);
 	}
 };
 
