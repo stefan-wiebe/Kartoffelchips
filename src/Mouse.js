@@ -1,10 +1,15 @@
 var Mouse = function() {
     c.addEventListener('mousedown', Mouse.click);
     c.addEventListener('mousemove', Mouse.move);
-    document.addEventListener('mousedown', function() {return false;});
+
+    //c.addEventListener('click', lockMouse);
+   
+
 };
+
+
+
 Mouse.click = function(e) {
-    e.preventDefault();
     switch (e.which) {
         case 1:
             if (selectedTool == -1) {
