@@ -81,13 +81,13 @@ xmlhttp.onreadystatechange=function() {
                 			case 1:
                 				switch (j) {
                 					case 0:
-                						map[j][i-1] = TILES.CORNER_LEFT_TOP;
+                						map[j][i-1] = Tiles.CORNER_LEFT_TOP;
                 						break;
                 					case 15:
-										map[j][i-1] = TILES.CORNER_RIGHT_TOP;
+										map[j][i-1] = Tiles.CORNER_RIGHT_TOP;
 										break;
 									default:
-										map[j][i-1] = TILES.BORDER_TOP;
+										map[j][i-1] = Tiles.BORDER_TOP;
 										break;
                 				}
                 				break;
@@ -95,13 +95,13 @@ xmlhttp.onreadystatechange=function() {
                 			case 12:
                 				switch (j) {
                 					case 0:
-                						map[j][i-1] = TILES.CORNER_LEFT_BOTTOM;
+                						map[j][i-1] = Tiles.CORNER_LEFT_BOTTOM;
                 						break;
                 					case 15:
-               						    map[j][i-1] = TILES.CORNER_RIGHT_BOTTOM;
+               						    map[j][i-1] = Tiles.CORNER_RIGHT_BOTTOM;
                						    break;
                						default:
-										map[j][i-1] = TILES.BORDER_BOTTOM;
+										map[j][i-1] = Tiles.BORDER_BOTTOM;
 										break;
                					}
                					break;
@@ -109,19 +109,19 @@ xmlhttp.onreadystatechange=function() {
                				default:
                					switch(j) {
                						case 0:
-               							map[j][i-1] = TILES.BORDER_LEFT;
+               							map[j][i-1] = Tiles.BORDER_LEFT;
                							break;
                						case 15:
-               							map[j][i-1] = TILES.BORDER_RIGHT;
+               							map[j][i-1] = Tiles.BORDER_RIGHT;
                							break;
                						default:
-               							map[j][i-1] = TILES.FULL;
+               							map[j][i-1] = Tiles.FULL;
                							break;
                					}
                 				break;
                 		}
                 	} else {
-                		map[j][i-1] = TILES.CLEAR;
+                		map[j][i-1] = Tiles.CLEAR;
                 	}
                 }
             }
