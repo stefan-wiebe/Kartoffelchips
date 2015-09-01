@@ -61,7 +61,6 @@ Drawing.drawTools = function() {
 		var tool = tools[i];
 		if (tool.isPlaced) {
 			var toolType = tool.toString();
-			console.log("drawing Tool: " + toolType);
 			switch (toolType) {
 				case "Prism":
 					var boolN = tool.inputs[0].isOn() || tool.inputs[1].isOn() ? 4 : 0;
@@ -103,10 +102,71 @@ Drawing.drawLaserBeam = function() {
 
 };
 
+Drawing.drawHalfLaserBeamInCell = function(color, rotation, x, y) {
+	ctx.strokeStyle = 'red';
+	ctx.strokeWidth = 4;
+	ctx.beginPath();
+	switch (rotation) {
+		case 0:
+			ctx.moveTo((x*spriteSize) + spriteSize/2, y*spriteSize + spriteSize);
+			ctx.lineTo((x*spriteSize) + spriteSize/2, y*spriteSize / 2);
+			break;
+		case 1:
+			ctx.moveTo(x*spriteSize / 2, y*spriteSize + spriteSize/2);
+			ctx.lineTo(x*spriteSize + spriteSize,  y*spriteSize + spriteSize/2);	
+			break;
+		case 2:
+			ctx.moveTo((x*spriteSize) + spriteSize/2, y*spriteSize / 2);
+			ctx.lineTo((x*spriteSize) + spriteSize/2, y*spriteSize + spriteSize);
+			break;
+		case 3:
+			ctx.moveTo(x*spriteSize + spriteSize,  y*spriteSize + spriteSize/2);
+			ctx.lineTo(x*spriteSize / 2, y*spriteSize + spriteSize/2);
+			break;
+	}
+	ctx.stroke();
+}
+
+/*
+    ▄▄▄▄▀▀▀▀▀▀▀▀▄▄▄▄▄▄
+    █                  ▀▀▄
+   █                      █
+  █      ▄██▀▄▄     ▄▄▄   █
+ ▀ ▄▄▄  █▀▀▀▀▄▄█   ██▄▄█   █
+█ █ ▄ ▀▄▄▄▀        █        █
+█ █ █▀▄▄     █▀    ▀▄  ▄▀▀▀▄ █
+ █▀▄ █▄ █▀▄▄ ▀ ▀▀ ▄▄▀    █  █
+  █  ▀▄▀█▄▄ █▀▀▀▄▄▄▄▀▀█▀██ █
+   █  ██  ▀█▄▄▄█▄▄█▄████ █
+    █   ▀▀▄ █   █ ███████ █
+     ▀▄   ▀▀▄▄▄█▄█▄█▄█▄▀  █
+       ▀▄▄               █
+          ▀▀▄▄            █
+              ▀▄▄▄▄▄     █
+*/
+
 Drawing.drawLaserBeamInCell = function(color,rotation, x, y) {
     var result = true;
-	 Util.log('Drawing laser beam in cell ' + x + ', ' +y + 'with rotation of ' + (rotation*90) + ' degrees');
-	switch (map[x][y]) {
+	var i = 0;
+    while (i < predefinedBlocks.length && result) {
+        if (predefinedBlocks[i].x == x && predefinedBlocks[i].y == y && predefinedBlocks[i].toString() != "Activator") {
+            result = false;
+        }
+        i++;
+    }
+	i = 0;
+    while (i < tools.length && result) {
+        if (tools[i].isPlaced && tools[i].x == x && tools[i].y == y) {
+            result = false;
+			if (tools[i].toString() == "Mirror") {
+				Drawing.drawLaserBeamFromObject(tools[i]);
+			}
+        }
+        i++;
+    }
+	Util.log('Drawing laser beam in cell ' + x + ', ' +y + 'with rotation of ' + (rotation*90) + ' degrees');
+	if (result) {
+		switch (map[x][y]) {
 		case Tiles.CLEAR:
 			ctx.strokeStyle = 'red';
 			ctx.strokeWidth = 4;
@@ -136,23 +196,7 @@ Drawing.drawLaserBeamInCell = function(color,rotation, x, y) {
             result = false;
             break;
 	}
-    var i = 0;
-    while (i < predefinedBlocks.length && result) {
-        if (predefinedBlocks[i].x == x && predefinedBlocks[i].y == y) {
-            result = false;
-        }
-        i++;
-    }
-	i = 0;
-    while (i < tools.length && result) {
-        if (tools[i].isPlaced && tools[i].x == x && tools[i].y == y && tools[i].toString() != "Activator") {
-            result = false;
-			if (tools[i].toString() == "Mirror") {
-				Drawing.drawLaserBeamFromObject(tools[i]);
-			}
-        }
-        i++;
-    }
+	}
     return result;
 };
 
@@ -182,56 +226,50 @@ Drawing.drawToolbox = function() {
 
 Drawing.drawLaserBeamFromObject = function(obj) {
 	Util.log('drawing laser beam from ' + obj.toString());
-	switch (obj.toString()) {
-		case "Emitter":
-			// draw to next object
-			var nextX = 0;
-			var nextY = 0;
-			switch (obj.rotation) {
-				case 0:
-                    var i = obj.y;
-                    beaming = true;
-                    Drawing.drawLaserBeamInCell('red', obj.rotation, obj.x, i);
-                    i--;
-                    while (i > 0 && beaming) {
-                        beaming = Drawing.drawLaserBeamInCell('red', obj.rotation, obj.x, i);
-                        i--;
-                    }
-					break;
-				case 1:
-                    var i = obj.x;
-                    beaming = true;
-                    Drawing.drawLaserBeamInCell('red', obj.rotation, i, obj.y);
-                    i++;
-                    while (i < width && beaming) {
-                        beaming = Drawing.drawLaserBeamInCell('red', obj.rotation, i, obj.y);
-                        i++;
-                        Util.log('drawing laser at ' + i + ' ' + obj.y + ' beaming is ' + beaming);
-
-                    }
-					break;
-				case 2:
-                    var i = obj.y;
-                    beaming = true;
-                    Drawing.drawLaserBeamInCell('red', obj.rotation, obj.x, i);
-                    i++;
-                    while (i < height && beaming) {
-                        beaming = Drawing.drawLaserBeamInCell('red', obj.rotation, obj.x, i);
-                        i++;
-                    }
-					break;
-				case 3:
-                    var i = obj.x;
-                    beaming = true;
-                    Drawing.drawLaserBeamInCell('red', obj.rotation, i, obj.y);
-                    i--;
-                    while (i > 0 && beaming) {
-                        beaming = Drawing.drawLaserBeamInCell('red', obj.rotation, i, obj.y);
-                        i--;
-                    }
-					break;
-			}
+	// draw to next object
+	var nextX = 0;
+	var nextY = 0;
+	switch (obj.rotation) {
+		case 0:
+            var i = obj.y;
+            beaming = true;
+            if (obj.toString() != "Mirror") Drawing.drawLaserBeamInCell('red', obj.rotation, obj.x, i);
+            i--;
+            while (i > 0 && beaming) {
+                beaming = Drawing.drawLaserBeamInCell('red', obj.rotation, obj.x, i);
+                i--;
+            }
 			break;
-	}
-		
+		case 1:
+            var i = obj.x;
+            beaming = true;
+            if (obj.toString() != "Mirror") Drawing.drawLaserBeamInCell('red', obj.rotation, i, obj.y);
+            i++;
+            while (i < width && beaming) {
+                beaming = Drawing.drawLaserBeamInCell('red', obj.rotation, i, obj.y);
+                i++;
+                Util.log('drawing laser at ' + i + ' ' + obj.y + ' beaming is ' + beaming);
+            }
+			break;
+		case 2:
+            var i = obj.y;
+            beaming = true;
+            if (obj.toString() != "Mirror") Drawing.drawLaserBeamInCell('red', obj.rotation, obj.x, i);
+            i++;
+            while (i < height && beaming) {
+                beaming = Drawing.drawLaserBeamInCell('red', obj.rotation, obj.x, i);
+                i++;
+            }
+			break;
+		case 3:
+            var i = obj.x;
+            beaming = true;
+            if (obj.toString() != "Mirror") Drawing.drawLaserBeamInCell('red', obj.rotation, i, obj.y);
+            i--;
+            while (i > 0 && beaming) {
+                beaming = Drawing.drawLaserBeamInCell('red', obj.rotation, i, obj.y);
+                i--;
+            }
+			break;
+		}
 }

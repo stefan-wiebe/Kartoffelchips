@@ -45,9 +45,9 @@ function tick() {
 	ctx.fillStyle = '#FFFFFF';
 	ctx.fillRect(0, 0, c.width, c.height);
 	Drawing.drawBoard();
-	Drawing.drawLaserBeam();
 	Drawing.drawPredefinedBlocks();
 	Drawing.drawTools();
+	Drawing.drawLaserBeam();
 	Drawing.drawToolbox();
 	Drawing.drawMouse();
 	requestAnimationFrame(tick);
