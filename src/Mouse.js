@@ -7,6 +7,8 @@ Mouse.click = function() {
 	if (mouseX == 15 && mouseY > 0 && mouseY <= toolsByType.length) {
         // in inventory
         console.log('block clicked');
+        selectedTool = tools.indexOf(toolsByType[mouseY-1][0]);
+
     }
 
 };
@@ -21,5 +23,9 @@ Mouse.move = function(e) {
     console.log('X: ' + x + ' Y: ' + y);
     mouseX = x;
     mouseY = y;
+    if (selectedTool > -1) {
+        tools[selectedTool].x = mouseX;
+        tools[selectedTool].y = mouseY;
+    }
 };
 
