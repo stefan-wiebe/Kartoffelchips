@@ -3,7 +3,6 @@ function Drawing() {}
 Drawing.drawBoard = function () {
 	for (var x = 0; x < map.length; x++) {
 		for (var y = 0; y <map[x].length; y++) {
-		
 			Drawing.drawSprite('map', map[x][y], x, y);
 		}
 	}
@@ -18,7 +17,7 @@ Drawing.drawSprite = function(spriteName, spriteIndex, x, y) {
 		ctx.font = '10px Arial';
 		ctx.fillStyle = 'red';
 		ctx.fillText(spriteName + ' [' + spriteIndex + ']', (spriteSize*x) + 5, (spriteSize*y) + 10);
-				ctx.font = '20px Arial';
+		ctx.font = '20px Arial';
 
 		ctx.fillText(spriteIndex, (spriteSize*x) + 5, (spriteSize*y) + 20);
 		ctx.fillText(spriteIndex * spriteSize, (spriteSize*x) + 5, (spriteSize*y) + 40);
@@ -94,6 +93,13 @@ Drawing.drawLaserBeamInCell = function(color,rotation, x, y) {
         }
         i++;
     }
+	i = 0;
+    while (i < tools.length && result) {
+        if (tools[i].isPlaced && tools[i].x == x && tools[i].y == y && tools[i].toString() != "Activator") {
+            result = false;
+        }
+        i++;
+    }
     return result;
 };
 
@@ -134,9 +140,6 @@ Drawing.drawLaserBeamFromObject = function(obj) {
                         beaming = Drawing.drawLaserBeamInCell('red', obj.rotation, obj.x, i);
                         i--;
                     }
-					/*for (var i=obj.y; i>0; i--) {
-						Drawing.drawLaserBeamInCell('red', obj.rotation, obj.x, i);
-					}*/
 					break;
 				case 1:
                     var i = obj.x;
@@ -148,9 +151,6 @@ Drawing.drawLaserBeamFromObject = function(obj) {
                         i++;
                         console.log('drawing laser at ' + i + ' ' + obj.y + ' beaming is ' + beaming);
                     }
-					/*for (var i=obj.x; i<width; i++) {
-						Drawing.drawLaserBeamInCell('red', obj.rotation, i, obj.y);
-					}*/
 					break;
 				case 2:
                     var i = obj.y;
@@ -161,9 +161,6 @@ Drawing.drawLaserBeamFromObject = function(obj) {
                         beaming = Drawing.drawLaserBeamInCell('red', obj.rotation, obj.x, i);
                         i++;
                     }
-					/*for (var i=obj.y; i<height; i++) {
-						Drawing.drawLaserBeamInCell('red', obj.rotation, obj.x, i);
-					}*/
 					break;
 				case 3:
                     var i = obj.x;
@@ -174,9 +171,6 @@ Drawing.drawLaserBeamFromObject = function(obj) {
                         beaming = Drawing.drawLaserBeamInCell('red', obj.rotation, i, obj.y);
                         i--;
                     }
-					/*for (var i=obj.x; i>0; i--) {
-						Drawing.drawLaserBeamInCell('red', obj.rotation, i, obj.y);
-					}*/
 					break;
 			}
 			break;
