@@ -105,6 +105,9 @@ Drawing.drawLaserBeamInCell = function(color,rotation, x, y) {
     while (i < tools.length && result) {
         if (tools[i].isPlaced && tools[i].x == x && tools[i].y == y && tools[i].toString() != "Activator") {
             result = false;
+			if (tools[i].toString() == "Mirror") {
+				drawLaserBeamFromObject(tools[i]);
+			}
         }
         i++;
     }
