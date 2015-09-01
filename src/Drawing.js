@@ -66,8 +66,18 @@ Drawing.drawTools = function() {
 					var boolN = tool.inputs[0].isOn() || tool.inputs[1].isOn() ? 4 : 0;
 					var index = boolN;
 					if (tool.hasOwnProperty('rotation')) {
-						Util.log('rotation is ' + block.rotation);
-						index = block.rotation + boolN;
+						Util.log('rotation is ' + tool.rotation);
+						index = tool.rotation + boolN;
+					}
+					Util.log('index is ' + index);
+					Drawing.drawSprite(toolType, index, tool.x, tool.y);
+					break;
+				case "Mirror":
+					var boolN = tools.isOn ? 4 : 0;
+					var index = boolN;
+					if (tool.hasOwnProperty('rotation')) {
+						Util.log('rotation is ' + tool.rotation);
+						index = tool.rotation + boolN;
 					}
 					Util.log('index is ' + index);
 					Drawing.drawSprite(toolType, index, tool.x, tool.y);
