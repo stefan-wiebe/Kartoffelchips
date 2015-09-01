@@ -157,7 +157,7 @@ Drawing.drawLaserBeamFromObject = function(obj) {
                     while (i < width && beaming) {
                         beaming = Drawing.drawLaserBeamInCell('red', obj.rotation, i, obj.y);
                         i++;
-                        console.log('drawing laser at ' + i + ' ' + obj.y + ' beaming is ' + beaming);
+                        //console.log('drawing laser at ' + i + ' ' + obj.y + ' beaming is ' + beaming);
                     }
 					break;
 				case 2:
