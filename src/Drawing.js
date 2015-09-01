@@ -104,8 +104,26 @@ Drawing.drawLaserBeam = function() {
 
 Drawing.drawLaserBeamInCell = function(color,rotation, x, y) {
     var result = true;
-	 Util.log('Drawing laser beam in cell ' + x + ', ' +y + 'with rotation of ' + (rotation*90) + ' degrees');
-	switch (map[x][y]) {
+	var i = 0;
+    while (i < predefinedBlocks.length && result) {
+        if (predefinedBlocks[i].x == x && predefinedBlocks[i].y == y && predefinedBlocks[i].toString() != "Activator") {
+            result = false;
+        }
+        i++;
+    }
+	i = 0;
+    while (i < tools.length && result) {
+        if (tools[i].isPlaced && tools[i].x == x && tools[i].y == y) {
+            result = false;
+			if (tools[i].toString() == "Mirror") {
+				Drawing.drawLaserBeamFromObject(tools[i]);
+			}
+        }
+        i++;
+    }
+	Util.log('Drawing laser beam in cell ' + x + ', ' +y + 'with rotation of ' + (rotation*90) + ' degrees');
+	if (result) {
+		switch (map[x][y]) {
 		case Tiles.CLEAR:
 			ctx.strokeStyle = 'red';
 			ctx.strokeWidth = 4;
@@ -135,23 +153,7 @@ Drawing.drawLaserBeamInCell = function(color,rotation, x, y) {
             result = false;
             break;
 	}
-    var i = 0;
-    while (i < predefinedBlocks.length && result) {
-        if (predefinedBlocks[i].x == x && predefinedBlocks[i].y == y) {
-            result = false;
-        }
-        i++;
-    }
-	i = 0;
-    while (i < tools.length && result) {
-        if (tools[i].isPlaced && tools[i].x == x && tools[i].y == y && tools[i].toString() != "Activator") {
-            result = false;
-			if (tools[i].toString() == "Mirror") {
-				Drawing.drawLaserBeamFromObject(tools[i]);
-			}
-        }
-        i++;
-    }
+	}
     return result;
 };
 
