@@ -73,6 +73,7 @@ Drawing.drawTools = function() {
 					Drawing.drawSprite(toolType, index, tool.x, tool.y);
 					break;
 				case "Mirror":
+					console.log("drawing Mirror");
 					var boolN = tools.isOn ? 4 : 0;
 					var index = boolN;
 					if (tool.hasOwnProperty('rotation')) {
