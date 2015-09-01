@@ -4,38 +4,42 @@ var Mouse = function() {
     //c.addEventListener('click', lockMouse);
 };
 Mouse.click = function(e) {
-    switch (gameState) {
-        case GameState.IS_PLAYING:
-            switch (e.which) {
-                case 1:
-                    if (selectedTool == -1) {
-                        // in inventory
-                        if (mouseX == 15 && mouseY > 0 && mouseY <= toolsByType.length) {
-                            var i = 0;
-                            for (var TL in toolsByType) {
-                                if (i == (mouseY + 1)) {
-                                    var string = TL;
+    if (document.pointerLockElement === c || document.mozPointerLockElement === c || document.webkitPointerLockElement === c) {
+        switch (gameState) {
+            case GameState.IS_PLAYING:
+                switch (e.which) {
+                    case 1:
+                        if (selectedTool == -1) {
+                            // in inventory
+                            if (mouseX == 15 && mouseY > 0 && mouseY <= toolsByType.length) {
+                                var i = 0;
+                                for (var TL in toolsByType) {
+                                    if (i == (mouseY + 1)) {
+                                        var string = TL;
+                                    }
+                                    i++;
                                 }
-                                i++;
+                                console.log('block clicked, selected tool is  ' + string);
+                                selectedTool = tools.indexOf(toolsByType[string][0]);
                             }
-                            console.log('block clicked, selected tool is  ' + string);
-                            selectedTool = tools.indexOf(toolsByType[string][0]);
+                            // is there a block at mouse position that we can pick up? If so, rotate
+                            else {}
+                        } else {
+                            tools[selectedTool].isPlaced = !tools[selectedTool].isPlaced;
+                            selectedTool = -1;
                         }
-                        // is there a block at mouse position that we can pick up? If so, rotate
-                        else {}
-                    } else {
-                        tools[selectedTool].isPlaced = !tools[selectedTool].isPlaced;
-                        selectedTool = -1;
-                    }
-                    break;
-                case 3:
-                    console.log('right click');
-                    break;
-            }
-            break;
-        case GameState.IN_MENU:
-            menu[Mouse.getMenuItemIDForPosition(fullMouseX, fullMouseY)].action();
-            break;
+                        break;
+                    case 3:
+                        console.log('right click');
+                        break;
+                }
+                break;
+            case GameState.IN_MENU:
+                menu[Mouse.getMenuItemIDForPosition(fullMouseX, fullMouseY)].action();
+                break;
+        }
+    } else {
+        lockMouse();
     }
     return false;
 };

@@ -88,8 +88,9 @@ function tick() {
     ctx.fillStyle = 'white';
     ctx.fillRect(0,0,c.width, c.height);
 
+if(document.pointerLockElement === c || document.mozPointerLockElement === c || document.webkitPointerLockElement === c) {
 
-    switch (gameState) {
+      switch (gameState) {
         case GameState.IN_MENU:
             Drawing.drawMenuScreen();
         break;
@@ -102,6 +103,9 @@ function tick() {
             Drawing.drawMouse();
             break;
     }
+} else {
+    Drawing.drawPointerLockWarning();
+}
     Drawing.drawCursor();
     requestAnimationFrame(tick);
 }

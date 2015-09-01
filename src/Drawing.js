@@ -340,7 +340,12 @@ Drawing.fillTextRotated = function(str, x, y,angle) {
     ctx.fillText(str, x, y);
     ctx.rotate(result);
 
-}
+};
+Drawing.fillTextCentered = function(str, y) {
+    var left = (c.width - ctx.measureText(str).width)/2;
+    ctx.fillText(str,left, y);
+
+};
 
 Drawing.drawMenuScreen = function() {
     ctx.fillStyle = '#394046';
@@ -365,12 +370,13 @@ Drawing.drawMenuScreen = function() {
 
         left = left + ctx.measureText(menu[i].title).width*1.1 + margin;
     }
-
-
-
-    
-
-
-
-
 };
+
+Drawing.drawPointerLockWarning = function() {
+     ctx.fillStyle = '#394046';
+    ctx.fillRect(0,0,c.width, c.height);
+    ctx.drawImage(sprites['logo'], (c.width-sprites['logo'].width)/2,200);
+    ctx.fillStyle = 'white';
+    ctx.font = '48px TS4F';
+    Drawing.fillTextCentered('CAN HAZ MOUSE?', c.height*0.65);
+}
