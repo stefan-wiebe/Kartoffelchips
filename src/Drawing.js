@@ -61,6 +61,7 @@ Drawing.drawTools = function() {
 		var tool = tools[i];
 		if (tool.isPlaced) {
 			var toolType = tool.toString().toLowerCase();
+			console.log("drawing Tool: " + toolType);
 			switch (toolType) {
 				case "Prism":
 					var boolN = tool.inputs[0].isOn() || tool.inputs[1].isOn() ? 4 : 0;
@@ -73,7 +74,6 @@ Drawing.drawTools = function() {
 					Drawing.drawSprite(toolType, index, tool.x, tool.y);
 					break;
 				case "Mirror":
-					console.log("drawing Mirror");
 					var boolN = tools.isOn ? 4 : 0;
 					var index = boolN;
 					if (tool.hasOwnProperty('rotation')) {
