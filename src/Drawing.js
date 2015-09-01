@@ -29,10 +29,12 @@ Drawing.drawMouse = function() {
 	if (selectedTool != -1) {
 		Drawing.drawSprite(tools[selectedTool].toString(), tools[selectedTool].rotation, mouseX, mouseY);
 	}
-	ctx.fillStyle = "rgba(0,255,0,0.5)";
+	ctx.fillStyle = "rgba(0,255,0,0.3)";
 	if (blockExistsAt(mouseX, mouseY)) {
-	ctx.fillStyle = "rgba(255,0,0,0.5)";
-
+	ctx.fillStyle = "rgba(255,0,0,0.3)";
+	}
+	if (mouseX == 15 && mouseY > 0 && mouseY <= toolsByType.length) {
+		ctx.fillStyle = "rgba(0, 0,255,0.3)";
 	}
 	ctx.fillRect(mouseX * spriteSize, mouseY * spriteSize, spriteSize, spriteSize);
 
@@ -136,6 +138,7 @@ Drawing.drawToolbox = function() {
 	for (var i=0; i<toolsByType.length; i++) {
 		Util.log('Drawing ' + toolsByType[i].toString() + ' at ' + (i+1));
 		Drawing.drawSprite(toolsByType[i].toString(), 0, 15, (i+1));
+		Drawing.drawSprite('inventory', 0,15, (i+1));
 	}
 };
 
