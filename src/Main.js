@@ -28,7 +28,7 @@ function initGame() {
 	loadSprite('receiver');
   loadSprite('inventory');
   loadSprite('mirror');
-  
+  loadSprite('activator');
   var mHandler = new Mouse();
 	requestAnimationFrame(tick);
 
