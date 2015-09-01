@@ -110,6 +110,9 @@ Drawing.drawLaserBeamInCell = function(color,rotation, x, y) {
     while (i < tools.length && result) {
         if (tools[i].isPlaced && tools[i].x == x && tools[i].y == y && tools[i].toString() != "Activator") {
             result = false;
+			if (tools[i].toString() == "Mirror") {
+				drawLaserBeamFromObject(tools[i]);
+			}
         }
         i++;
     }
@@ -162,7 +165,11 @@ Drawing.drawLaserBeamFromObject = function(obj) {
                     while (i < width && beaming) {
                         beaming = Drawing.drawLaserBeamInCell('red', obj.rotation, i, obj.y);
                         i++;
-                        Util.log('drawing laser at ' + i + ' ' + obj.y + ' beaming is ' + beaming);
+<<<<<<< HEAD
+                        console.log('drawing laser at ' + i + ' ' + obj.y + ' beaming is ' + beaming);
+=======
+                        //console.log('drawing laser at ' + i + ' ' + obj.y + ' beaming is ' + beaming);
+>>>>>>> 1e735026eb0e30b9acecbc33cc352f764acb75a0
                     }
 					break;
 				case 2:
