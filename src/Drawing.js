@@ -231,7 +231,8 @@ Drawing.drawToolbox = function() {
 			toolsByType[tools[i].toString()] = new Array();
 			Util.log('creating new index');
 		}
-		Util.log('adding tool no ' + i + ' to ' + tools[i].toString() + 's') 
+		Util.log('adding tool no ' + i + ' to ' + tools[i].toString() + 's')
+
 		toolsByType[tools[i].toString()].push(tools[i]);
 	}
 
@@ -241,7 +242,14 @@ Drawing.drawToolbox = function() {
 		Drawing.drawSprite('inventory', 0,15, (i+1));
 		ctx.fillStyle = 'white';
 		ctx.font="14px Courier New";
-		ctx.fillText(toolsByType[i].length, (spriteSize*16) - 20, (spriteSize*(i+2))- 10);
+		var numberOfNotPlaced = 0;
+		for (var j=0; j<toolsByType[toolsByType[i]].length; j++) {
+			if (toolsByType[toolsByType[i]][j].isPlaced) {
+							numberOfNotPlaced++;
+
+			}
+		}
+		ctx.fillText(toolsByType[toolsByType[i]].length, (spriteSize*16) - 20, (spriteSize*(i+2))- 10);
 	}
 };
 

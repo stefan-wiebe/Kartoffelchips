@@ -4,12 +4,25 @@ var Mouse = function () {
 };
 Mouse.click = function() {
 
+    if (selectedTool == -1) {
 	if (mouseX == 15 && mouseY > 0 && mouseY <= toolsByType.length) {
         // in inventory
-        console.log('block clicked');
-        selectedTool = tools.indexOf(toolsByType[mouseY-1][0]);
+        var i=0;
+        for (var TL in toolsByType) {
+            if (i == (mouseY+1)) {
+                var string = TL;
+            }
+            i++;
+        }
+        console.log('block clicked, selected tool is  ' + string);
+        selectedTool = tools.indexOf(toolsByType[string][0]);
 
     }
+} else {
+    tools[selectedTool].isPlaced = !tools[selectedTool].isPlaced;
+        selectedTool = -1;
+
+}
 
 };
 
