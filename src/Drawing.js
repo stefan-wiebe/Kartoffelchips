@@ -60,7 +60,7 @@ Drawing.drawTools = function() {
 	for (var i = 0; i < tools.length; i++) {
 		var tool = tools[i];
 		if (tool.isPlaced) {
-			var toolType = tool.toString().toLowerCase();
+			var toolType = tool.toString();
 			console.log("drawing Tool: " + toolType);
 			switch (toolType) {
 				case "Prism":
