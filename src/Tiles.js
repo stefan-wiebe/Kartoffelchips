@@ -8,5 +8,5 @@ var Tiles = {
     BORDER_TOP: 6,
     BORDER_BOTTOM: 7,
     CLEAR: 8,
-	FULL: 9
+    FULL: 9
 };
