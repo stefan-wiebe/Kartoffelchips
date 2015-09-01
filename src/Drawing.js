@@ -65,7 +65,7 @@ Drawing.drawLaserBeamInCell = function(color,rotation, x, y) {
     var result = true;
 	 Util.log('Drawing laser beam in cell ' + x + ', ' +y + 'with rotation of ' + (rotation*90) + ' degrees');
 	switch (map[x][y]) {
-		case TILES.CLEAR:
+		case Tiles.CLEAR:
 			ctx.strokeStyle = 'red';
 			ctx.strokeWidth = 4;
 			ctx.beginPath();
