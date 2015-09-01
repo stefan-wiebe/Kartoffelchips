@@ -24,6 +24,10 @@ Drawing.drawSprite = function(spriteName, spriteIndex, x, y) {
         }
     }
 };
+
+Drawing.drawCursor = function() {
+    ctx.drawImage(sprites['mouse'],fullMouseX, fullMouseY);
+}
 Drawing.drawMouse = function() {
     if (selectedTool != -1) {
         Drawing.drawSprite(tools[selectedTool].toString(), tools[selectedTool].rotation, mouseX, mouseY);
@@ -329,3 +333,29 @@ Drawing.drawLaserBeamFromPosition = function(x, y, rotation, color) {
             break;
     }
 }
+
+Drawing.fillTextRotated = function(str, x, y,angle) {
+    var result = angle*Math.PI/180;
+    ctx.rotate(-result);
+    ctx.fillText(str, x, y);
+    ctx.rotate(result);
+
+}
+
+Drawing.drawMenuScreen = function() {
+    ctx.fillStyle = '#394046';
+    ctx.fillRect(0,0,c.width, c.height);
+    ctx.drawImage(sprites['logo'], (c.width-sprites['logo'].width)/2,200);
+    ctx.fillStyle = 'white';
+    ctx.font = '36px TS4F';
+
+    Drawing.fillTextRotated('START GAME', 140, c.height*0.68,5);
+    Drawing.fillTextRotated('OPTIONS', 400, c.height*0.695,5);
+    Drawing.fillTextRotated('CREDITS', 600, c.height*0.71,5);
+
+    
+
+
+
+
+};

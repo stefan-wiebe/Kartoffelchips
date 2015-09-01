@@ -11,6 +11,10 @@ var predefinedBlocks = [];
 var mouseX = 0;
 var mouseY = 0;
 var selectedTool = -1;
+var fullMouseX = 0;
+var fullMouseY = 0;
+
+var gameState;
 
 function initGame() {
     for (var i = 0; i < 16; i++) {
@@ -25,8 +29,24 @@ function initGame() {
     loadSprite('inventory');
     loadSprite('mirror');
     loadSprite('activator');
+    loadSprite('mouse');
+    loadSprite('logo');
+
+    gameState = GameState.IN_MENU;
     var mHandler = new Mouse();
+
     requestAnimationFrame(tick);
+}
+
+function lockMouse() {
+  c.requestPointerLock = c.requestPointerLock ||
+           c.mozRequestPointerLock ||
+           c.webkitRequestPointerLock;
+
+document.exitPointerLock = document.exitPointerLock ||
+         document.mozExitPointerLock ||
+         document.webkitExitPointerLock;
+    c.requestPointerLock();
 }
 
 function loadSprite(spriteName) {
@@ -36,14 +56,25 @@ function loadSprite(spriteName) {
 }
 
 function tick() {
-    ctx.fillStyle = '#FFFFFF';
-    ctx.fillRect(0, 0, c.width, c.height);
-    Drawing.drawBoard();
-    Drawing.drawPredefinedBlocks();
-    Drawing.drawTools();
-    Drawing.drawLaserBeam();
-    Drawing.drawToolbox();
-    Drawing.drawMouse();
+    // CLEAR CANVAS
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0,0,c.width, c.height);
+
+
+    switch (gameState) {
+        case GameState.IN_MENU:
+            Drawing.drawMenuScreen();
+        break;
+        case GameState.IS_PLAYING:
+            Drawing.drawBoard();
+            Drawing.drawPredefinedBlocks();
+            Drawing.drawTools();
+            Drawing.drawLaserBeam();
+            Drawing.drawToolbox();
+            Drawing.drawMouse();
+            break;
+    }
+    Drawing.drawCursor();
     requestAnimationFrame(tick);
 }
 

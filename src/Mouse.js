@@ -1,10 +1,15 @@
 var Mouse = function() {
     c.addEventListener('mousedown', Mouse.click);
     c.addEventListener('mousemove', Mouse.move);
-    document.addEventListener('mousedown', function() {return false;});
+
+    //c.addEventListener('click', lockMouse);
+   
+
 };
+
+
+
 Mouse.click = function(e) {
-    e.preventDefault();
     switch (e.which) {
         case 1:
             if (selectedTool == -1) {
@@ -37,6 +42,9 @@ Mouse.click = function(e) {
 Mouse.move = function(e) {
     var relativeXPosition = (e.pageX - c.offsetLeft);
     var relativeYPosition = (e.pageY - c.offsetTop);
+
+    fullMouseX = relativeXPosition;
+    fullMouseY = relativeYPosition;
     var x = Math.floor(relativeXPosition / spriteSize);
     var y = Math.floor(relativeYPosition / spriteSize);
     console.log('X: ' + x + ' Y: ' + y);
