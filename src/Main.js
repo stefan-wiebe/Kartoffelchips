@@ -10,7 +10,7 @@ var tools = [];
 var predefinedBlocks = [];
 var mouseX = 0;
 var mouseY = 0;
-
+var selectedTool = -1;
 
 
 function initGame() {

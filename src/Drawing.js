@@ -25,12 +25,17 @@ Drawing.drawSprite = function(spriteName, spriteIndex, x, y) {
 	}
 };
 Drawing.drawMouse = function() {
+
+	if (selectedTool != -1) {
+		Drawing.drawSprite(tools[selectedTool].toString(), tools[selectedTool].rotation, mouseX, mouseY);
+	}
 	ctx.fillStyle = "rgba(0,255,0,0.5)";
 	if (blockExistsAt(mouseX, mouseY)) {
 	ctx.fillStyle = "rgba(255,0,0,0.5)";
 
 	}
 	ctx.fillRect(mouseX * spriteSize, mouseY * spriteSize, spriteSize, spriteSize);
+
 };
 Drawing.drawPredefinedBlocks = function() {
 	for (var i=0; i<predefinedBlocks.length; i++) {
@@ -157,7 +162,7 @@ Drawing.drawLaserBeamFromObject = function(obj) {
                     while (i < width && beaming) {
                         beaming = Drawing.drawLaserBeamInCell('red', obj.rotation, i, obj.y);
                         i++;
-                        console.log('drawing laser at ' + i + ' ' + obj.y + ' beaming is ' + beaming);
+                        Util.log('drawing laser at ' + i + ' ' + obj.y + ' beaming is ' + beaming);
                     }
 					break;
 				case 2:
