@@ -50,6 +50,20 @@ function tick() {
 	requestAnimationFrame(tick);
 }
 
+function blockExistsAt(x, y) {
+	var blockFound = false;
+	var i = 0;
+	while (i < predefinedBlocks.length && !blockFound) {
+		blockFound = predefinedBlocks[i].x == x && predefinedBlocks[i].y == y;
+		i++;
+	}
+	i = 0;
+	while (i < tools.length && !blockFound) {
+		blockFound = tools[i].isPlaced && tools[i].x == x && tools[i].y == y;
+		i++;
+	}
+	return blockFound;
+}
 
 function loadLevel(id) {
 var xmlhttp = new XMLHttpRequest();
