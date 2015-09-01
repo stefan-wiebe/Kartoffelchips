@@ -55,6 +55,30 @@ Drawing.drawPredefinedBlocks = function() {
 			Drawing.drawSprite(blockType, index, block.x, block.y);
 		}
 };
+
+Drawing.drawTools = function() {
+	for (var i = 0; i < tools.length; i++) {
+		var tool = tools[i];
+		if (tool.isPlaced) {
+			var toolType = tool.toString().toLowerCase();
+			switch (toolType) {
+				case "Prism":
+					var boolN = tool.inputs[0].isOn() || tool.inputs[1].isOn() ? 4 : 0;
+					var index = boolN;
+					if (tool.hasOwnProperty('rotation')) {
+						Util.log('rotation is ' + block.rotation);
+						index = block.rotation + boolN;
+					}
+					Util.log('index is ' + index);
+					Drawing.drawSprite(toolType, index, tool.x, tool.y);
+					break;
+				default:
+					break;
+			}
+		}
+	}
+}
+
 Drawing.drawLaserBeam = function() {
 
 	for (var i=0; i<predefinedBlocks.length; i++) {
