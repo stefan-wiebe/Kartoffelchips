@@ -45,6 +45,7 @@ function tick() {
 	Drawing.drawBoard();
 	Drawing.drawLaserBeam();
 	Drawing.drawPredefinedBlocks();
+  Drawing.drawMouse();
 	Drawing.drawToolbox();
 	requestAnimationFrame(tick);
 }
