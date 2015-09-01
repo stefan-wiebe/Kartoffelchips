@@ -348,10 +348,25 @@ Drawing.drawMenuScreen = function() {
     ctx.drawImage(sprites['logo'], (c.width-sprites['logo'].width)/2,200);
     ctx.fillStyle = 'white';
     ctx.font = '36px TS4F';
+    var margin = 50;
+    var fullLength = 0;
+    for (var i=0; i<menu.length; i++) {
+        var textLength = ctx.measureText(menu[i].title).width*1.1;
+        fullLength = fullLength + textLength + margin;
+    }
+    var left = (c.width - fullLength)/2;
+    for (var i=0; i<menu.length; i++) {
+        ctx.fillStyle = 'white';
+        if (i == selectedMenuItem) {
+            ctx.fillStyle = '#fda900';
+        }
+        Drawing.fillTextRotated(menu[i].title, left, c.height*0.68 + (i*3),5);
+        ctx.fillStyle = 'white';
 
-    Drawing.fillTextRotated('START GAME', 140, c.height*0.68,5);
-    Drawing.fillTextRotated('OPTIONS', 400, c.height*0.695,5);
-    Drawing.fillTextRotated('CREDITS', 600, c.height*0.71,5);
+        left = left + ctx.measureText(menu[i].title).width*1.1 + margin;
+    }
+
+
 
     
 

@@ -13,8 +13,25 @@ var mouseY = 0;
 var selectedTool = -1;
 var fullMouseX = 0;
 var fullMouseY = 0;
-
+var selectedMenuItem = -1;
 var gameState;
+
+var menu = [
+{
+    title: "START GAME",
+    action: startGame
+},
+{
+    title: "OPTIONS",
+    action: showOptions
+},
+{
+    title: "CREDITS",
+    action: showCredits
+}
+];
+
+
 
 function initGame() {
     for (var i = 0; i < 16; i++) {
@@ -36,6 +53,17 @@ function initGame() {
     var mHandler = new Mouse();
 
     requestAnimationFrame(tick);
+}
+
+function startGame() {
+
+}
+function showOptions() {
+
+}
+
+function showCredits() {
+
 }
 
 function lockMouse() {
