@@ -26,6 +26,7 @@ Drawing.drawSprite = function(spriteName, spriteIndex, x, y) {
 };
 
 Drawing.drawCursor = function() {
+    console.log('draw cursor');
     ctx.drawImage(sprites['mouse'],fullMouseX, fullMouseY);
 }
 Drawing.drawMouse = function() {

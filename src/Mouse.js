@@ -63,10 +63,33 @@ Mouse.getMenuItemIDForPosition = function(x, y) {
     return -1;
 }
 Mouse.move = function(e) {
-    var relativeXPosition = (e.pageX - c.offsetLeft);
-    var relativeYPosition = (e.pageY - c.offsetTop);
-    fullMouseX = relativeXPosition;
-    fullMouseY = relativeYPosition;
+    var relativeXPosition = 0;
+    var relativeYPosition = 0;
+
+      if (document.pointerLockElement === c || document.mozPointerLockElement === c || document.webkitPointerLockElement === c) {
+var movementX = e.movementX ||
+      e.mozMovementX          ||
+      e.webkitMovementX       ||
+      0;
+
+  var movementY = e.movementY ||
+      e.mozMovementY      ||
+      e.webkitMovementY   ||
+      0;
+
+  fullMouseX += movementX;
+  fullMouseY += movementY; 
+
+
+    } else {
+     relativeXPosition = (e.pageX - c.offsetLeft);
+     relativeYPosition = (e.pageY - c.offsetTop);
+     fullMouseX = relativeXPosition;
+     fullMouseY = relativeYPosition;
+    }
+
+        console.log('fX: ' + fullMouseX + ' fY: ' + fullMouseY);
+
     var x = Math.floor(relativeXPosition / spriteSize);
     var y = Math.floor(relativeYPosition / spriteSize);
     console.log('X: ' + x + ' Y: ' + y);
