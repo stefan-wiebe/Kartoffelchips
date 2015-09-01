@@ -27,6 +27,8 @@ function initGame() {
 	loadSprite('prism');
 	loadSprite('receiver');
   loadSprite('inventory');
+  loadSprite('mirror');
+  
   var mHandler = new Mouse();
 	requestAnimationFrame(tick);
 
