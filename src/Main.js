@@ -112,6 +112,12 @@ if(document.pointerLockElement === c || document.mozPointerLockElement === c || 
     requestAnimationFrame(tick);
 }
 
+function setIsOnToFalse() {
+	for (var i = 0; i < predefinedBlocks.length; i++) {
+		
+	}
+}
+
 function blockExistsAt(x, y, obj) {
     var blockFound = x > 0 && y > 0 && x < width && y < height && map[x][y] != Tiles.CLEAR;
     var i = 0;

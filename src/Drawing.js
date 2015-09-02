@@ -317,7 +317,7 @@ Drawing.drawLaserBeamFromObject = function(obj) {
             if (obj.toString() != "Mirror") Drawing.drawLaserBeamInCell(obj.color, obj.rotation, i, obj.y);
             i++;
             while (i < width && beaming) {
-                beaming = Drawing.drawLaserBeamInCell(ibj.color, obj.rotation, i, obj.y);
+                beaming = Drawing.drawLaserBeamInCell(obj.color, obj.rotation, i, obj.y);
                 i++;
                 Util.log('drawing laser at ' + i + ' ' + obj.y + ' beaming is ' + beaming);
             }
