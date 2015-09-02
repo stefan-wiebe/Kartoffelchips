@@ -35,6 +35,8 @@ var menu = [
 
 
 function initGame() {
+    if (checkBrowserCompatibility) {
+
     for (var i = 0; i < 16; i++) {
         map[i] = [];
     }
@@ -54,6 +56,9 @@ function initGame() {
     var mHandler = new Mouse();
 
     requestAnimationFrame(tick);
+} else {
+    document.body.innerHTML = '<h1>This browser is not supported. Please upgrade!</h1>';
+}
 }
 
 function startGame() {
@@ -66,6 +71,16 @@ function showOptions() {
 
 function showCredits() {
 
+}
+
+function checkBrowserCompatibility() {
+if (!!('onpointerlockchange' in document || 'onmozpointerlockchange' in document || 'onwebkitpointerlockchange' in document)) {
+    return false;
+}
+if (!!window.HTMLCanvasElement) {
+    return false;
+}
+return true;
 }
 
 function lockMouse() {
