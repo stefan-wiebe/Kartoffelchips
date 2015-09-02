@@ -53,6 +53,9 @@ Drawing.drawPredefinedBlocks = function() {
             Util.log('rotation is ' + block.rotation);
             index = block.rotation + boolN;
         };
+		if (blockType == "activator") {
+			index = block.isOn ? 1 : 0;
+		}
         Util.log('index is ' + index);
         Drawing.drawSprite(blockType, index, block.x, block.y);
     }
@@ -162,7 +165,7 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
     var i = 0;
     while (i < predefinedBlocks.length && result) {
 		if (predefinedBlocks[i].toString() == "Activator") {
-			predefinedBlocks[i].isOn = predefinedBlocks[i].x == x && predefinedBlocks[i].y == y;
+			if (predefinedBlocks[i].x == x && predefinedBlocks[i].y == y) predefinedBlocks[i].isOn = true;
 		}
         if (predefinedBlocks[i].x == x && predefinedBlocks[i].y == y && predefinedBlocks[i].toString() != "Activator") {
             result = false;

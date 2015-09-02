@@ -100,6 +100,7 @@ if(document.pointerLockElement === c || document.mozPointerLockElement === c || 
             Drawing.drawBoard();
             Drawing.drawPredefinedBlocks();
             Drawing.drawTools();
+			setOffAllElements();
             Drawing.drawLaserBeam();
             Drawing.drawToolbox();
             Drawing.drawMouse();
@@ -112,9 +113,17 @@ if(document.pointerLockElement === c || document.mozPointerLockElement === c || 
     requestAnimationFrame(tick);
 }
 
-function setIsOnToFalse() {
+function setOffAllElements() {
 	for (var i = 0; i < predefinedBlocks.length; i++) {
-		
+		predefinedBlocks[i].isOn = false
+	}
+	for (var i = 0; i < tools.length; i++) {
+		if (tools[i].toString() == "Mirror") {
+			tools[i].isOn = false;
+		} else if (tools[i].toString == "Prism") {
+			tools[i].inputs[0].isOn = false;
+			tools[i].inputs[1].isOn = false;
+		}
 	}
 }
 
