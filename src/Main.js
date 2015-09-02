@@ -100,6 +100,7 @@ if(document.pointerLockElement === c || document.mozPointerLockElement === c || 
             Drawing.drawBoard();
             Drawing.drawPredefinedBlocks();
             Drawing.drawTools();
+			setOffAllElements();
             Drawing.drawLaserBeam();
             Drawing.drawToolbox();
             Drawing.drawMouse();
