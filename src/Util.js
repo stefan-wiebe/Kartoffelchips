@@ -7,7 +7,8 @@ Util.log = function(str){
 }
 
 
-c.addEventListener('onkeypress', function (e) {
+document.addEventListener('keydown', function (e) {
+	console.log('key pressed');
 	if (e.ctrlKey && e.altKey) {
 		document.exitPointerLock = document.exitPointerLock    ||
                            document.mozExitPointerLock ||
