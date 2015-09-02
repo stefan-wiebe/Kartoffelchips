@@ -87,22 +87,18 @@ Mouse.getMenuItemIDForPosition = function(x, y) {
     return -1;
 }
 Mouse.move = function(e) {
-    var relativeXPosition = 0;
-    var relativeYPosition = 0;
+
+    if ((fullMouseX + movementX) < c.width && (fullMouseY + movementY) < c.height && fullMouseX >= 0  && fullMouseY >= 0) {
+
+}
 
       if (document.pointerLockElement === c || document.mozPointerLockElement === c || document.webkitPointerLockElement === c) {
-var movementX = e.movementX ||
-      e.mozMovementX          ||
-      e.webkitMovementX       ||
-      0;
+  var movementX = e.movementX || e.mozMovementX || e.webkitMovementX || 0;
+  var movementY = e.movementY || e.mozMovementY || e.webkitMovementY || 0;
 
-  var movementY = e.movementY ||
-      e.mozMovementY      ||
-      e.webkitMovementY   ||
-      0;
+    fullMouseX += movementX;
+    fullMouseY += movementY;
 
-  fullMouseX += movementX;
-  fullMouseY += movementY; 
     var x = Math.floor(fullMouseX / spriteSize);
     var y = Math.floor(fullMouseY / spriteSize);
     mouseX = x;
@@ -119,7 +115,6 @@ var movementX = e.movementX ||
             }
             break;
     }
-
     } 
 
 };
