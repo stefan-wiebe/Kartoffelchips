@@ -112,7 +112,7 @@ if(document.pointerLockElement === c || document.mozPointerLockElement === c || 
     requestAnimationFrame(tick);
 }
 
-function blockExistsAt(x, y) {
+function blockExistsAt(x, y, obj) {
     var blockFound = x > 0 && y > 0 && x < width && y < height && map[x][y] != Tiles.CLEAR;
     var i = 0;
     while (i < predefinedBlocks.length && !blockFound) {
@@ -121,7 +121,7 @@ function blockExistsAt(x, y) {
     }
     i = 0;
     while (i < tools.length && !blockFound) {
-        blockFound = tools[i].isPlaced && tools[i].x == x && tools[i].y == y;
+        blockFound = tools[i].isPlaced && tools[i].x == x && tools[i].y == y && obj != undefined && obj != tools[i];
         i++;
     }
     return blockFound;

@@ -36,8 +36,10 @@ Mouse.click = function(e) {
                             }
                             }
                         } else {
-                            tools[selectedTool].isPlaced = true;
-                            selectedTool = -1;
+							var blockExists = blockExistsAt(mouseX, mouseY, tools[selectedTool]);
+							tools[selectedTool].isPlaced = !blockExists;
+                            //tools[selectedTool].isPlaced = true;
+                            if (!blockExists) selectedTool = -1;
                         }
                         break;
                     case 3:
@@ -107,7 +109,7 @@ var movementX = e.movementX ||
             break;
         case GameState.IS_PLAYING:
             if (selectedTool > -1) {
-				tools[selectedTool].isPlaced = !blockExistsAt(mouseX, mouseY);
+				tools[selectedTool].isPlaced = !blockExistsAt(mouseX, mouseY, tools[selectedTool]);
                 tools[selectedTool].x = mouseX;
                 tools[selectedTool].y = mouseY;
             }
