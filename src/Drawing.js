@@ -234,7 +234,7 @@ Drawing.drawToolbox = function() {
         ctx.font = "14px Courier New";
         var numberOfNotPlaced = 0;
         for (var j = 0; j < toolsByType[toolsByType[i]].length; j++) {
-            if (toolsByType[toolsByType[i]][j].isPlaced) {
+            if (toolsByType[toolsByType[i]][j].isPlaced == false) {
                 numberOfNotPlaced++;
             }
         }
