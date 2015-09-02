@@ -26,9 +26,8 @@ Drawing.drawSprite = function(spriteName, spriteIndex, x, y) {
 };
 
 Drawing.drawCursor = function() {
-    console.log('draw cursor');
     ctx.drawImage(sprites['mouse'],fullMouseX, fullMouseY);
-}
+};
 Drawing.drawMouse = function() {
     if (selectedTool != -1) {
         Drawing.drawSprite(tools[selectedTool].toString(), tools[selectedTool].rotation, mouseX, mouseY);
@@ -56,6 +55,11 @@ Drawing.drawPredefinedBlocks = function() {
 		if (blockType == "activator") {
 			index = block.isOn ? 1 : 0;
 		}
+
+        if (blockType == "receiver") {
+            ctx.fillStyle = Drawing.getStringFromColor(block.color);
+            ctx.fillRect(block.x * spriteSize, block.y * spriteSize, spriteSize, spriteSize);
+        }
         Util.log('index is ' + index);
         Drawing.drawSprite(blockType, index, block.x, block.y);
     }
@@ -67,7 +71,7 @@ Drawing.drawTools = function() {
             var toolType = tool.toString();
             switch (toolType) {
                 case "Prism":
-                    var boolN = tool.inputs[0].isOn() || tool.inputs[1].isOn() ? 4 : 0;
+                    var boolN = tool.inputs[0].isOn || tool.inputs[1].isOn ? 4 : 0;
                     var index = boolN;
                     if (tool.hasOwnProperty('rotation')) {
                         Util.log('rotation is ' + tool.rotation);
@@ -290,8 +294,7 @@ Drawing.drawToolbox = function() {
     }
     for (var i = 0; i < toolsByType.length; i++) {
         Util.log('Drawing ' + toolsByType[i].toString() + ' at ' + (i + 1));
-        Drawing.drawSprite(toolsByType[i].toString(), 0, 15, (i + 1));
-        Drawing.drawSprite('inventory', 0, 15, (i + 1));
+        
         ctx.fillStyle = 'white';
         ctx.font = "14px Courier New";
         var numberOfNotPlaced = 0;
@@ -300,7 +303,12 @@ Drawing.drawToolbox = function() {
                 numberOfNotPlaced++;
             }
         }
-        ctx.fillText(toolsByType[toolsByType[i]].length, (spriteSize * 16) - 20, (spriteSize * (i + 2)) - 10);
+        if (numberOfNotPlaced > 0) {
+                    Drawing.drawSprite(toolsByType[i].toString(), 0, 15, (i + 1));
+        ctx.fillText(numberOfNotPlaced, (spriteSize * 16) - 20, (spriteSize * (i + 2)) - 10);
+
+        }
+        Drawing.drawSprite('inventory', 0, 15, (i + 1));
     }
 };
 Drawing.drawLaserBeamFromObject = function(obj) {

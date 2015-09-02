@@ -20,7 +20,11 @@ Mouse.click = function(e) {
                                     i++;
                                 }
                                 console.log('block clicked, selected tool is  ' + string);
-                                selectedTool = tools.indexOf(toolsByType[string][0]);
+                                i = 0;
+                                while (i < toolsByType[string].length && toolsByType[string][i].isPlaced == true) {
+                                    i++;
+                                }
+                                selectedTool = tools.indexOf(toolsByType[string][i]);
                             }
                             // is there a block at mouse position that we can pick up? If so, rotate
                             else {
