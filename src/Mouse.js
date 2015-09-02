@@ -25,12 +25,19 @@ Mouse.click = function(e) {
                             // is there a block at mouse position that we can pick up? If so, rotate
                             else {}
                         } else {
-                            tools[selectedTool].isPlaced = !tools[selectedTool].isPlaced;
+                            tools[selectedTool].isPlaced = true;
                             selectedTool = -1;
                         }
                         break;
                     case 3:
                         console.log('right click');
+                        for (var i=0; i<tools.length; i++) {
+                            if (tools[i].x == mouseX && tools[i].y == mouseY) {
+                                tools[i].x = 0; 
+                                tools[i].y = 0;
+                                tools[i].isPlaced = false;
+                            }
+                        }
                         break;
                 }
                 break;
