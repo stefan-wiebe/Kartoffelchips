@@ -99,8 +99,25 @@ Drawing.drawLaserBeam = function() {
         }
     }
 };
+
+Drawing.getStringFromColor = function(color) {
+	var colorString = '';
+		switch (color) {
+        		case 0:
+        		colorString = '#ff0000';
+        		break;
+        		case 1:
+        		colorString = '#00ff00';
+        		break;
+        		case 2:
+        		colorString = '#0000ff';
+        		break;
+        	}
+	return colorString;
+};
+
 Drawing.drawHalfLaserBeamInCell = function(color, rotation, x, y) {
-        ctx.strokeStyle = 'red';
+        ctx.strokeStyle = Drawing.getStringFromColor(color);
         ctx.strokeWidth = 4;
         ctx.beginPath();
         switch (rotation) {
@@ -224,19 +241,8 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
     if (result) {
         switch (map[x][y]) {
             case Tiles.CLEAR:
-            var colorString = '';
-switch (color) {
-        		case 0:
-        		colorString = '#ff0000';
-        		break;
-        		case 1:
-        		colorString = '#00ff00';
-        		break;
-        		case 2:
-        		colorString = '#0000ff';
-        		break;
-        	}
-        	ctx.strokeStyle = colorString;
+
+        	ctx.strokeStyle = Drawing.getStringFromColor(color);
                 ctx.strokeWidth = 4;
                 ctx.beginPath();
                 switch (rotation) {
