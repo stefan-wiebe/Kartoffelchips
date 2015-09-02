@@ -112,7 +112,7 @@ if(document.pointerLockElement === c || document.mozPointerLockElement === c || 
 }
 
 function blockExistsAt(x, y) {
-    var blockFound = map[x][y] != Tiles.CLEAR;
+    var blockFound = x > 0 && y > 0 && x < width && y < height && map[x][y] != Tiles.CLEAR;
     var i = 0;
     while (i < predefinedBlocks.length && !blockFound) {
         blockFound = predefinedBlocks[i].x == x && predefinedBlocks[i].y == y;
