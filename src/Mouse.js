@@ -79,20 +79,8 @@ var movementX = e.movementX ||
 
   fullMouseX += movementX;
   fullMouseY += movementY; 
-
-
-    } else {
-     relativeXPosition = (e.pageX - c.offsetLeft);
-     relativeYPosition = (e.pageY - c.offsetTop);
-     fullMouseX = relativeXPosition;
-     fullMouseY = relativeYPosition;
-    }
-
-        console.log('fX: ' + fullMouseX + ' fY: ' + fullMouseY);
-
-    var x = Math.floor(relativeXPosition / spriteSize);
-    var y = Math.floor(relativeYPosition / spriteSize);
-    console.log('X: ' + x + ' Y: ' + y);
+    var x = Math.floor(fullMouseX / spriteSize);
+    var y = Math.floor(fullMouseY / spriteSize);
     mouseX = x;
     mouseY = y;
     switch (gameState) {
@@ -106,4 +94,7 @@ var movementX = e.movementX ||
             }
             break;
     }
+
+    } 
+
 };
