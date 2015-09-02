@@ -56,7 +56,8 @@ function initGame() {
 }
 
 function startGame() {
-
+  gameState = GameState.IS_PLAYING;
+  loadLevel(1);
 }
 function showOptions() {
 
