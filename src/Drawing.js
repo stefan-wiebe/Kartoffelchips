@@ -155,24 +155,62 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
             if (tools[i].toString() == "Mirror") {
                 switch (tools[i].rotation) {
                     case 0:
+						if (rotation == 0) {
+                            Drawing.drawLaserBeamFromPosition(x, y, 3);
+                        }
+						if (rotation == 1) {
+							Drawing.drawLaserBeamFromPosition(x, y, 0);
+						}
                         if (rotation == 2) {
                             Drawing.drawLaserBeamFromPosition(x, y, 1);
                         }
-                        if (rotation == 0) {
-                            Drawing.drawLaserBeamFromPosition(x, y, 3);
-                        }
+		
+						if (rotation == 3) {
+							Drawing.drawLaserBeamFromPosition(x, y, 2);
+						}
                         break;
                     case 1:
-                        break;
-                    case 2:
-                        if (rotation == 2) {
+						if (rotation == 0) {
                             Drawing.drawLaserBeamFromPosition(x, y, 1);
                         }
+						if (rotation == 1) {
+							Drawing.drawLaserBeamFromPosition(x, y, 2);
+						}
+						if (rotation == 2) {
+							Drawing.drawLaserBeamFromPosition(x, y, 3);
+						}
+						if (rotation == 3) {
+							Drawing.drawLaserBeamFromPosition(x, y, 0);
+						}
+                        break;
+                    case 2:
                         if (rotation == 0) {
                             Drawing.drawLaserBeamFromPosition(x, y, 3);
                         }
+						if (rotation == 1) {
+							Drawing.drawLaserBeamFromPosition(x, y, 0);
+						}
+                        if (rotation == 2) {
+                            Drawing.drawLaserBeamFromPosition(x, y, 1);
+                        }
+		
+						if (rotation == 3) {
+							Drawing.drawLaserBeamFromPosition(x, y, 2);
+						}
                         break;
                     case 3:
+						if (rotation == 0) {
+                            Drawing.drawLaserBeamFromPosition(x, y, 1);
+                        }
+						if (rotation == 1) {
+							Drawing.drawLaserBeamFromPosition(x, y, 2);
+						}
+						if (rotation == 2) {
+							Drawing.drawLaserBeamFromPosition(x, y, 3);
+						}
+						if (rotation == 3) {
+							Drawing.drawLaserBeamFromPosition(x, y, 0);
+						}
                         break;
                 }
             }
