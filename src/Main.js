@@ -15,7 +15,6 @@ var fullMouseX = 0;
 var fullMouseY = 0;
 var selectedMenuItem = -1;
 var gameState;
-var mouseDebug = false;
 
 var menu = [
 {
@@ -130,7 +129,7 @@ function tick() {
     ctx.fillRect(0,0,c.width, c.height);
 checkWin();
 
-if(document.pointerLockElement === c || document.mozPointerLockElement === c || document.webkitPointerLockElement === c || mouseDebug == true) {
+if(document.pointerLockElement === c || document.mozPointerLockElement === c || document.webkitPointerLockElement === c || options.mouseDebug == true) {
       switch (gameState) {
         case GameState.IN_MENU:
             Drawing.drawMenuScreen();
