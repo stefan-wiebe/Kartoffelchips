@@ -51,6 +51,7 @@ function initGame() {
     loadSprite('activator');
     loadSprite('mouse');
     loadSprite('logo');
+    loadSprite('rottenPotato');
 
     gameState = GameState.IN_MENU;
     var mHandler = new Mouse();
@@ -62,8 +63,9 @@ function initGame() {
 }
 
 function startGame() {
-  gameState = GameState.IS_PLAYING;
   loadLevel(1);
+    gameState = GameState.IS_PLAYING;
+
 }
 function showOptions() {
 
@@ -72,6 +74,26 @@ function showOptions() {
 function showCredits() {
 
 }
+
+
+function checkWin() {
+    if (hasWon()) {
+        gameState = GameState.HAS_WON;
+    }
+}
+function hasWon () {
+     if (gameState == GameState.IS_PLAYING && selectedTool == -1) {
+    for (var i =0; i<predefinedBlocks.length; i++) {
+        if (predefinedBlocks[i].toString() == "Activator" || predefinedBlocks[i].toString() == "Receiver") {
+            if (predefinedBlocks[i].isOn == false) {
+                return false;
+            }
+        }
+    }
+    return true;
+} 
+}
+
 
 function checkBrowserCompatibility() {
 if (!!('onpointerlockchange' in document || 'onmozpointerlockchange' in document || 'onwebkitpointerlockchange' in document)) {
@@ -104,9 +126,9 @@ function tick() {
     // CLEAR CANVAS
     ctx.fillStyle = 'white';
     ctx.fillRect(0,0,c.width, c.height);
+checkWin();
 
 if(document.pointerLockElement === c || document.mozPointerLockElement === c || document.webkitPointerLockElement === c || mouseDebug == true) {
-
       switch (gameState) {
         case GameState.IN_MENU:
             Drawing.drawMenuScreen();
@@ -119,6 +141,9 @@ if(document.pointerLockElement === c || document.mozPointerLockElement === c || 
             Drawing.drawLaserBeam();
             Drawing.drawToolbox();
             Drawing.drawMouse();
+            break;
+        case GameState.HAS_WON:
+            Drawing.drawWinScreen();
             break;
     }
 } else {

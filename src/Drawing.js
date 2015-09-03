@@ -455,4 +455,13 @@ Drawing.drawPointerLockWarning = function() {
     ctx.fillStyle = 'white';
     ctx.font = '48px TS4F';
     Drawing.fillTextCentered('CAN HAZ MOUSE?', c.height*0.65);
+};
+
+Drawing.drawWinScreen = function () {
+    ctx.fillStyle = '#394046';
+    ctx.fillRect(0,0,c.width, c.height);
+    ctx.fillStyle = 'white';
+    ctx.font = '48px TS4F';
+    ctx.drawImage(sprites['rottenPotato'], (c.width-sprites['rottenPotato'].width)/2,200);
+    Drawing.fillTextCentered('YOU HAZ WON!', c.height*0.65);
 }
