@@ -540,11 +540,11 @@ Drawing.drawOptions = function () {
 
     for (var key in options) {
      
-        ctx.fillText(key.toUpperCase(), c.width*0.2, (c.height*0.3) + (i*45));
         ctx.fillStyle = "white"
-if (selectedMenuItem == i) {
-            ctx.fillStyle = "yellow";
+        if (selectedMenuItem == i) {
+            ctx.fillStyle = "#fda900";
         }
+        ctx.fillText(key.toUpperCase(), c.width*0.2, (c.height*0.3) + (i*45));
         
                 // TODO (?): STRINGS
         switch (typeof options[key]){

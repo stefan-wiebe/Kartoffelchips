@@ -1,7 +1,7 @@
 var Util = function(){};
 
 Util.log = function(str){
-    if(debug == true){
+    if(options.debug == true){
         console.log(str);
     }
 }
