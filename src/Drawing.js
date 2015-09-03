@@ -173,6 +173,9 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
 		}
         if (predefinedBlocks[i].x == x && predefinedBlocks[i].y == y && predefinedBlocks[i].toString() != "Activator") {
             result = false;
+			if (predefinedBlocks[i].toString() == "Receiver" && predefinedBlocks[i].color == color) {
+				predefinedBlocks[i].isOn = true;
+			}
         }
         i++;
     }
