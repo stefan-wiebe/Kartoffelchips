@@ -1,7 +1,8 @@
 // Options.js
 options = {
 	"debug": false,
-	"showFPS": true
+	"showFPS": true,
+	"mouseDebug": false
 };
 
 if (localStorage.getItem('options') != null) {
