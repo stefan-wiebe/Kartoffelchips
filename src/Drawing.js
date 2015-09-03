@@ -459,6 +459,19 @@ Drawing.fillTextCentered = function(str, y) {
 
 };
 
+Drawing.drawTitle = function(str) {
+    var oldFont = ctx.font;
+    ctx.font = '48px TS4F';
+    ctx.fillStyle = 'white';
+    var left = (c.width - ctx.measureText(str).width)/2;
+    var result = 3*Math.PI/180;
+    ctx.rotate(-result);
+    ctx.fillText(str, left, 100);
+    ctx.rotate(result);
+    ctx.font = oldfont;
+
+}
+
 Drawing.drawMenuScreen = function() {
     ctx.fillStyle = '#394046';
     ctx.fillRect(0,0,c.width, c.height);
@@ -532,12 +545,15 @@ Drawing.drawSlider = function (x,y, width, height, number) {
 };
 
 Drawing.drawOptions = function () {
+
+
     ctx.fillStyle = '#394046';
     ctx.fillRect(0,0, c.width, c.height);
+
     var i = 0;
     ctx.fillStyle = 'white';
         ctx.font = '36px TS4F';
-
+    Drawing.drawTitle('Options');
     for (var key in options) {
      
         ctx.fillStyle = "white"
