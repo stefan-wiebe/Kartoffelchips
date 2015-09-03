@@ -157,6 +157,23 @@ function blockExistsAt(x, y, obj) {
     return blockFound;
 }
 
+
+function getStringFromColor(color) {
+	var colorString = '';
+		switch (color) {
+        		case 0:
+        		colorString = '#ff0000';
+        		break;
+        		case 1:
+        		colorString = '#00ff00';
+        		break;
+        		case 2:
+        		colorString = '#0000ff';
+        		break;
+        	}
+	return colorString;
+};
+
 function loadLevel(id) {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
@@ -223,7 +240,7 @@ function loadLevel(id) {
                     emitter.x = parseInt(split[1]);
                     emitter.y = parseInt(split[2]);
                     emitter.rotation = parseInt(split[3]);
-					emitter.color = parseInt(split[4]);
+					emitter.color = getStringFromColor(parseInt(split[4]));
                     predefinedBlocks.push(emitter);
                 }
                 if (firstChar == "X") {
@@ -232,8 +249,7 @@ function loadLevel(id) {
                     receiver.x = parseInt(split[1]);
                     receiver.y = parseInt(split[2]);
                     receiver.rotation = parseInt(split[3]);
-					receiver.color = parseInt(split[4]);
-					receiver.color2 = parseInt(split[5]);
+					receiver.color = split[4];
                     predefinedBlocks.push(receiver);
                 }
                 if (firstChar == "A") {
