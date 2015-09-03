@@ -57,7 +57,7 @@ Drawing.drawPredefinedBlocks = function() {
 		}
 
         if (blockType == "receiver") {
-            ctx.fillStyle = Drawing.getStringFromColor(block.color);
+            ctx.fillStyle = block.color;
             ctx.fillRect(block.x * spriteSize, block.y * spriteSize, spriteSize, spriteSize);
         }
         Util.log('index is ' + index);
@@ -107,24 +107,8 @@ Drawing.drawLaserBeam = function() {
     }
 };
 
-Drawing.getStringFromColor = function(color) {
-	var colorString = '';
-		switch (color) {
-        		case 0:
-        		colorString = '#ff0000';
-        		break;
-        		case 1:
-        		colorString = '#00ff00';
-        		break;
-        		case 2:
-        		colorString = '#0000ff';
-        		break;
-        	}
-	return colorString;
-};
-
 Drawing.drawHalfLaserBeamInCell = function(color, rotation, x, y) {
-        ctx.strokeStyle = Drawing.getStringFromColor(color);
+        ctx.strokeStyle = color;
         ctx.strokeWidth = 4;
         ctx.beginPath();
         switch (rotation) {
@@ -244,7 +228,12 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
                         break;
                 }
             } else if (tools[i].toString() == "Prism") {
-                          }
+				switch (tools[i].rotation) {
+					case 0:
+						
+						break;
+				}
+			}
         }
         i++;
     }
@@ -253,7 +242,7 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
         switch (map[x][y]) {
             case Tiles.CLEAR:
 
-        	ctx.strokeStyle = Drawing.getStringFromColor(color);
+        	ctx.strokeStyle = color;
                 ctx.strokeWidth = 4;
                 ctx.beginPath();
                 switch (rotation) {
