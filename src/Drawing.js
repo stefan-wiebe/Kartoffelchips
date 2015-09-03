@@ -588,3 +588,10 @@ Drawing.drawOptions = function () {
     }
     
 };
+Drawing.drawActionButtons = function () {
+    for (var i=0; i<actionBlocks.length; i++) {
+        Drawing.drawSprite('inventory', 0, 15, (height - 2) - i);
+
+    }
+};
+

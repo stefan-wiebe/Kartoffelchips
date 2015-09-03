@@ -33,6 +33,22 @@ var menu = [
 }
 ];
 
+var actionBlocks = [
+{
+title: 'resetLevel',
+  action: resetLevel
+},
+{
+    title: 'helpButton',
+    action: showHelpMessage
+
+},
+{
+    title: 'backToMenu',
+    action: backToMenu
+}   
+];
+
 
 
 function initGame() {
@@ -97,6 +113,22 @@ function hasWon () {
 } 
 }
 
+function resetLevel() {
+    for (obj in tools) {
+        obj.x = 0;
+        obj.y = 0;
+        obj.isPlaced = 0;
+        obj.rotation = 0;
+    }
+}
+function backToMenu() {
+    level = null;
+    predefinedBlocks = [];
+    tools = [];
+}
+function showHelpMessage() {
+
+}
 
 function checkBrowserCompatibility() {
 if (!!('onpointerlockchange' in document || 'onmozpointerlockchange' in document || 'onwebkitpointerlockchange' in document)) {
@@ -140,6 +172,7 @@ if(document.pointerLockElement === c || document.mozPointerLockElement === c || 
             Drawing.drawBoard();
             Drawing.drawPredefinedBlocks();
 			Drawing.drawToolbox();
+            Drawing.drawActionButtons();
             Drawing.drawTools();
 			setOffAllElements();
             Drawing.drawLaserBeam();
