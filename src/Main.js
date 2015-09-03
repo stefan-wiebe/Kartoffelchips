@@ -52,6 +52,7 @@ function initGame() {
     loadSprite('mouse');
     loadSprite('logo');
     loadSprite('rottenPotato');
+    loadSprite('wonPotato');
 
     gameState = GameState.IN_MENU;
     var mHandler = new Mouse();
@@ -64,8 +65,6 @@ function initGame() {
 
 function startGame() {
   loadLevel(1);
-    gameState = GameState.IS_PLAYING;
-
 }
 function showOptions() {
 
@@ -302,6 +301,8 @@ function loadLevel(id) {
                 }
             }
             Util.log('level parsed');
+                gameState = GameState.IS_PLAYING;
+
         }
     }
     xmlhttp.overrideMimeType('text/plain');

@@ -451,6 +451,6 @@ Drawing.drawWinScreen = function () {
     ctx.fillRect(0,0,c.width, c.height);
     ctx.fillStyle = 'white';
     ctx.font = '48px TS4F';
-    ctx.drawImage(sprites['rottenPotato'], (c.width-sprites['rottenPotato'].width)/2,200);
+    ctx.drawImage(sprites['wonPotato'], (c.width-sprites['wonPotato'].width)/2,200);
     Drawing.fillTextCentered('YOU HAZ WON!', c.height*0.65);
 }
