@@ -466,7 +466,7 @@ Drawing.drawTitle = function(str) {
     var left = (c.width - ctx.measureText(str).width)/2;
     var result = 3*Math.PI/180;
     ctx.rotate(-result);
-    ctx.fillText(str, left, 100);
+    ctx.fillText(str, left, 120);
     ctx.rotate(result);
     ctx.font = oldFont;
 
@@ -544,6 +544,17 @@ Drawing.drawSlider = function (x,y, width, height, number) {
 
 };
 
+Drawing.drawBackButton  = function() {
+	   var oldFont = ctx.font;
+	   ctx.font = '72px TS4F';
+	   if (backButtonHover) {
+	   		ctx.fillStyle =  "#fda900";
+	   }
+	   ctx.fillText('<', 100, 100);
+	   ctx.font = oldFont;
+	   ctx.fillStyle = 'width';
+}
+
 Drawing.drawOptions = function () {
 
 
@@ -554,6 +565,7 @@ Drawing.drawOptions = function () {
     ctx.fillStyle = 'white';
         ctx.font = '36px TS4F';
     Drawing.drawTitle('Options');
+    Drawing.drawBackButton();
     for (var key in options) {
      
         ctx.fillStyle = "white"

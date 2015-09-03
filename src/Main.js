@@ -15,6 +15,8 @@ var fullMouseX = 0;
 var fullMouseY = 0;
 var selectedMenuItem = -1;
 var gameState;
+var backButtonHover = false;
+
 
 var menu = [
 {
