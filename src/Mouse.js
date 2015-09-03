@@ -62,7 +62,10 @@ Mouse.click = function(e) {
                 menu[Mouse.getMenuItemIDForPosition(fullMouseX, fullMouseY)].action();
                 break;
             case GameState.HAS_WON:
-                loadLevel(level++);
+                loadLevel(++level);
+                break;
+            case GameState.IN_OPTIONS:
+                Mouse.toggleOption();
                 break;
         }
     } else {
@@ -73,9 +76,11 @@ Mouse.click = function(e) {
 
 Mouse.getOptionIDForPosition = function(x, y) {
     if (fullMouseX > (c.width * 0.2) && fullMouseX < (c.width *0.7)) {
-        var index =  parseInt((y - (y*0.3))/45) -3;
-        console.log(index);
-        return index;
+        var index =  parseInt((y + 45 - c.height * 0.3) / 45);
+        if (index < Object.keys(options).length) {
+            return index;
+        }
+        return -1;
     }
 };
 
@@ -98,11 +103,22 @@ Mouse.getMenuItemIDForPosition = function(x, y) {
     }
     return -1;
 }
-Mouse.move = function(e) {
-
-    if ((fullMouseX + movementX) < c.width && (fullMouseY + movementY) < c.height && fullMouseX >= 0  && fullMouseY >= 0) {
+Mouse.toggleOption = function() {
+    var i=0;
+    for (var key in options) {
+        if (i == selectedMenuItem) {
+            if (typeof options[key] == "boolean") {
+                options[key] = !options[key];
+                console.log('toggled ' + key);
+            }
+        }
+        i++;
+    }
 
 }
+
+Mouse.move = function(e) {
+
 
       if (document.pointerLockElement === c || document.mozPointerLockElement === c || document.webkitPointerLockElement === c) {
   var movementX = e.movementX || e.mozMovementX || e.webkitMovementX || 0;
@@ -110,6 +126,12 @@ Mouse.move = function(e) {
 
     fullMouseX += movementX;
     fullMouseY += movementY;
+
+    if (fullMouseX < 0) fullMouseX = 0;
+    if (fullMouseX > c.width) fullMouseX = c.width;
+
+    if (fullMouseY < 0) fullMouseY = 0;
+    if (fullMouseY > c.height) fullMouseY = c.height;
 
     var x = Math.floor(fullMouseX / spriteSize);
     var y = Math.floor(fullMouseY / spriteSize);
@@ -128,6 +150,8 @@ Mouse.move = function(e) {
             break;
         case GameState.IN_OPTIONS:
                 selectedMenuItem = Mouse.getOptionIDForPosition(fullMouseX, fullMouseY);
+                console.log('selected index ' + selectedMenuItem);
+
             break;
     }
     } 
