@@ -109,7 +109,7 @@ Drawing.drawLaserBeam = function() {
 
 Drawing.drawHalfLaserBeamInCell = function(color, rotation, x, y) {
         ctx.strokeStyle = color;
-        ctx.strokeWidth = 4;
+        ctx.lineWidth = 2;
         ctx.beginPath();
         switch (rotation) {
             case 0:
@@ -130,6 +130,7 @@ Drawing.drawHalfLaserBeamInCell = function(color, rotation, x, y) {
                 break;
         }
         ctx.stroke();
+		ctx.closePath();
     }
     /*
         ▄▄▄▄▀▀▀▀▀▀▀▀▄▄▄▄▄▄
@@ -230,8 +231,52 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
             } else if (tools[i].toString() == "Prism") {
 				switch (tools[i].rotation) {
 					case 0:
-						
+						if (rotation == 1) {
+							tools[i].inputs[0].isOn = true;
+							tools[i].inputs[0].color = color;
+						}
+						if (rotation == 3) {
+							tools[i].inputs[1].isOn = true;
+							tools[i].inputs[1].color = color;
+						}
 						break;
+					case 1:
+						if (rotation == 2) {
+							tools[i].inputs[0].isOn = true;
+							tools[i].inputs[0].color = color;
+						}
+						if (rotation == 0) {
+							tools[i].inputs[1].isOn = true;
+							tools[i].inputs[1].color = color;
+						}
+						break;
+					case 2:
+						if (rotation == 3) {
+							tools[i].inputs[0].isOn = true;
+							tools[i].inputs[0].color = color;
+						}
+						if (rotation == 1) {
+							tools[i].inputs[1].isOn = true;
+							tools[i].inputs[1].color = color;
+						}
+						break;
+					case 3:
+						if (rotation == 0) {
+							tools[i].inputs[0].isOn = true;
+							tools[i].inputs[0].color = color;
+						}
+						if (rotation == 2) {
+							tools[i].inputs[1].isOn = true;
+							tools[i].inputs[1].color = color;
+						}
+						break;
+				}
+				if (tools[i].inputs[0].isOn && !tools[i].inputs[1].isOn) {
+					Drawing.drawLaserBeamFromPosition(x, y, tools[i].rotation, tools[i].inputs[0].color);
+				} else if (!tools[i].inputs[0].isOn && tools[i].inputs[1].isOn) {
+					Drawing.drawLaserBeamFromPosition(x, y, tools[i].rotation, tools[i].inputs[1].color);
+				} else if (tools[i].inputs[0].isOn && tools[i].inputs[1].isOn) {
+					Drawing.drawLaserBeamFromPosition(x, y, tools[i].rotation, mixColors(tools[i].inputs[0].color, tools[i].inputs[1].color));
 				}
 			}
         }
@@ -243,7 +288,7 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
             case Tiles.CLEAR:
 
         	ctx.strokeStyle = color;
-                ctx.strokeWidth = 4;
+                ctx.lineWidth = 2;
                 ctx.beginPath();
                 switch (rotation) {
                     case 0:
@@ -264,6 +309,7 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
                         break;
                 }
                 ctx.stroke();
+				ctx.closePath();
                 result = true;
                 break;
             default:
@@ -273,6 +319,7 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
     }
     return result;
 };
+
 Drawing.drawToolbox = function() {
     toolsByType = [];
     Util.log('drawing toolbox');
