@@ -57,7 +57,7 @@ Drawing.drawPredefinedBlocks = function() {
 		}
 
         if (blockType == "receiver") {
-            ctx.fillStyle = Drawing.getStringFromColor(block.color);
+            ctx.fillStyle = block.color;
             ctx.fillRect(block.x * spriteSize, block.y * spriteSize, spriteSize, spriteSize);
         }
         Util.log('index is ' + index);
@@ -107,24 +107,8 @@ Drawing.drawLaserBeam = function() {
     }
 };
 
-Drawing.getStringFromColor = function(color) {
-	var colorString = '';
-		switch (color) {
-        		case 0:
-        		colorString = '#ff0000';
-        		break;
-        		case 1:
-        		colorString = '#00ff00';
-        		break;
-        		case 2:
-        		colorString = '#0000ff';
-        		break;
-        	}
-	return colorString;
-};
-
 Drawing.drawHalfLaserBeamInCell = function(color, rotation, x, y) {
-        ctx.strokeStyle = Drawing.getStringFromColor(color);
+        ctx.strokeStyle = color;
         ctx.strokeWidth = 4;
         ctx.beginPath();
         switch (rotation) {
@@ -258,7 +242,7 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
         switch (map[x][y]) {
             case Tiles.CLEAR:
 
-        	ctx.strokeStyle = Drawing.getStringFromColor(color);
+        	ctx.strokeStyle = color;
                 ctx.strokeWidth = 4;
                 ctx.beginPath();
                 switch (rotation) {
@@ -460,4 +444,13 @@ Drawing.drawPointerLockWarning = function() {
     ctx.fillStyle = 'white';
     ctx.font = '48px TS4F';
     Drawing.fillTextCentered('CAN HAZ MOUSE?', c.height*0.65);
+};
+
+Drawing.drawWinScreen = function () {
+    ctx.fillStyle = '#394046';
+    ctx.fillRect(0,0,c.width, c.height);
+    ctx.fillStyle = 'white';
+    ctx.font = '48px TS4F';
+    ctx.drawImage(sprites['rottenPotato'], (c.width-sprites['rottenPotato'].width)/2,200);
+    Drawing.fillTextCentered('YOU HAZ WON!', c.height*0.65);
 }

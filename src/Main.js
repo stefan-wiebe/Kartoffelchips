@@ -51,6 +51,7 @@ function initGame() {
     loadSprite('activator');
     loadSprite('mouse');
     loadSprite('logo');
+    loadSprite('rottenPotato');
 
     gameState = GameState.IN_MENU;
     var mHandler = new Mouse();
@@ -62,8 +63,9 @@ function initGame() {
 }
 
 function startGame() {
-  gameState = GameState.IS_PLAYING;
   loadLevel(1);
+    gameState = GameState.IS_PLAYING;
+
 }
 function showOptions() {
 
@@ -72,6 +74,26 @@ function showOptions() {
 function showCredits() {
 
 }
+
+
+function checkWin() {
+    if (hasWon()) {
+        gameState = GameState.HAS_WON;
+    }
+}
+function hasWon () {
+     if (gameState == GameState.IS_PLAYING && selectedTool == -1) {
+    for (var i =0; i<predefinedBlocks.length; i++) {
+        if (predefinedBlocks[i].toString() == "Activator" || predefinedBlocks[i].toString() == "Receiver") {
+            if (predefinedBlocks[i].isOn == false) {
+                return false;
+            }
+        }
+    }
+    return true;
+} 
+}
+
 
 function checkBrowserCompatibility() {
 if (!!('onpointerlockchange' in document || 'onmozpointerlockchange' in document || 'onwebkitpointerlockchange' in document)) {
@@ -104,9 +126,9 @@ function tick() {
     // CLEAR CANVAS
     ctx.fillStyle = 'white';
     ctx.fillRect(0,0,c.width, c.height);
+checkWin();
 
 if(document.pointerLockElement === c || document.mozPointerLockElement === c || document.webkitPointerLockElement === c || mouseDebug == true) {
-
       switch (gameState) {
         case GameState.IN_MENU:
             Drawing.drawMenuScreen();
@@ -119,6 +141,9 @@ if(document.pointerLockElement === c || document.mozPointerLockElement === c || 
             Drawing.drawLaserBeam();
             Drawing.drawToolbox();
             Drawing.drawMouse();
+            break;
+        case GameState.HAS_WON:
+            Drawing.drawWinScreen();
             break;
     }
 } else {
@@ -156,6 +181,23 @@ function blockExistsAt(x, y, obj) {
     }
     return blockFound;
 }
+
+
+function getStringFromColor(color) {
+	var colorString = '';
+		switch (color) {
+        		case 0:
+        		colorString = '#ff0000';
+        		break;
+        		case 1:
+        		colorString = '#00ff00';
+        		break;
+        		case 2:
+        		colorString = '#0000ff';
+        		break;
+        	}
+	return colorString;
+};
 
 function loadLevel(id) {
     var xmlhttp = new XMLHttpRequest();
@@ -223,7 +265,7 @@ function loadLevel(id) {
                     emitter.x = parseInt(split[1]);
                     emitter.y = parseInt(split[2]);
                     emitter.rotation = parseInt(split[3]);
-					emitter.color = parseInt(split[4]);
+					emitter.color = getStringFromColor(parseInt(split[4]));
                     predefinedBlocks.push(emitter);
                 }
                 if (firstChar == "X") {
@@ -232,8 +274,7 @@ function loadLevel(id) {
                     receiver.x = parseInt(split[1]);
                     receiver.y = parseInt(split[2]);
                     receiver.rotation = parseInt(split[3]);
-					receiver.color = parseInt(split[4]);
-					receiver.color2 = parseInt(split[5]);
+					receiver.color = split[4];
                     predefinedBlocks.push(receiver);
                 }
                 if (firstChar == "A") {
