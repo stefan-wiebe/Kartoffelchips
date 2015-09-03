@@ -244,7 +244,11 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
                         break;
                 }
             } else if (tools[i].toString() == "Prism") {
-				
+				switch (tools[i].rotation) {
+					case 0:
+						
+						break;
+				}
 			}
         }
         i++;
