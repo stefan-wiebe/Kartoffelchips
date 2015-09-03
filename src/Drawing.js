@@ -452,5 +452,65 @@ Drawing.drawWinScreen = function () {
     ctx.fillStyle = 'white';
     ctx.font = '48px TS4F';
     ctx.drawImage(sprites['wonPotato'], (c.width-sprites['wonPotato'].width)/2,200);
-    Drawing.fillTextCentered('YOU HAZ WON!', c.height*0.65);
-}
+    Drawing.fillTextCentered('YOU HAZ WON! CLICK TO CONTINUE!', c.height*0.65);
+};
+
+// draw boolean
+Drawing.drawBoolean = function (x,y,bool) {
+    ctx.fillStyle = "white";
+    var label = "OFF";
+    if (bool) {
+        label = "ON"
+    }
+    ctx.fillText(label,x,y);
+};
+// Draws slider for options
+Drawing.drawSlider = function (x,y, width, height, number) {
+    // first draw slider line
+    Util.log('drawing line from ' + x + ' to ' + (x+width));
+    var sliderWidth = 8 * scaleFactor;
+    ctx.strokeStyle = "white";
+    ctx.lineWidth = 2.5*scaleFactor;
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x+width, y);
+    ctx.stroke();
+
+    // then draw block
+    ctx.fillStyle = "white";
+    var sliderX = x + (number * width);
+    ctx.fillRect(sliderX,y - (height/2), sliderWidth,height);
+    
+
+};
+
+Drawing.drawOptions = function () {
+    ctx.fillStyle = '#394046';
+    ctx.fillRect(0,0, c.width, c.height);
+    var i = 0;
+    ctx.fillStyle = 'white';
+        ctx.font = '36px TS4F';
+
+    for (var key in options) {
+     
+        ctx.fillText(key.toUpperCase(), c.width*0.2, (c.height*0.3) + (i*45));
+        ctx.fillStyle = "white"
+if (selectedMenuItem == i) {
+            ctx.fillStyle = "yellow";
+        }
+        
+                // TODO (?): STRINGS
+        switch (typeof options[key]){
+            case 'string':
+            break;
+            case 'boolean':
+            Drawing.drawBoolean(c.width - (c.width*0.3), (c.height*0.3) + (i*45),options[key]);
+            break;
+            case 'number':
+            Drawing.drawSlider(c.width - (c.width*0.3), (c.height*0.3) + (i*45),100, 20, options[key]);
+            break;
+        }
+        i++;
+    }
+    
+};

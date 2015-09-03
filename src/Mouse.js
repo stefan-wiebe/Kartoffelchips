@@ -61,12 +61,24 @@ Mouse.click = function(e) {
             case GameState.IN_MENU:
                 menu[Mouse.getMenuItemIDForPosition(fullMouseX, fullMouseY)].action();
                 break;
+            case GameState.HAS_WON:
+                loadLevel(level++);
+                break;
         }
     } else {
         lockMouse();
     }
     return false;
 };
+
+Mouse.getOptionIDForPosition = function(x, y) {
+    if (fullMouseX > (c.width * 0.2) && fullMouseX < (c.width *0.7)) {
+        var index =  parseInt((y - (y*0.3))/45) -3;
+        console.log(index);
+        return index;
+    }
+};
+
 Mouse.getMenuItemIDForPosition = function(x, y) {
     if (fullMouseY > c.height * 0.60 && fullMouseY < c.height * 0.70) {
         // we can haz menu
@@ -113,6 +125,9 @@ Mouse.move = function(e) {
                 tools[selectedTool].x = mouseX;
                 tools[selectedTool].y = mouseY;
             }
+            break;
+        case GameState.IN_OPTIONS:
+                selectedMenuItem = Mouse.getOptionIDForPosition(fullMouseX, fullMouseY);
             break;
     }
     } 

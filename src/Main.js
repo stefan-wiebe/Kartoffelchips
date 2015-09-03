@@ -67,7 +67,8 @@ function startGame() {
   loadLevel(1);
 }
 function showOptions() {
-
+    selectedMenuItem = -1;
+    gameState = GameState.IN_OPTIONS;
 }
 
 function showCredits() {
@@ -143,6 +144,9 @@ if(document.pointerLockElement === c || document.mozPointerLockElement === c || 
             break;
         case GameState.HAS_WON:
             Drawing.drawWinScreen();
+            break;
+        case GameState.IN_OPTIONS:
+            Drawing.drawOptions();
             break;
     }
 } else {
@@ -301,6 +305,7 @@ function loadLevel(id) {
                 }
             }
             Util.log('level parsed');
+                level = id;
                 gameState = GameState.IS_PLAYING;
 
         }
