@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-debug = false;
 
 function Drawing() {}
 Drawing.drawBoard = function() {
@@ -14,7 +12,7 @@ Drawing.drawSprite = function(spriteName, spriteIndex, x, y) {
     if (sprites[spriteName]) {
         ctx.drawImage(sprites[spriteName], spriteIndex * spriteSize, 0, spriteSize, spriteSize, x * spriteSize, y * spriteSize, 64, 64);
     }
-    if (debug) {
+    if (options.debug) {
         if (spriteName != 'map') {
             ctx.font = '10px Arial';
             ctx.fillStyle = 'red';
@@ -1264,4 +1262,3 @@ Drawing.drawOptions = function () {
     }
 
 };
->>>>>>> f55eb130e09654259882fb75cf6096c7fd040c13
