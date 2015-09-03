@@ -53,6 +53,8 @@ function initGame() {
     loadSprite('logo');
     loadSprite('rottenPotato');
     loadSprite('wonPotato');
+    loadSprite('portalInput');
+    loadSprite('PortalOutput');
 
     gameState = GameState.IN_MENU;
     var mHandler = new Mouse();

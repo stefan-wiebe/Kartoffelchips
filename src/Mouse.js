@@ -129,10 +129,10 @@ Mouse.move = function(e) {
     fullMouseY += movementY;
 
     if (fullMouseX < 0) fullMouseX = 0;
-    if (fullMouseX > c.width) fullMouseX = c.width;
+    if (fullMouseX > c.width -16) fullMouseX = c.width-16;
 
     if (fullMouseY < 0) fullMouseY = 0;
-    if (fullMouseY > c.height) fullMouseY = c.height;
+    if (fullMouseY > c.height -16) fullMouseY = c.height-16;
 
     var x = Math.floor(fullMouseX / spriteSize);
     var y = Math.floor(fullMouseY / spriteSize);
