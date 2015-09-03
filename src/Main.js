@@ -170,6 +170,7 @@ if(document.pointerLockElement === c || document.mozPointerLockElement === c || 
         break;
         case GameState.IS_PLAYING:
             Drawing.drawBoard();
+			Drawing.fillAlphaInCells();
             Drawing.drawPredefinedBlocks();
 			Drawing.drawToolbox();
             Drawing.drawActionButtons();
@@ -194,7 +195,9 @@ if(document.pointerLockElement === c || document.mozPointerLockElement === c || 
 
 function setOffAllElements() {
 	for (var i = 0; i < predefinedBlocks.length; i++) {
-		predefinedBlocks[i].isOn = false
+		if (predefinedBlocks[i].toString() != "Emitter") {
+			predefinedBlocks[i].isOn = false
+		}
 	}
 	for (var i = 0; i < tools.length; i++) {
 		if (tools[i].toString() == "Mirror") {

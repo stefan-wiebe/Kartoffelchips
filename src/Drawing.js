@@ -84,7 +84,6 @@ Drawing.drawTools = function() {
                         index = tool.rotation + boolN;
                     }
                     Util.log('index is ' + index);
-					Drawing.fillAlphaInCells();
                     Drawing.drawSprite(toolType, index, tool.x, tool.y);
                     break;
             }
@@ -101,6 +100,43 @@ Drawing.drawLaserBeam = function() {
     }
 };
 Drawing.fillAlphaInCells = function() {
+		for (var i = 0; i < predefinedBlocks.length; i++) {
+			if (predefinedBlocks[i].isOn) {
+				ctx.lineWidth = 2;
+				
+				var predefinedName = predefinedBlocks[i].toString();
+				var rotation = predefinedBlocks[i].rotation;
+				var x = predefinedBlocks[i].x;
+				var y = predefinedBlocks[i].y;
+				
+				var startX = x * spriteSize;
+				var halfX = x * spriteSize + spriteSize / 2;
+				var fullX = startX + spriteSize;
+				
+				var startY = y * spriteSize;
+				var halfY = y * spriteSize + spriteSize / 2;
+				var fullY = startY + spriteSize;
+				
+				if (predefinedName == "Emitter") {
+					if (rotation == 0 || rotation == 2) {
+						ctx.beginPath();
+						ctx.strokeStyle = predefinedBlocks[i].color;
+						ctx.moveTo(x * spriteSize + spriteSize / 2, y * spriteSize);
+						ctx.lineTo(x * spriteSize + spriteSize / 2, fullY + spriteSize);
+						ctx.stroke();
+						ctx.closePath();
+					} else {
+						ctx.beginPath();
+						ctx.strokeStyle = predefinedBlocks[i].color;
+						ctx.moveTo(x * spriteSize, y * spriteSize + spriteSize / 2);
+						ctx.lineTo(fullX, y * spriteSize + spriteSize / 2);
+						ctx.stroke();
+						ctx.closePath();	
+					}
+				}
+			}
+		}
+		
 		for (var i = 0; i < tools.length; i++) {
 			if (tools[i].isOn) {
 				ctx.lineWidth = 2;
@@ -111,23 +147,31 @@ Drawing.fillAlphaInCells = function() {
 				var x = tools[i].x;
 				var y = tools[i].y;
 				
+				var startX = x * spriteSize;
+				var halfX = x * spriteSize + spriteSize / 2;
+				var fullX = startX + spriteSize;
+				
+				var startY = y * spriteSize;
+				var halfY = y * spriteSize + spriteSize / 2;
+				var fullY = startY + spriteSize;
+				
 				if (toolName == "Mirror") {
 					if (rotation == 0 || rotation == 2) {
 						if (tools[i].inputs[0].isOn) {
 							ctx.beginPath();
 							ctx.strokeStyle = tools[i].inputs[0].color;
-							ctx.moveTo(x * spriteSize + spriteSize / 2, y * spriteSize);
-							ctx.lineTo(x * spriteSize + spriteSize / 2, y * spriteSize + spriteSize / 2);
-							ctx.lineTo((x + 1) * spriteSize, y * spriteSize + spriteSize / 2);
+							ctx.moveTo(halfX, y * spriteSize);
+							ctx.lineTo(halfX, halfY);
+							ctx.lineTo(fullX, halfY);
 							ctx.stroke();
 							ctx.closePath();
 						} 
 						if (tools[i].inputs[1].isOn) {
 							ctx.beginPath();
 							ctx.strokeStyle = tools[i].inputs[1].color;
-							ctx.moveTo(x * spriteSize + spriteSize / 2, (y + 1) * spriteSize);
-							ctx.lineTo(x * spriteSize + spriteSize / 2, y * spriteSize + spriteSize / 2);
-							ctx.lineTo(x * spriteSize, y * spriteSize + spriteSize / 2);
+							ctx.moveTo(halfX, fullY);
+							ctx.lineTo(halfX, halfY);
+							ctx.lineTo(startX, halfY);
 							ctx.stroke();
 							ctx.closePath();
 						}
@@ -135,21 +179,119 @@ Drawing.fillAlphaInCells = function() {
 						if (tools[i].inputs[0].isOn) {
 							ctx.beginPath();
 							ctx.strokeStyle = tools[i].inputs[0].color;
-							ctx.moveTo(x * spriteSize + spriteSize / 2, y * spriteSize);
-							ctx.lineTo(x * spriteSize + spriteSize / 2, y * spriteSize + spriteSize / 2);
-							ctx.lineTo(x * spriteSize, y * spriteSize + spriteSize / 2);
+							ctx.moveTo(halfX, startY);
+							ctx.lineTo(halfX, halfY);
+							ctx.lineTo(startX, halfY);
 							ctx.stroke();
 							ctx.closePath();
 						} 
 						if (tools[i].inputs[1].isOn) {
 							ctx.beginPath();
 							ctx.strokeStyle = tools[i].inputs[1].color;
-							ctx.moveTo(x * spriteSize + spriteSize / 2, (y + 1) * spriteSize);
-							ctx.lineTo(x * spriteSize + spriteSize / 2, y * spriteSize + spriteSize / 2);
-							ctx.lineTo((x + 1) * spriteSize, y * spriteSize + spriteSize / 2);
+							ctx.moveTo(halfX, fullY);
+							ctx.lineTo(halfX, halfY);
+							ctx.lineTo(fullX, halfY);
 							ctx.stroke();
 							ctx.closePath();
 						}
+					}
+				} else if (toolName == "Prism") {
+					if (rotation == 0) {
+						if (tools[i].inputs[0].isOn) {
+							ctx.beginPath();
+							ctx.strokeStyle = tools[i].inputs[0].color;
+							ctx.moveTo(startX, halfY);
+							ctx.lineTo(halfX, halfY);
+							ctx.stroke();
+							ctx.closePath();
+						}
+						if (tools[i].inputs[1].isOn) {
+							ctx.beginPath();
+							ctx.strokeStyle = tools[i].inputs[1].color;
+							ctx.moveTo(fullX, halfY);
+							ctx.lineTo(halfX, halfY);
+							ctx.stroke();
+							ctx.closePath();
+						}
+						
+						ctx.beginPath();
+						ctx.strokeStyle = mixColors(tools[i].inputs[0].color, tools[i].inputs[1].color);
+						ctx.moveTo(halfX, halfY);
+						ctx.lineTo(halfX, startY);
+						ctx.stroke();
+						ctx.closePath();
+					} else if (rotation == 1) {
+						if (tools[i].inputs[0].isOn) {
+							ctx.beginPath();
+							ctx.strokeStyle = tools[i].inputs[0].color;
+							ctx.moveTo(halfX, startY);
+							ctx.lineTo(halfX, halfY);
+							ctx.stroke();
+							ctx.closePath();
+						}
+						if (tools[i].inputs[1].isOn) {
+							ctx.beginPath();
+							ctx.strokeStyle = tools[i].inputs[1].color;
+							ctx.moveTo(halfX, halfY);
+							ctx.lineTo(halfX, fullY);
+							ctx.stroke();
+							ctx.closePath();
+						}
+						
+						ctx.beginPath();
+						ctx.strokeStyle = mixColors(tools[i].inputs[0].color, tools[i].inputs[1].color);
+						ctx.moveTo(halfX, halfY);
+						ctx.lineTo(fullX, halfY);
+						ctx.stroke();
+						ctx.closePath();
+					} else if (rotation == 2) {
+						if (tools[i].inputs[0].isOn) {
+							ctx.beginPath();
+							ctx.strokeStyle = tools[i].inputs[0].color;
+							ctx.moveTo(fullX, halfY);
+							ctx.lineTo(halfX, halfY);
+							ctx.stroke();
+							ctx.closePath();
+						}
+						if (tools[i].inputs[1].isOn) {
+							ctx.beginPath();
+							ctx.strokeStyle = tools[i].inputs[1].color;
+							ctx.moveTo(halfX, halfY);
+							ctx.lineTo(startX, halfY);
+							ctx.stroke();
+							ctx.closePath();
+						}
+						
+						ctx.beginPath();
+						ctx.strokeStyle = mixColors(tools[i].inputs[0].color, tools[i].inputs[1].color);
+						ctx.moveTo(halfX, halfY);
+						ctx.lineTo(halfX, fullY);
+						ctx.stroke();
+						ctx.closePath();
+					} else if (rotation == 3) {
+						if (tools[i].inputs[0].isOn) {
+							ctx.beginPath();
+							ctx.strokeStyle = tools[i].inputs[0].color;
+							ctx.moveTo(halfX, halfY);
+							ctx.lineTo(halfX, fullY);
+							ctx.stroke();
+							ctx.closePath();
+						}
+						if (tools[i].inputs[1].isOn) {
+							ctx.beginPath();
+							ctx.strokeStyle = tools[i].inputs[1].color;
+							ctx.moveTo(halfX, startY);
+							ctx.lineTo(halfX, halfY);
+							ctx.stroke();
+							ctx.closePath();
+						}
+						
+						ctx.beginPath();
+						ctx.strokeStyle = mixColors(tools[i].inputs[0].color, tools[i].inputs[1].color);
+						ctx.moveTo(startX, halfY);
+						ctx.lineTo(halfX, halfY);
+						ctx.stroke();
+						ctx.closePath();
 					}
 				}
 			}
@@ -402,22 +544,22 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
                 switch (tools[i].rotation) {
                     case 0:
                     case 2:
-                        if (rotation == 1) {
+                        if (rotation == 3 - tools[i].rotation) {
                             tools[i].inputs[0].isOn = true;
                             tools[i].inputs[0].color = color;
                         }
-                        if (rotation == 3) {
+                        if (rotation == 1 + tools[i].rotation) {
                             tools[i].inputs[1].isOn = true;
                             tools[i].inputs[1].color = color;
                         }
                         break;
                     case 1:
                     case 3:
-                        if (rotation == 2) {
+                        if (rotation == (3 + tools[i].rotation) % 4) {
                             tools[i].inputs[0].isOn = true;
                             tools[i].inputs[0].color = color;
                         }
-                        if (rotation == 0) {
+                        if (rotation == 3 - tools[i].rotation) {
                             tools[i].inputs[1].isOn = true;
                             tools[i].inputs[1].color = color;
                         }
