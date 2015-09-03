@@ -13,9 +13,10 @@ Mouse.click = function(e) {
                             // in inventory
                             if (mouseX == 15 && mouseY > 0 && mouseY <= toolsByType.length) {
                                 var i = 0;
+								var string;
                                 for (var TL in toolsByType) {
-                                    if (i == (mouseY + 1)) {
-                                        var string = TL;
+                                    if (i == (mouseY + toolsByType.length - 1)) {
+                                        string = TL;
                                     }
                                     i++;
                                 }

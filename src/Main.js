@@ -136,10 +136,10 @@ if(document.pointerLockElement === c || document.mozPointerLockElement === c || 
         case GameState.IS_PLAYING:
             Drawing.drawBoard();
             Drawing.drawPredefinedBlocks();
+			Drawing.drawToolbox();
             Drawing.drawTools();
 			setOffAllElements();
             Drawing.drawLaserBeam();
-            Drawing.drawToolbox();
             Drawing.drawMouse();
             break;
         case GameState.HAS_WON:
