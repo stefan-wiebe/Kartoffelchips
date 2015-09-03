@@ -315,15 +315,16 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
     var i = 0;
     rotation = (rotation + 2) % 4;
     while (i < predefinedBlocks.length && result) {
-        if (predefinedBlocks[i].toString() == "Activator") {
-            if (predefinedBlocks[i].x == x && predefinedBlocks[i].y == y) predefinedBlocks[i].isOn = true;
-        }
-        if (predefinedBlocks[i].x == x && predefinedBlocks[i].y == y && predefinedBlocks[i].toString() != "Activator") {
-            result = false;
-            if (predefinedBlocks[i].toString() == "Receiver" && predefinedBlocks[i].color == color) {
-                predefinedBlocks[i].isOn = true;
-            }
-        }
+		if (predefinedBlocks[i].x == x && predefinedBlocks[i].y == y) {
+			var blockName = predefinedBlocks[i].toString();
+			
+			if (blockName == "Activator") {
+				predefinedBlocks[i].isOn = true;
+			} else if (blockName == "Receiver" && predefinedBlocks[i].color == color) {
+				predefinedBlocks[i].isOn = true;
+				result = false;
+			}
+		}
         i++;
     }
     i = 0;
