@@ -232,6 +232,8 @@ function loadLevel(id) {
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             var lines = xmlhttp.responseText.match(/[^\r\n]+/g);
+			predefinedBlocks = [];
+			tools = [];
             for (var i = 1; i < lines.length; i++) {
                 var firstChar = lines[i].charAt(0);
                 Util.log('first char is ' + firstChar + ' and we still have ' + lines.length + ' lines and i is ' + i);
@@ -320,6 +322,22 @@ function loadLevel(id) {
                         tools.push(mirror);
                     }
                 }
+				if (firstChar == "I") {
+					var split = lines[i].split(" ");
+					var count = parseInt(split[1]);
+					for (var k = 0; k < count; k++) {
+						var portalinput = new PortalInput();
+						tools.push(portalinput);
+					}
+				}
+				if (firstChar == "O") {
+					var split = lines[i].split(" ");
+					var count = parseInt(split[1]);
+					for (var k = 0; k < count; k++) {
+						var portaloutput = new PortalOutput();
+						tools.push(portaloutput);
+					}
+				}
                 if (firstChar == "P") {
                     var split = lines[i].split(" ");
                     var count = parseInt(split[1]);
