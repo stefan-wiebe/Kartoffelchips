@@ -4,5 +4,6 @@ function Mirror() {
 	this.rotation = 0;
 	this.isOn = false;
 	this.isPlaced = false;
+	this.inputs = [new Input(), new Input()];
 };
 Mirror.prototype.toString = function () {return "Mirror"};

@@ -173,9 +173,9 @@ if(document.pointerLockElement === c || document.mozPointerLockElement === c || 
             Drawing.drawPredefinedBlocks();
 			Drawing.drawToolbox();
             Drawing.drawActionButtons();
-            Drawing.drawTools();
 			setOffAllElements();
             Drawing.drawLaserBeam();
+			Drawing.drawTools();
             Drawing.drawMouse();
             break;
         case GameState.HAS_WON:
@@ -199,6 +199,10 @@ function setOffAllElements() {
 	for (var i = 0; i < tools.length; i++) {
 		if (tools[i].toString() == "Mirror") {
 			tools[i].isOn = false;
+			tools[i].inputs[0].isOn = false;
+			tools[i].inputs[1].isOn = false;
+			tools[i].inputs[0].color = "";
+			tools[i].inputs[1].color = "";
 		} else if (tools[i].toString() == "Prism") {
 			tools[i].inputs[0].isOn = false;
 			tools[i].inputs[1].isOn = false;
