@@ -222,8 +222,8 @@ function loadLevel(id) {
                     var split = lines[i].split(" ");
                     emitter.x = parseInt(split[1]);
                     emitter.y = parseInt(split[2]);
-                    emitter.color = parseInt(split[3]);
-                    emitter.rotation = parseInt(split[4]);
+                    emitter.rotation = parseInt(split[3]);
+					emitter.color = parseInt(split[4]);
                     predefinedBlocks.push(emitter);
                 }
                 if (firstChar == "X") {
@@ -231,8 +231,9 @@ function loadLevel(id) {
                     var split = lines[i].split(" ");
                     receiver.x = parseInt(split[1]);
                     receiver.y = parseInt(split[2]);
-                    receiver.color = parseInt(split[3]);
-                    receiver.rotation = parseInt(split[4]);
+                    receiver.rotation = parseInt(split[3]);
+					receiver.color = parseInt(split[4]);
+					receiver.color2 = parseInt(split[5]);
                     predefinedBlocks.push(receiver);
                 }
                 if (firstChar == "A") {
