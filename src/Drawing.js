@@ -468,7 +468,7 @@ Drawing.drawTitle = function(str) {
     ctx.rotate(-result);
     ctx.fillText(str, left, 100);
     ctx.rotate(result);
-    ctx.font = oldfont;
+    ctx.font = oldFont;
 
 }
 
