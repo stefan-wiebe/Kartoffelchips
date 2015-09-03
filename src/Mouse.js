@@ -72,6 +72,11 @@ Mouse.click = function(e) {
                     Mouse.toggleOption();
                 }
                 break;
+            case GameState.IN_CREDITS:
+               if (backButtonHover) {
+                    gameState = GameState.IN_MENU;
+                }
+                window.open(credits[selectedMenuItem].link);
         }
     } else {
         lockMouse();
@@ -87,8 +92,19 @@ Mouse.getOptionIDForPosition = function(x, y) {
         return -1;
     }
 };
+
+Mouse.getCreditIDForPosition = function(x, y) {
+    if (x > c.width *0.2 && x < c.width * 0.5) {
+        var index = parseInt((y + 150 - c.height * 0.3) / 150);
+        if (index < credits.length) {
+            return index;
+        }
+        return -1;
+    }
+};
+
 Mouse.getMenuItemIDForPosition = function(x, y) {
-    if (fullMouseY > c.height * 0.60 && fullMouseY < c.height * 0.70) {
+    if (y > c.height * 0.60 && y < c.height * 0.70) {
         // we can haz menu
         var margin = 50;
         var fullLength = 0;
@@ -98,7 +114,7 @@ Mouse.getMenuItemIDForPosition = function(x, y) {
         }
         var left = (c.width - fullLength) / 2;
         for (var i = 0; i < menu.length; i++) {
-            if (fullMouseX > left && fullMouseX < left + ctx.measureText(menu[i].title).width * 1.1 + margin) {
+            if (x > left && fullMouseX < left + ctx.measureText(menu[i].title).width * 1.1 + margin) {
                 return i;
             }
             left = left + ctx.measureText(menu[i].title).width * 1.1 + margin;
@@ -117,6 +133,13 @@ Mouse.toggleOption = function() {
         }
         i++;
     }
+};
+Mouse.setBackButton = function() {
+     if (fullMouseX >= 80 && fullMouseX <= 150 && fullMouseY >= 50 && fullMouseY <= 150) {
+                    backButtonHover = true;
+                } else {
+                    backButtonHover = false
+                }
 }
 Mouse.move = function(e) {
     if (document.pointerLockElement === c || document.mozPointerLockElement === c || document.webkitPointerLockElement === c) {
@@ -144,13 +167,16 @@ Mouse.move = function(e) {
                 }
                 break;
             case GameState.IN_OPTIONS:
-                if (fullMouseX >= 80 && fullMouseX <= 150 && fullMouseY >= 50 && fullMouseY <= 150) {
-                    backButtonHover = true;
-                } else {
-                    backButtonHover = false
-                }
+                Mouse.setBackButton();
                 selectedMenuItem = Mouse.getOptionIDForPosition(fullMouseX, fullMouseY);
                 console.log('selected index ' + selectedMenuItem);
+                break;
+            case GameState.IN_CREDITS:
+                Mouse.setBackButton();
+                selectedMenuItem = Mouse.getOptionIDForPosition(fullMouseX, fullMouseY);
+                console.log('selectedMenuItem ' + selectedMenuItem);
+                // detect hyperlink 
+
                 break;
         }
     }

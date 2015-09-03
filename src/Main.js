@@ -49,6 +49,25 @@ title: 'resetLevel',
 }   
 ];
 
+var credits = [
+    {
+        name: 'Dejan Brinker',
+        link: 'https://github.com/Dede98'
+    },
+    {
+        name: 'Timon Ringwald',
+        link: 'http://tordarus.net'
+    },
+    {
+        name: 'Tobias Timpe',
+        link: 'http://tobias.tim.pe',
+    },
+    {
+        name: 'Stefan Wiebe',
+        link: 'http://5tefan.net'
+    }
+];
+
 
 
 function initGame() {
@@ -91,7 +110,8 @@ function showOptions() {
 }
 
 function showCredits() {
-
+    selectedMenuItem = -1;
+    gameState = GameState.IN_CREDITS;
 }
 
 
@@ -184,6 +204,9 @@ if(document.pointerLockElement === c || document.mozPointerLockElement === c || 
             break;
         case GameState.IN_OPTIONS:
             Drawing.drawOptions();
+            break;
+        case GameState.IN_CREDITS:
+            Drawing.drawCredits();
             break;
     }
 } else {

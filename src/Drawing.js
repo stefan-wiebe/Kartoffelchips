@@ -862,6 +862,31 @@ Drawing.drawOptions = function() {
 };
 Drawing.drawActionButtons = function() {
     for (var i = 0; i < actionBlocks.length; i++) {
+        // TODO when sprites ready Drawing.drawSprite(actionBlocks[i].title, 0 ,15, (height-2)-i);
         Drawing.drawSprite('inventory', 0, 15, (height - 2) - i);
+    }
+};
+
+Drawing.drawCredits = function() {
+    ctx.fillStyle = '#394046';
+    ctx.fillRect(0, 0, c.width, c.height);
+    Drawing.drawTitle('CREDITS');
+    Drawing.drawBackButton();
+
+    for (var i=0; i<credits.length; i++) {
+    ctx.font = '40px TS4F';
+    ctx.fillStyle = 'white';
+
+        ctx.fillText(credits[i].name, c.width*0.2, c.height*0.3 + (i*80));
+    
+    ctx.font = '24px TS4F';
+    ctx.fillStyle = '#365ec4';
+
+    if (i == selectedMenuItem) {
+        ctx.fillStyle = '#80a0fe';
+    }
+        ctx.fillText(credits[i].link, c.width*0.2, c.height*0.3 + (i*80) + 30);
+
+
     }
 };
