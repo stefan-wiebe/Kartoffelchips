@@ -320,6 +320,22 @@ function loadLevel(id) {
                         tools.push(mirror);
                     }
                 }
+				if (firstChar == "I") {
+					var split = lines[i].split(" ");
+					var count = parseInt(split[1]);
+					for (var k = 0; k < count; k++) {
+						var portalinput = new PortalInput();
+						tools.push(portalinput);
+					}
+				}
+				if (firstChar == "O") {
+					var split = lines[i].split(" ");
+					var count = parseInt(split[1]);
+					for (var k = 0; k < count; k++) {
+						var portaloutput = new PortalOutput();
+						tools.push(portaloutput);
+					}
+				}
                 if (firstChar == "P") {
                     var split = lines[i].split(" ");
                     var count = parseInt(split[1]);
