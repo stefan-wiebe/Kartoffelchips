@@ -159,9 +159,11 @@ function setOffAllElements() {
 	for (var i = 0; i < tools.length; i++) {
 		if (tools[i].toString() == "Mirror") {
 			tools[i].isOn = false;
-		} else if (tools[i].toString == "Prism") {
+		} else if (tools[i].toString() == "Prism") {
 			tools[i].inputs[0].isOn = false;
 			tools[i].inputs[1].isOn = false;
+			tools[i].inputs[0].color = "";
+			tools[i].inputs[1].color = "";
 		}
 	}
 }
@@ -197,6 +199,29 @@ function getStringFromColor(color) {
         	}
 	return colorString;
 };
+
+function mixColors(color1, color2) {
+	var r1 = parseInt(color1.substring(1, 3), 16);
+	var g1 = parseInt(color1.substring(3, 5), 16);
+	var b1 = parseInt(color1.substring(5, 7), 16);
+	
+	var r2 = parseInt(color2.substring(1, 3), 16);
+	var g2 = parseInt(color2.substring(3, 5), 16);
+	var b2 = parseInt(color2.substring(5, 7), 16);
+	
+	var r3 = parseInt((r1 + r2) / 2);
+	var g3 = parseInt((g1 + g2) / 2);
+	var b3 = parseInt((b1 + b2) / 2);
+	
+	var factor = 255 / Math.max(r3, g3, b3);
+	
+	r3 *= factor;
+	g3 *= factor;
+	b3 *= factor;
+	
+	return "#" + ("00" + r3.toString(16)).slice(-2) + ("00" + g3.toString(16)).slice(-2) + ("00" + b3.toString(16)).slice(-2);
+	
+}
 
 function loadLevel(id) {
     var xmlhttp = new XMLHttpRequest();
