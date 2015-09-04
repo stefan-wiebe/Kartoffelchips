@@ -16,6 +16,7 @@ var fullMouseY = 0;
 var selectedMenuItem = -1;
 var gameState;
 var backButtonHover = false;
+var placedBlocks = [];
 var currentAlert;
 
 var menu = [
@@ -75,7 +76,9 @@ function initGame() {
 
     for (var i = 0; i < 16; i++) {
         map[i] = [];
+        placedBlocks[i] = [];
     }
+
     c = document.getElementById('game');
     ctx = c.getContext("2d");
     loadSprite('emitter');
@@ -94,6 +97,7 @@ function initGame() {
 
     gameState = GameState.IN_MENU;
     var mHandler = new Mouse();
+    var kHandler = new Keyboard();
 
     requestAnimationFrame(tick);
 } else {
@@ -121,7 +125,7 @@ function checkWin() {
     }
 }
 function hasWon () {
-     if (gameState == GameState.IS_PLAYING && selectedTool == -1) {
+    if (gameState == GameState.IS_PLAYING && selectedTool == -1) {
     for (var i =0; i<predefinedBlocks.length; i++) {
         if (predefinedBlocks[i].toString() == "Activator" || predefinedBlocks[i].toString() == "Receiver") {
             if (predefinedBlocks[i].isOn == false) {
@@ -145,19 +149,21 @@ function backToMenu() {
     level = null;
     predefinedBlocks = [];
     tools = [];
+    placedBlocks = [];
 }
 function showHelpMessage() {
 
 }
 
 function checkBrowserCompatibility() {
-if (!!('onpointerlockchange' in document || 'onmozpointerlockchange' in document || 'onwebkitpointerlockchange' in document)) {
-    return false;
-}
-if (!!window.HTMLCanvasElement) {
-    return false;
-}
-return true;
+    if (!!('onpointerlockchange' in document || 'onmozpointerlockchange' in document || 'onwebkitpointerlockchange' in document)) {
+        return false;
+    }
+    if (!!window.HTMLCanvasElement) {
+        return false;
+    }
+
+    return true;
 }
 
 function lockMouse() {
@@ -189,41 +195,61 @@ function tick() {
     // CLEAR CANVAS
     ctx.fillStyle = 'white';
     ctx.fillRect(0,0,c.width, c.height);
-checkWin();
+    checkWin();
 
-if(document.pointerLockElement === c || document.mozPointerLockElement === c || document.webkitPointerLockElement === c || options.mouseDebug == true) {
-      switch (gameState) {
-        case GameState.IN_MENU:
-            Drawing.drawMenuScreen();
-        break;
-        case GameState.IS_PLAYING:
-            Drawing.drawBoard();
-			Drawing.fillAlphaInCells();
-            Drawing.drawPredefinedBlocks();
-			Drawing.drawToolbox();
-            Drawing.drawActionButtons();
+    if(document.pointerLockElement === c || document.mozPointerLockElement === c || document.webkitPointerLockElement === c || options.mouseDebug == true) {
+          switch (gameState) {
+            case GameState.IN_MENU:
+                Drawing.drawMenuScreen();
+            break;
+            case GameState.IS_PLAYING:
+                Drawing.drawBoard();
+    			Drawing.fillAlphaInCells();
+                Drawing.drawPredefinedBlocks();
+    			Drawing.drawToolbox();
+                Drawing.drawActionButtons();
 
-			disableAllElements();
-            Drawing.drawLaserBeam();
-			Drawing.drawTools();
-            Drawing.drawMouse();
-            if (currentAlert) {
-                Drawing.drawAlert();
-            }
+    			disableAllElements();
+                Drawing.drawLaserBeam();
+    			Drawing.drawTools();
+                Drawing.drawMouse();
+                if (currentAlert) {
+                    Drawing.drawAlert();
+                }
+                break;
+            case GameState.HAS_WON:
+                Drawing.drawWinScreen();
+                break;
+            case GameState.IN_OPTIONS:
+                Drawing.drawOptions();
+                break;
+            case GameState.IN_CREDITS:
+                Drawing.drawCredits();
             break;
-        case GameState.HAS_WON:
-            Drawing.drawWinScreen();
-            break;
-        case GameState.IN_OPTIONS:
-            Drawing.drawOptions();
-            break;
-        case GameState.IN_CREDITS:
-            Drawing.drawCredits();
-            break;
+            case GameState.IS_PLAYING:
+                Drawing.drawBoard();
+    			Drawing.fillAlphaInCells();
+                Drawing.drawPredefinedBlocks();
+    			Drawing.drawToolbox();
+                Drawing.drawActionButtons();
+    			disableAllElements();
+                Drawing.drawLaserBeam();
+    			Drawing.drawTools();
+                Drawing.drawMouse();
+                break;
+            case GameState.HAS_WON:
+                Drawing.drawWinScreen();
+                break;
+            case GameState.IN_OPTIONS:
+                Drawing.drawOptions();
+                break;
+            case GameState.IN_CREDITS:
+                Drawing.drawCredits();
+                break;
+        }
+    } else {
+        Drawing.drawPointerLockWarning();
     }
-} else {
-    Drawing.drawPointerLockWarning();
-}
     Drawing.drawCursor();
     requestAnimationFrame(tick);
 }
@@ -253,16 +279,23 @@ function disableAllElements() {
 
 function blockExistsAt(x, y, obj) {
     var blockFound = x > 0 && y > 0 && x < width && y < height && map[x][y] != Tiles.CLEAR;
-    var i = 0;
-    while (i < predefinedBlocks.length && !blockFound) {
-        blockFound = predefinedBlocks[i].x == x && predefinedBlocks[i].y == y;
-        i++;
+
+    if (!blockFound) {
+        blockFound = placedBlocks[x][y] != undefined && placedBlocks[x][y] != obj;
     }
-    i = 0;
-    while (i < tools.length && !blockFound) {
-        blockFound = tools[i].isPlaced && tools[i].x == x && tools[i].y == y && obj != undefined && obj != tools[i];
-        i++;
-    }
+
+    // var i = 0M
+    // while (!blockFound && i < predefinedBlocks.length) {
+    //     blockFound = predefinedBlocks[i].x == x && predefinedBlocks[i].y == y;
+    //     i++;
+    // }
+    //
+    // i = 0;
+    // while (!blockFound && i < tools.length) {
+    //     blockFound = tools[i].isPlaced && tools[i].x == x && tools[i].y == y && obj != undefined && obj != tools[i];
+    //     i++;
+    // }
+
     return blockFound;
 }
 
@@ -313,6 +346,10 @@ function loadLevel(id) {
             var lines = xmlhttp.responseText.match(/[^\r\n]+/g);
 			predefinedBlocks = [];
 			tools = [];
+            for (var i = 0; i < 16; i++) {
+                placedBlocks[i].length = 0;
+            }
+
             for (var i = 1; i < lines.length; i++) {
                 var firstChar = lines[i].charAt(0);
                 Util.log('first char is ' + firstChar + ' and we still have ' + lines.length + ' lines and i is ' + i);
@@ -371,8 +408,7 @@ function loadLevel(id) {
                 if (firstChar == "L") {
                     var emitter = new Emitter();
                     var split = lines[i].split(" ");
-                    emitter.x = parseInt(split[1]);
-                    emitter.y = parseInt(split[2]);
+                    placeBlock(emitter, parseInt(split[1]), parseInt(split[2]));
                     emitter.rotation = parseInt(split[3]);
 					emitter.color = getStringFromColor(parseInt(split[4]));
                     predefinedBlocks.push(emitter);
@@ -380,8 +416,7 @@ function loadLevel(id) {
                 if (firstChar == "X") {
                     var receiver = new Receiver();
                     var split = lines[i].split(" ");
-                    receiver.x = parseInt(split[1]);
-                    receiver.y = parseInt(split[2]);
+                    placeBlock(receiver, parseInt(split[1]), parseInt(split[2]));
                     receiver.rotation = parseInt(split[3]);
 					receiver.color = split[4];
                     predefinedBlocks.push(receiver);
@@ -389,8 +424,7 @@ function loadLevel(id) {
                 if (firstChar == "A") {
                     var activator = new Activator();
                     var split = lines[i].split(" ");
-                    activator.x = parseInt(split[1]);
-                    activator.y = parseInt(split[2]);
+                    placeBlock(activator, parseInt(split[1]), parseInt(split[2]));
                     predefinedBlocks.push(activator);
                 }
                 if (firstChar == "M") {
