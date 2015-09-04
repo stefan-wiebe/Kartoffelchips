@@ -29,10 +29,16 @@ Drawing.drawMouse = function() {
     if (selectedTool != -1) {
         Drawing.drawSprite(tools[selectedTool].toString(), tools[selectedTool].rotation, mouseX, mouseY);
     }
+
+
+    // default green
     ctx.fillStyle = "rgba(0,255,0,0.3)";
+
+    // red if already there
     if (blockExistsAt(mouseX, mouseY)) {
         ctx.fillStyle = "rgba(255,0,0,0.3)";
     }
+    // If in inventory or actionBlocks
     if (mouseX == 15 && ((mouseY > 0 && mouseY <= toolsByType.length) || (mouseY < 11 && mouseY > (10 - actionBlocks.length)))) {
         ctx.fillStyle = "rgba(0, 0,255,0.3)";
     }
@@ -676,8 +682,8 @@ Drawing.drawOptions = function() {
 };
 Drawing.drawActionButtons = function() {
     for (var i = 0; i < actionBlocks.length; i++) {
-        // TODO when sprites ready Drawing.drawSprite(actionBlocks[i].title, 0 ,15, (height-2)-i);
-        Drawing.drawSprite('inventory', 0, 15, (height - 2) - i);
+        Drawing.drawSprite('menu', i,15, (height-4)+i);
+        Drawing.drawSprite('inventory', 0, 15, (height - 4) + i);
     }
 };
 
