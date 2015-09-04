@@ -126,7 +126,18 @@ Mouse.getMenuItemIDForPosition = function(x, y) {
     return -1;
 }
 
+<<<<<<< HEAD
 Mouse.getBlockAt
+=======
+
+Mouse.getButtonIDForPosition = function(x, y) {
+    // TODO: MATHS
+    if (x > c.width*0.15 && x <= c.width * 0.85 && y > (c.height*0.8 - buttonHeight) && y < c.height*0.8) {
+        return (x-(c.width*0.15))/(c.width*0.7/currentAlert.buttons.length);
+    }
+};
+
+>>>>>>> f41af358fef2ea3db1185830a1cbc80ff848d823
 
 Mouse.toggleOption = function() {
     var i = 0;
@@ -139,6 +150,7 @@ Mouse.toggleOption = function() {
         }
         i++;
     }
+    saveOptions();
 };
 Mouse.setBackButton = function() {
      if (fullMouseX >= 80 && fullMouseX <= 150 && fullMouseY >= 50 && fullMouseY <= 150) {
@@ -166,7 +178,10 @@ Mouse.move = function(e) {
                 selectedMenuItem = Mouse.getMenuItemIDForPosition(fullMouseX, fullMouseY);
                 break;
             case GameState.IS_PLAYING:
-                if (selectedTool > -1) {
+                if (currentAlert) {
+                selectedMenuItem = Mouse.getOptionIDForPosition(fullMouseX, fullMouseY);
+                console.log('selected index ' + selectedMenuItem);
+                } else if (selectedTool > -1) {
                     tools[selectedTool].isPlaced = !blockExistsAt(mouseX, mouseY, tools[selectedTool]);
                     tools[selectedTool].x = mouseX;
                     tools[selectedTool].y = mouseY;

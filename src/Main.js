@@ -17,7 +17,7 @@ var selectedMenuItem = -1;
 var gameState;
 var backButtonHover = false;
 var placedBlocks = [];
-
+var currentAlert;
 
 var menu = [
 {
@@ -183,6 +183,14 @@ function loadSprite(spriteName) {
     sprites[spriteName] = newSprite;
 }
 
+function showAlert(message, title, buttons) {
+    currentAlert = new Alert();
+    currentAlert.message = message;
+    currentAlert.title = title;
+    currentAlert.buttons = buttons;
+}
+
+
 function tick() {
     // CLEAR CANVAS
     ctx.fillStyle = 'white';
@@ -193,6 +201,30 @@ function tick() {
           switch (gameState) {
             case GameState.IN_MENU:
                 Drawing.drawMenuScreen();
+            break;
+            case GameState.IS_PLAYING:
+                Drawing.drawBoard();
+    			Drawing.fillAlphaInCells();
+                Drawing.drawPredefinedBlocks();
+    			Drawing.drawToolbox();
+                Drawing.drawActionButtons();
+
+    			disableAllElements();
+                Drawing.drawLaserBeam();
+    			Drawing.drawTools();
+                Drawing.drawMouse();
+                if (currentAlert) {
+                    Drawing.drawAlert();
+                }
+                break;
+            case GameState.HAS_WON:
+                Drawing.drawWinScreen();
+                break;
+            case GameState.IN_OPTIONS:
+                Drawing.drawOptions();
+                break;
+            case GameState.IN_CREDITS:
+                Drawing.drawCredits();
             break;
             case GameState.IS_PLAYING:
                 Drawing.drawBoard();
@@ -221,6 +253,7 @@ function tick() {
     Drawing.drawCursor();
     requestAnimationFrame(tick);
 }
+
 
 function disableAllElements() {
 	for (var i = 0; i < predefinedBlocks.length; i++) {
@@ -316,7 +349,7 @@ function loadLevel(id) {
             for (var i = 0; i < 16; i++) {
                 placedBlocks[i].length = 0;
             }
-            
+
             for (var i = 1; i < lines.length; i++) {
                 var firstChar = lines[i].charAt(0);
                 Util.log('first char is ' + firstChar + ' and we still have ' + lines.length + ' lines and i is ' + i);

@@ -724,3 +724,88 @@ Drawing.drawCredits = function() {
 
     }
 };
+
+Drawing.drawAlert = function() {
+    // draw background for ligthbox-like alert window
+   // ctx.fillStyle = '#39404655';
+   // ctx.fillRect(0, 0, c.width, c.height);
+
+    ctx.fillStyle = '#515b63';
+
+    ctx.fillRect(c.width*0.15, c.height*0.2, c.width*0.7, c.height*0.6);
+
+
+// borders
+
+// inner border
+    ctx.strokeStyle = '#2f352e';
+    
+
+
+    // TOP BORDER
+
+    ctx.beginPath();
+    ctx.moveTo(c.width*0.15, c.height*0.2-1);
+    ctx.lineTo(c.width*0.85+1, c.height*0.2-1);
+    ctx.stroke();
+    ctx.closePath();
+
+
+    // BOTTOM BORDER
+
+    ctx.beginPath();
+    ctx.moveTo(c.width*0.15, c.height*0.8);
+    ctx.lineTo(c.width*0.85, c.height*0.8);
+    ctx.stroke();
+    ctx.closePath();
+
+
+    // LEFT BORDER
+    ctx.beginPath();
+    ctx.moveTo(c.width*0.15-1, c.height*0.2);
+    ctx.lineTo(c.width*0.15-1, c.height*0.8+1);
+    ctx.stroke();
+    ctx.closePath();
+
+    // RIGHT BORDER
+    ctx.beginPath();
+    ctx.moveTo(c.width*0.85+1, c.height*0.2);
+    ctx.lineTo(c.width*0.85+1, c.height*0.8+2);
+    ctx.stroke();
+    ctx.closePath();
+
+    ctx.strokeStyle = '#252a25';
+   
+
+    // TOP BORDER
+    ctx.beginPath();
+    ctx.moveTo(c.width*0.15+2, c.height*0.2-2);
+    ctx.lineTo(c.width*0.85+2, c.height*0.2-2);
+    ctx.stroke();
+    ctx.closePath();
+
+    // BOTTOM BORDER
+
+
+    ctx.beginPath();
+    ctx.moveTo((c.width*0.15)+2, c.height*0.8+2);
+    ctx.lineTo((c.width*0.85), c.height*0.8+2);
+    ctx.stroke();
+    ctx.closePath();
+
+    var buttonWidth = (c.width * 0.7) / currentAlert.buttons.length;
+    var buttonHeight = 80;
+    ctx.font = '36px TS4F';
+
+    for (var i=0; i<currentAlert.buttons.length; i++) {
+        ctx.fillStyle = '#434b52';
+        ctx.fillRect(c.width*0.15 + (i*buttonWidth), c.height*0.8 - buttonHeight, buttonWidth, buttonHeight);
+        ctx.fillStyle = 'white';
+        console.log('drawing text at x ' + (c.width*0.15 + (i*buttonWidth) + 10) + ' y ' + (c.height*0.8 - 10));
+        ctx.fillText(currentAlert.buttons[i],c.width*0.15 + (i*buttonWidth) + (buttonWidth - ctx.measureText(currentAlert.buttons[i]).width)/2, c.height*0.8 - (buttonHeight/2 - 18));
+
+    }
+
+
+}
+
