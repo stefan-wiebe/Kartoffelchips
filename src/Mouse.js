@@ -32,7 +32,7 @@ Mouse.click = function(e) {
                             // is there a block at mouse position that we can pick up? If so, rotate
                             else {
                                 if (placedBlocks[mouseX][mouseY] != undefined) {
-                                    rotateTool(tools[i]);
+                                    rotateTool(placedBlocks[mouseX][mouseY]);
                                 }
                             }
                         } else {
