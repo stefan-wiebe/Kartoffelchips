@@ -27,7 +27,8 @@ Drawing.drawCursor = function() {
 };
 Drawing.drawMouse = function() {
     if (selectedTool != -1) {
-        Drawing.drawSprite(tools[selectedTool].toString(), tools[selectedTool].rotation, mouseX, mouseY);
+        var offset = tools[selectedTool].isOn ? 4 : 0;
+        Drawing.drawSprite(tools[selectedTool].toString(), tools[selectedTool].rotation + offset, mouseX, mouseY);
     }
     ctx.fillStyle = "rgba(0,255,0,0.3)";
     if (blockExistsAt(mouseX, mouseY)) {
