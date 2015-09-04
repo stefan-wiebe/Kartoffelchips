@@ -141,7 +141,6 @@ Drawing.fillAlphaInCells = function() {
 			if (tools[i].isOn && tools[i].isPlaced) {
 				ctx.lineWidth = 2;
 
-
 				var toolName = tools[i].toString();
 				var rotation = tools[i].rotation;
 				var x = tools[i].x;
@@ -320,97 +319,97 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
     var result = true;
     var i = 0;
     rotation = (rotation + 2) % 4;
-    while (i < predefinedBlocks.length && result) {
 
-		if (predefinedBlocks[i].x == x && predefinedBlocks[i].y == y) {
-			var blockName = predefinedBlocks[i].toString();
+    var block = placedBlocks[x][y];
 
-			if (blockName == "Activator") {
-				predefinedBlocks[i].isOn = true;
-			} else if (blockName == "Receiver" && predefinedBlocks[i].color == color) {
-				result = false;
-				predefinedBlocks[i].isOn = true;
-			} else if (blockName == "Mirror") {
-				result = false;
-				predifinedBlocks[i].isOn = true;
-			} else {
-				result = false;
-			}
-		}
-        i++;
+    if (placedBlocks[x][y] == undefined && selectedTool != -1 && tools[selectedTool].x === x && tools[selectedTool].y === y) {
+        block = tools[selectedTool];
     }
-    i = 0;
-    while (i < tools.length && result) {
-        if (tools[i].isPlaced && tools[i].x == x && tools[i].y == y) {
+
+    if (block != undefined && block.isPlaced) {
+		var blockName = block.toString();
+
+        if (block.isPredefined == true) {
+    		if (blockName == "Activator") {
+    			block.isOn = true;
+    		} else if (blockName == "Receiver" && block.color == color) {
+    			result = false;
+    			block.isOn = true;
+    		} else if (blockName == "Mirror") {
+    			result = false;
+    			block.isOn = true;
+    		} else {
+                result = false;
+            }
+        } else {
             result = false;
 
-            if (tools[i].toString() == "Mirror") {
-                switch (tools[i].rotation) {
+            if (block.toString() == "Mirror") {
+                switch (block.rotation) {
                     case 0:
                     case 2:
-						if (rotation == 0 || rotation == 1) {
-							tools[i].inputs[0].isOn = true;
-							tools[i].inputs[0].color = color;
-						} else if (rotation == 2 || rotation == 3) {
-							tools[i].inputs[1].isOn = true;
-							tools[i].inputs[1].color = color;
-						}
+    					if (rotation == 0 || rotation == 1) {
+    						block.inputs[0].isOn = true;
+    						block.inputs[0].color = color;
+    					} else if (rotation == 2 || rotation == 3) {
+    						block.inputs[1].isOn = true;
+    						block.inputs[1].color = color;
+    					}
                         Drawing.drawLaserBeamFromPosition(x, y, (5 - rotation) % 4, color);
                         break;
                     case 1:
                     case 3:
-						if (rotation == 0 || rotation == 3) {
-							tools[i].inputs[0].isOn = true;
-							tools[i].inputs[0].color = color;
-						} else if (rotation == 1 || rotation == 2) {
-							tools[i].inputs[1].isOn = true;
-							tools[i].inputs[1].color = color;
-						}
+    					if (rotation == 0 || rotation == 3) {
+    						block.inputs[0].isOn = true;
+    						block.inputs[0].color = color;
+    					} else if (rotation == 1 || rotation == 2) {
+    						block.inputs[1].isOn = true;
+    						block.inputs[1].color = color;
+    					}
                         Drawing.drawLaserBeamFromPosition(x, y, (3 - rotation), color);
                         break;
                 }
 
-
-				tools[i].isOn = true;
-            } else if (tools[i].toString() == "Prism") {
-                switch (tools[i].rotation) {
+    			block.isOn = true;
+            } else if (block.toString() == "Prism") {
+                switch (block.rotation) {
                     case 0:
                     case 2:
-                        if (rotation == 3 - tools[i].rotation) {
-                            tools[i].inputs[0].isOn = true;
-                            tools[i].inputs[0].color = color;
+                        if (rotation == 3 - block.rotation) {
+                            block.inputs[0].isOn = true;
+                            block.inputs[0].color = color;
                         }
-                        if (rotation == 1 + tools[i].rotation) {
-                            tools[i].inputs[1].isOn = true;
-                            tools[i].inputs[1].color = color;
+                        if (rotation == 1 + block.rotation) {
+                            block.inputs[1].isOn = true;
+                            block.inputs[1].color = color;
                         }
                         break;
                     case 1:
                     case 3:
-                        if (rotation == (3 + tools[i].rotation) % 4) {
-                            tools[i].inputs[0].isOn = true;
-                            tools[i].inputs[0].color = color;
+                        if (rotation == (3 + block.rotation) % 4) {
+                            block.inputs[0].isOn = true;
+                            block.inputs[0].color = color;
                         }
-                        if (rotation == 3 - tools[i].rotation) {
-                            tools[i].inputs[1].isOn = true;
-                            tools[i].inputs[1].color = color;
+                        if (rotation == 3 - block.rotation) {
+                            block.inputs[1].isOn = true;
+                            block.inputs[1].color = color;
                         }
                         break;
                 }
 
-                if (tools[i].inputs[0].isOn && !tools[i].inputs[1].isOn) {
-                    Drawing.drawLaserBeamFromPosition(x, y, tools[i].rotation, tools[i].inputs[0].color);
-                } else if (!tools[i].inputs[0].isOn && tools[i].inputs[1].isOn) {
-                    Drawing.drawLaserBeamFromPosition(x, y, tools[i].rotation, tools[i].inputs[1].color);
-                } else if (tools[i].inputs[0].isOn && tools[i].inputs[1].isOn) {
-                    Drawing.drawLaserBeamFromPosition(x, y, tools[i].rotation, mixColors(tools[i].inputs[0].color, tools[i].inputs[1].color));
+                if (block.inputs[0].isOn && !block.inputs[1].isOn) {
+                    Drawing.drawLaserBeamFromPosition(x, y, block.rotation, block.inputs[0].color);
+                } else if (!block.inputs[0].isOn && block.inputs[1].isOn) {
+                    Drawing.drawLaserBeamFromPosition(x, y, block.rotation, block.inputs[1].color);
+                } else if (block.inputs[0].isOn && block.inputs[1].isOn) {
+                    Drawing.drawLaserBeamFromPosition(x, y, block.rotation, mixColors(block.inputs[0].color, block.inputs[1].color));
                 }
 
-				tools[i].isOn = true;
+    			block.isOn = true;
             }
         }
-        i++;
     }
+
     Util.log('Drawing laser beam in cell ' + x + ', ' + y + 'with rotation of ' + (rotation * 90) + ' degrees');
     if (result) {
         switch (map[x][y]) {
@@ -445,6 +444,7 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
                 break;
         }
     }
+
     return result;
 };
 
@@ -739,7 +739,7 @@ Drawing.drawAlert = function() {
 
 // inner border
     ctx.strokeStyle = '#2f352e';
-    
+
 
 
     // TOP BORDER
@@ -775,7 +775,7 @@ Drawing.drawAlert = function() {
     ctx.closePath();
 
     ctx.strokeStyle = '#252a25';
-   
+
 
     // TOP BORDER
     ctx.beginPath();
@@ -808,4 +808,3 @@ Drawing.drawAlert = function() {
 
 
 }
-
