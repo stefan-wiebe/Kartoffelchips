@@ -615,6 +615,8 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
     }
     return result;
 };
+
+//Perhaps this should be moved into an own file.
 Drawing.drawToolbox = function() {
     toolsByType = [];
     Util.log('drawing toolbox');

@@ -8,6 +8,7 @@ Mouse.click = function(e) {
         switch (gameState) {
             case GameState.IS_PLAYING:
                 switch (e.which) {
+                    //Left-click
                     case 1:
                         if (selectedTool == -1) {
                             // in inventory
@@ -47,15 +48,24 @@ Mouse.click = function(e) {
                             if (!blockExists) selectedTool = -1;
                         }
                         break;
+                    //Right-click
                     case 3:
                         console.log('right click');
-                        for (var i = 0; i < tools.length; i++) {
-                            if (tools[i].x == mouseX && tools[i].y == mouseY) {
-                                tools[i].x = 0;
-                                tools[i].y = 0;
-                                tools[i].isPlaced = false;
+                        if (selectedTool != -1) {
+                            tools[selectedTool].isPlaced = false;
+                            tools[selectedTool].x = 0;
+                            tools[selectedTool].y = 0;
+                            selectedTool = -1;
+                        } else {
+                            for (var i = 0; i < tools.length; i++) {
+                                if (tools[i].x == mouseX && tools[i].y == mouseY) {
+                                    tools[i].x = 0;
+                                    tools[i].y = 0;
+                                    tools[i].isPlaced = false;
+                                }
                             }
                         }
+
                         break;
                 }
                 break;
@@ -175,7 +185,7 @@ Mouse.move = function(e) {
                 Mouse.setBackButton();
                 selectedMenuItem = Mouse.getOptionIDForPosition(fullMouseX, fullMouseY);
                 console.log('selectedMenuItem ' + selectedMenuItem);
-                // detect hyperlink 
+                // detect hyperlink
 
                 break;
         }
