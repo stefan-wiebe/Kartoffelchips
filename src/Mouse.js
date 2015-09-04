@@ -126,18 +126,12 @@ Mouse.getMenuItemIDForPosition = function(x, y) {
     return -1;
 }
 
-<<<<<<< HEAD
-Mouse.getBlockAt
-=======
-
 Mouse.getButtonIDForPosition = function(x, y) {
     // TODO: MATHS
     if (x > c.width*0.15 && x <= c.width * 0.85 && y > (c.height*0.8 - buttonHeight) && y < c.height*0.8) {
         return (x-(c.width*0.15))/(c.width*0.7/currentAlert.buttons.length);
     }
 };
-
->>>>>>> f41af358fef2ea3db1185830a1cbc80ff848d823
 
 Mouse.toggleOption = function() {
     var i = 0;
