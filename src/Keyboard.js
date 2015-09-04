@@ -29,7 +29,7 @@ Keyboard.keydown = function(e) {
     Util.log(e);
     if (e.ctrlKey && e.altKey) {
         document.exitPointerLock = document.exitPointerLock || document.mozExitPointerLock || document.webkitExitPointerLock;
-
+        
         //Attempt to unlock
         document.exitPointerLock();
     }

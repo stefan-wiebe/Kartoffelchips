@@ -7,6 +7,7 @@ var height = 12;
 var level;
 var map = [];
 var tools = [];
+var blocks = [];
 var predefinedBlocks = [];
 var mouseX = 0;
 var mouseY = 0;
@@ -147,9 +148,10 @@ function resetLevel() {
 }
 function backToMenu() {
     level = null;
-    predefinedBlocks = [];
-    tools = [];
-    placedBlocks = [];
+    predefinedBlocks.length = 0;
+    tools.length = 0;;
+    blocks.length = 0;
+    placedBlocks.length = 0;;
 }
 function showHelpMessage() {
 
@@ -226,26 +228,6 @@ function tick() {
             case GameState.IN_CREDITS:
                 Drawing.drawCredits();
             break;
-            case GameState.IS_PLAYING:
-                Drawing.drawBoard();
-    			Drawing.fillAlphaInCells();
-                Drawing.drawPredefinedBlocks();
-    			Drawing.drawToolbox();
-                Drawing.drawActionButtons();
-    			disableAllElements();
-                Drawing.drawLaserBeam();
-    			Drawing.drawTools();
-                Drawing.drawMouse();
-                break;
-            case GameState.HAS_WON:
-                Drawing.drawWinScreen();
-                break;
-            case GameState.IN_OPTIONS:
-                Drawing.drawOptions();
-                break;
-            case GameState.IN_CREDITS:
-                Drawing.drawCredits();
-                break;
         }
     } else {
         Drawing.drawPointerLockWarning();
@@ -283,18 +265,6 @@ function blockExistsAt(x, y, obj) {
     if (!blockFound) {
         blockFound = placedBlocks[x][y] != undefined && placedBlocks[x][y] != obj;
     }
-
-    // var i = 0M
-    // while (!blockFound && i < predefinedBlocks.length) {
-    //     blockFound = predefinedBlocks[i].x == x && predefinedBlocks[i].y == y;
-    //     i++;
-    // }
-    //
-    // i = 0;
-    // while (!blockFound && i < tools.length) {
-    //     blockFound = tools[i].isPlaced && tools[i].x == x && tools[i].y == y && obj != undefined && obj != tools[i];
-    //     i++;
-    // }
 
     return blockFound;
 }
@@ -344,8 +314,10 @@ function loadLevel(id) {
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             var lines = xmlhttp.responseText.match(/[^\r\n]+/g);
-			predefinedBlocks = [];
-			tools = [];
+			predefinedBlocks.length = 0;
+			tools.length = 0;
+            blocks.length = 0;
+
             for (var i = 0; i < 16; i++) {
                 placedBlocks[i].length = 0;
             }
@@ -460,6 +432,10 @@ function loadLevel(id) {
                     }
                 }
             }
+
+            blocks = blocks.concat(predefinedBlocks);
+            blocks = blocks.concat(tools);
+
             Util.log('level parsed');
                 level = id;
                 gameState = GameState.IS_PLAYING;

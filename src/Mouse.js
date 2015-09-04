@@ -31,10 +31,8 @@ Mouse.click = function(e) {
                             }
                             // is there a block at mouse position that we can pick up? If so, rotate
                             else {
-                                for (var i = 0; i < tools.length; i++) {
-                                    if (tools[i].x == mouseX && tools[i].y == mouseY) {
-                                        rotateTool(tools[i]);
-                                    }
+                                if (placedBlocks[mouseX][mouseY] != undefined) {
+                                    rotateTool(tools[i]);
                                 }
                             }
                         } else {

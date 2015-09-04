@@ -100,203 +100,183 @@ Drawing.drawLaserBeam = function() {
     }
 };
 Drawing.fillAlphaInCells = function() {
-		for (var i = 0; i < predefinedBlocks.length; i++) {
-			if (predefinedBlocks[i].isOn && predefinedBlocks[i].isPlaced) {
-				ctx.lineWidth = 2;
 
-				var predefinedName = predefinedBlocks[i].toString();
-				var rotation = predefinedBlocks[i].rotation;
-				var x = predefinedBlocks[i].x;
-				var y = predefinedBlocks[i].y;
+	for (var i = 0; i < blocks.length; i++) {
+		if (blocks[i].isOn && blocks[i].isPlaced) {
+			ctx.lineWidth = 2;
 
-				var startX = x * spriteSize;
-				var halfX = x * spriteSize + spriteSize / 2;
-				var fullX = startX + spriteSize;
+			var blockName = blocks[i].toString();
+			var rotation = blocks[i].rotation;
+			var x = blocks[i].x;
+			var y = blocks[i].y;
 
-				var startY = y * spriteSize;
-				var halfY = y * spriteSize + spriteSize / 2;
-				var fullY = startY + spriteSize;
+			var startX = x * spriteSize;
+			var halfX = x * spriteSize + spriteSize / 2;
+			var fullX = startX + spriteSize;
 
-				if (predefinedName == "Emitter") {
-					if (rotation == 0 || rotation == 2) {
+			var startY = y * spriteSize;
+			var halfY = y * spriteSize + spriteSize / 2;
+			var fullY = startY + spriteSize;
+
+			if (blockName == "Emitter") {
+				if (rotation == 0 || rotation == 2) {
+					ctx.beginPath();
+					ctx.strokeStyle = blocks[i].color;
+					ctx.moveTo(halfX, startY);
+					ctx.lineTo(halfX, fullY);
+					ctx.stroke();
+					ctx.closePath();
+				} else {
+					ctx.beginPath();
+					ctx.strokeStyle = blocks[i].color;
+					ctx.moveTo(startX, halfY);
+					ctx.lineTo(fullX, halfY);
+					ctx.stroke();
+					ctx.closePath();
+				}
+            } else if (blockName == "Mirror") {
+				if (rotation == 0 || rotation == 2) {
+					if (blocks[i].inputs[0].isOn) {
 						ctx.beginPath();
-						ctx.strokeStyle = predefinedBlocks[i].color;
-						ctx.moveTo(halfX, startY);
-						ctx.lineTo(halfX, fullY);
+						ctx.strokeStyle = blocks[i].inputs[0].color;
+						ctx.moveTo(halfX, y * spriteSize);
+						ctx.lineTo(halfX, halfY);
+						ctx.lineTo(fullX, halfY);
 						ctx.stroke();
 						ctx.closePath();
-					} else {
+					}
+					if (blocks[i].inputs[1].isOn) {
 						ctx.beginPath();
-						ctx.strokeStyle = predefinedBlocks[i].color;
-						ctx.moveTo(startX, halfY);
+						ctx.strokeStyle = blocks[i].inputs[1].color;
+						ctx.moveTo(halfX, fullY);
+						ctx.lineTo(halfX, halfY);
+						ctx.lineTo(startX, halfY);
+						ctx.stroke();
+						ctx.closePath();
+					}
+				} else {
+					if (blocks[i].inputs[0].isOn) {
+						ctx.beginPath();
+						ctx.strokeStyle = blocks[i].inputs[0].color;
+						ctx.moveTo(halfX, startY);
+						ctx.lineTo(halfX, halfY);
+						ctx.lineTo(startX, halfY);
+						ctx.stroke();
+						ctx.closePath();
+					}
+					if (blocks[i].inputs[1].isOn) {
+						ctx.beginPath();
+						ctx.strokeStyle = blocks[i].inputs[1].color;
+						ctx.moveTo(halfX, fullY);
+						ctx.lineTo(halfX, halfY);
 						ctx.lineTo(fullX, halfY);
 						ctx.stroke();
 						ctx.closePath();
 					}
 				}
-			}
-		}
-
-		for (var i = 0; i < tools.length; i++) {
-			if (tools[i].isOn && tools[i].isPlaced) {
-				ctx.lineWidth = 2;
-
-				var toolName = tools[i].toString();
-				var rotation = tools[i].rotation;
-				var x = tools[i].x;
-				var y = tools[i].y;
-
-				var startX = x * spriteSize;
-				var halfX = x * spriteSize + spriteSize / 2;
-				var fullX = startX + spriteSize;
-
-				var startY = y * spriteSize;
-				var halfY = y * spriteSize + spriteSize / 2;
-				var fullY = startY + spriteSize;
-
-				if (toolName == "Mirror") {
-					if (rotation == 0 || rotation == 2) {
-						if (tools[i].inputs[0].isOn) {
-							ctx.beginPath();
-							ctx.strokeStyle = tools[i].inputs[0].color;
-							ctx.moveTo(halfX, y * spriteSize);
-							ctx.lineTo(halfX, halfY);
-							ctx.lineTo(fullX, halfY);
-							ctx.stroke();
-							ctx.closePath();
-						}
-						if (tools[i].inputs[1].isOn) {
-							ctx.beginPath();
-							ctx.strokeStyle = tools[i].inputs[1].color;
-							ctx.moveTo(halfX, fullY);
-							ctx.lineTo(halfX, halfY);
-							ctx.lineTo(startX, halfY);
-							ctx.stroke();
-							ctx.closePath();
-						}
-					} else {
-						if (tools[i].inputs[0].isOn) {
-							ctx.beginPath();
-							ctx.strokeStyle = tools[i].inputs[0].color;
-							ctx.moveTo(halfX, startY);
-							ctx.lineTo(halfX, halfY);
-							ctx.lineTo(startX, halfY);
-							ctx.stroke();
-							ctx.closePath();
-						}
-						if (tools[i].inputs[1].isOn) {
-							ctx.beginPath();
-							ctx.strokeStyle = tools[i].inputs[1].color;
-							ctx.moveTo(halfX, fullY);
-							ctx.lineTo(halfX, halfY);
-							ctx.lineTo(fullX, halfY);
-							ctx.stroke();
-							ctx.closePath();
-						}
-					}
-				} else if (toolName == "Prism") {
-					if (rotation == 0) {
-						if (tools[i].inputs[0].isOn) {
-							ctx.beginPath();
-							ctx.strokeStyle = tools[i].inputs[0].color;
-							ctx.moveTo(startX, halfY);
-							ctx.lineTo(halfX, halfY);
-							ctx.stroke();
-							ctx.closePath();
-						}
-						if (tools[i].inputs[1].isOn) {
-							ctx.beginPath();
-							ctx.strokeStyle = tools[i].inputs[1].color;
-							ctx.moveTo(fullX, halfY);
-							ctx.lineTo(halfX, halfY);
-							ctx.stroke();
-							ctx.closePath();
-						}
-
+			} else if (blockName == "Prism") {
+				if (rotation == 0) {
+					if (blocks[i].inputs[0].isOn) {
 						ctx.beginPath();
-						ctx.strokeStyle = mixColors(tools[i].inputs[0].color, tools[i].inputs[1].color);
-						ctx.moveTo(halfX, halfY);
-						ctx.lineTo(halfX, startY);
-						ctx.stroke();
-						ctx.closePath();
-					} else if (rotation == 1) {
-						if (tools[i].inputs[0].isOn) {
-							ctx.beginPath();
-							ctx.strokeStyle = tools[i].inputs[0].color;
-							ctx.moveTo(halfX, startY);
-							ctx.lineTo(halfX, halfY);
-							ctx.stroke();
-							ctx.closePath();
-						}
-						if (tools[i].inputs[1].isOn) {
-							ctx.beginPath();
-							ctx.strokeStyle = tools[i].inputs[1].color;
-							ctx.moveTo(halfX, halfY);
-							ctx.lineTo(halfX, fullY);
-							ctx.stroke();
-							ctx.closePath();
-						}
-
-						ctx.beginPath();
-						ctx.strokeStyle = mixColors(tools[i].inputs[0].color, tools[i].inputs[1].color);
-						ctx.moveTo(halfX, halfY);
-						ctx.lineTo(fullX, halfY);
-						ctx.stroke();
-						ctx.closePath();
-					} else if (rotation == 2) {
-						if (tools[i].inputs[0].isOn) {
-							ctx.beginPath();
-							ctx.strokeStyle = tools[i].inputs[0].color;
-							ctx.moveTo(fullX, halfY);
-							ctx.lineTo(halfX, halfY);
-							ctx.stroke();
-							ctx.closePath();
-						}
-						if (tools[i].inputs[1].isOn) {
-							ctx.beginPath();
-							ctx.strokeStyle = tools[i].inputs[1].color;
-							ctx.moveTo(halfX, halfY);
-							ctx.lineTo(startX, halfY);
-							ctx.stroke();
-							ctx.closePath();
-						}
-
-						ctx.beginPath();
-						ctx.strokeStyle = mixColors(tools[i].inputs[0].color, tools[i].inputs[1].color);
-						ctx.moveTo(halfX, halfY);
-						ctx.lineTo(halfX, fullY);
-						ctx.stroke();
-						ctx.closePath();
-					} else if (rotation == 3) {
-						if (tools[i].inputs[0].isOn) {
-							ctx.beginPath();
-							ctx.strokeStyle = tools[i].inputs[0].color;
-							ctx.moveTo(halfX, halfY);
-							ctx.lineTo(halfX, fullY);
-							ctx.stroke();
-							ctx.closePath();
-						}
-						if (tools[i].inputs[1].isOn) {
-							ctx.beginPath();
-							ctx.strokeStyle = tools[i].inputs[1].color;
-							ctx.moveTo(halfX, startY);
-							ctx.lineTo(halfX, halfY);
-							ctx.stroke();
-							ctx.closePath();
-						}
-
-						ctx.beginPath();
-						ctx.strokeStyle = mixColors(tools[i].inputs[0].color, tools[i].inputs[1].color);
+						ctx.strokeStyle = blocks[i].inputs[0].color;
 						ctx.moveTo(startX, halfY);
 						ctx.lineTo(halfX, halfY);
 						ctx.stroke();
 						ctx.closePath();
 					}
+					if (blocks[i].inputs[1].isOn) {
+						ctx.beginPath();
+						ctx.strokeStyle = blocks[i].inputs[1].color;
+						ctx.moveTo(fullX, halfY);
+						ctx.lineTo(halfX, halfY);
+						ctx.stroke();
+						ctx.closePath();
+					}
+
+					ctx.beginPath();
+					ctx.strokeStyle = mixColors(blocks[i].inputs[0].color, blocks[i].inputs[1].color);
+					ctx.moveTo(halfX, halfY);
+					ctx.lineTo(halfX, startY);
+					ctx.stroke();
+					ctx.closePath();
+				} else if (rotation == 1) {
+					if (blocks[i].inputs[0].isOn) {
+						ctx.beginPath();
+						ctx.strokeStyle = blocks[i].inputs[0].color;
+						ctx.moveTo(halfX, startY);
+						ctx.lineTo(halfX, halfY);
+						ctx.stroke();
+						ctx.closePath();
+					}
+					if (blocks[i].inputs[1].isOn) {
+						ctx.beginPath();
+						ctx.strokeStyle = blocks[i].inputs[1].color;
+						ctx.moveTo(halfX, halfY);
+						ctx.lineTo(halfX, fullY);
+						ctx.stroke();
+						ctx.closePath();
+					}
+
+					ctx.beginPath();
+					ctx.strokeStyle = mixColors(blocks[i].inputs[0].color, blocks[i].inputs[1].color);
+					ctx.moveTo(halfX, halfY);
+					ctx.lineTo(fullX, halfY);
+					ctx.stroke();
+					ctx.closePath();
+				} else if (rotation == 2) {
+					if (blocks[i].inputs[0].isOn) {
+						ctx.beginPath();
+						ctx.strokeStyle = blocks[i].inputs[0].color;
+						ctx.moveTo(fullX, halfY);
+						ctx.lineTo(halfX, halfY);
+						ctx.stroke();
+						ctx.closePath();
+					}
+					if (blocks[i].inputs[1].isOn) {
+						ctx.beginPath();
+						ctx.strokeStyle = blocks[i].inputs[1].color;
+						ctx.moveTo(halfX, halfY);
+						ctx.lineTo(startX, halfY);
+						ctx.stroke();
+						ctx.closePath();
+					}
+
+					ctx.beginPath();
+					ctx.strokeStyle = mixColors(blocks[i].inputs[0].color, blocks[i].inputs[1].color);
+					ctx.moveTo(halfX, halfY);
+					ctx.lineTo(halfX, fullY);
+					ctx.stroke();
+					ctx.closePath();
+				} else if (rotation == 3) {
+					if (blocks[i].inputs[0].isOn) {
+						ctx.beginPath();
+						ctx.strokeStyle = blocks[i].inputs[0].color;
+						ctx.moveTo(halfX, halfY);
+						ctx.lineTo(halfX, fullY);
+						ctx.stroke();
+						ctx.closePath();
+					}
+					if (blocks[i].inputs[1].isOn) {
+						ctx.beginPath();
+						ctx.strokeStyle = blocks[i].inputs[1].color;
+						ctx.moveTo(halfX, startY);
+						ctx.lineTo(halfX, halfY);
+						ctx.stroke();
+						ctx.closePath();
+					}
+
+					ctx.beginPath();
+					ctx.strokeStyle = mixColors(blocks[i].inputs[0].color, blocks[i].inputs[1].color);
+					ctx.moveTo(startX, halfY);
+					ctx.lineTo(halfX, halfY);
+					ctx.stroke();
+					ctx.closePath();
 				}
 			}
 		}
+	}
 
-    }
+}
     /*
         ▄▄▄▄▀▀▀▀▀▀▀▀▄▄▄▄▄▄
         █                  ▀▀▄
