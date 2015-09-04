@@ -46,7 +46,7 @@ title: 'resetLevel',
 {
     title: 'backToMenu',
     action: backToMenu
-}   
+}
 ];
 
 var credits = [
@@ -130,7 +130,7 @@ function hasWon () {
         }
     }
     return true;
-} 
+}
 }
 
 function resetLevel() {
@@ -202,7 +202,11 @@ if(document.pointerLockElement === c || document.mozPointerLockElement === c || 
             Drawing.drawPredefinedBlocks();
 			Drawing.drawToolbox();
             Drawing.drawActionButtons();
+<<<<<<< HEAD
 		    turnOffAllElements();
+=======
+			disableAllElements();
+>>>>>>> 781c5450e17ae709ecbcd9119a0b562ad8628d11
             Drawing.drawLaserBeam();
 			Drawing.drawTools();
             Drawing.drawMouse();
@@ -227,7 +231,8 @@ if(document.pointerLockElement === c || document.mozPointerLockElement === c || 
     requestAnimationFrame(tick);
 }
 
-function turnOffAllElements() {
+
+function disableAllElements() {
 	for (var i = 0; i < predefinedBlocks.length; i++) {
 		if (predefinedBlocks[i].toString() != "Emitter") {
 			predefinedBlocks[i].isOn = false
@@ -285,23 +290,23 @@ function mixColors(color1, color2) {
 	var r1 = parseInt(color1.substring(1, 3), 16);
 	var g1 = parseInt(color1.substring(3, 5), 16);
 	var b1 = parseInt(color1.substring(5, 7), 16);
-	
+
 	var r2 = parseInt(color2.substring(1, 3), 16);
 	var g2 = parseInt(color2.substring(3, 5), 16);
 	var b2 = parseInt(color2.substring(5, 7), 16);
-	
+
 	var r3 = parseInt((r1 + r2) / 2);
 	var g3 = parseInt((g1 + g2) / 2);
 	var b3 = parseInt((b1 + b2) / 2);
-	
+
 	var factor = 255 / Math.max(r3, g3, b3);
-	
+
 	r3 *= factor;
 	g3 *= factor;
 	b3 *= factor;
-	
+
 	return "#" + ("00" + r3.toString(16)).slice(-2) + ("00" + g3.toString(16)).slice(-2) + ("00" + b3.toString(16)).slice(-2);
-	
+
 }
 
 function loadLevel(id) {

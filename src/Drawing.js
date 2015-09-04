@@ -101,60 +101,60 @@ Drawing.drawLaserBeam = function() {
 };
 Drawing.fillAlphaInCells = function() {
 		for (var i = 0; i < predefinedBlocks.length; i++) {
-			if (predefinedBlocks[i].isOn) {
+			if (predefinedBlocks[i].isOn && predefinedBlocks[i].isPlaced) {
 				ctx.lineWidth = 2;
-				
+
 				var predefinedName = predefinedBlocks[i].toString();
 				var rotation = predefinedBlocks[i].rotation;
 				var x = predefinedBlocks[i].x;
 				var y = predefinedBlocks[i].y;
-				
+
 				var startX = x * spriteSize;
 				var halfX = x * spriteSize + spriteSize / 2;
 				var fullX = startX + spriteSize;
-				
+
 				var startY = y * spriteSize;
 				var halfY = y * spriteSize + spriteSize / 2;
 				var fullY = startY + spriteSize;
-				
+
 				if (predefinedName == "Emitter") {
 					if (rotation == 0 || rotation == 2) {
 						ctx.beginPath();
 						ctx.strokeStyle = predefinedBlocks[i].color;
-						ctx.moveTo(x * spriteSize + spriteSize / 2, y * spriteSize);
-						ctx.lineTo(x * spriteSize + spriteSize / 2, fullY + spriteSize);
+						ctx.moveTo(halfX, startY);
+						ctx.lineTo(halfX, fullY);
 						ctx.stroke();
 						ctx.closePath();
 					} else {
 						ctx.beginPath();
 						ctx.strokeStyle = predefinedBlocks[i].color;
-						ctx.moveTo(x * spriteSize, y * spriteSize + spriteSize / 2);
-						ctx.lineTo(fullX, y * spriteSize + spriteSize / 2);
+						ctx.moveTo(startX, halfY);
+						ctx.lineTo(fullX, halfY);
 						ctx.stroke();
-						ctx.closePath();	
+						ctx.closePath();
 					}
 				}
 			}
 		}
-		
+
 		for (var i = 0; i < tools.length; i++) {
-			if (tools[i].isOn) {
+			if (tools[i].isOn && tools[i].isPlaced) {
 				ctx.lineWidth = 2;
-				
-				
+
+
 				var toolName = tools[i].toString();
 				var rotation = tools[i].rotation;
 				var x = tools[i].x;
 				var y = tools[i].y;
-				
+
 				var startX = x * spriteSize;
 				var halfX = x * spriteSize + spriteSize / 2;
 				var fullX = startX + spriteSize;
-				
+
 				var startY = y * spriteSize;
 				var halfY = y * spriteSize + spriteSize / 2;
 				var fullY = startY + spriteSize;
-				
+
 				if (toolName == "Mirror") {
 					if (rotation == 0 || rotation == 2) {
 						if (tools[i].inputs[0].isOn) {
@@ -165,7 +165,7 @@ Drawing.fillAlphaInCells = function() {
 							ctx.lineTo(fullX, halfY);
 							ctx.stroke();
 							ctx.closePath();
-						} 
+						}
 						if (tools[i].inputs[1].isOn) {
 							ctx.beginPath();
 							ctx.strokeStyle = tools[i].inputs[1].color;
@@ -184,7 +184,7 @@ Drawing.fillAlphaInCells = function() {
 							ctx.lineTo(startX, halfY);
 							ctx.stroke();
 							ctx.closePath();
-						} 
+						}
 						if (tools[i].inputs[1].isOn) {
 							ctx.beginPath();
 							ctx.strokeStyle = tools[i].inputs[1].color;
@@ -213,7 +213,7 @@ Drawing.fillAlphaInCells = function() {
 							ctx.stroke();
 							ctx.closePath();
 						}
-						
+
 						ctx.beginPath();
 						ctx.strokeStyle = mixColors(tools[i].inputs[0].color, tools[i].inputs[1].color);
 						ctx.moveTo(halfX, halfY);
@@ -237,7 +237,7 @@ Drawing.fillAlphaInCells = function() {
 							ctx.stroke();
 							ctx.closePath();
 						}
-						
+
 						ctx.beginPath();
 						ctx.strokeStyle = mixColors(tools[i].inputs[0].color, tools[i].inputs[1].color);
 						ctx.moveTo(halfX, halfY);
@@ -261,7 +261,7 @@ Drawing.fillAlphaInCells = function() {
 							ctx.stroke();
 							ctx.closePath();
 						}
-						
+
 						ctx.beginPath();
 						ctx.strokeStyle = mixColors(tools[i].inputs[0].color, tools[i].inputs[1].color);
 						ctx.moveTo(halfX, halfY);
@@ -285,7 +285,7 @@ Drawing.fillAlphaInCells = function() {
 							ctx.stroke();
 							ctx.closePath();
 						}
-						
+
 						ctx.beginPath();
 						ctx.strokeStyle = mixColors(tools[i].inputs[0].color, tools[i].inputs[1].color);
 						ctx.moveTo(startX, halfY);
@@ -296,7 +296,7 @@ Drawing.fillAlphaInCells = function() {
 				}
 			}
 		}
-        
+
     }
     /*
         ▄▄▄▄▀▀▀▀▀▀▀▀▄▄▄▄▄▄
@@ -489,10 +489,10 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
     var i = 0;
     rotation = (rotation + 2) % 4;
     while (i < predefinedBlocks.length && result) {
-	
+
 		if (predefinedBlocks[i].x == x && predefinedBlocks[i].y == y) {
 			var blockName = predefinedBlocks[i].toString();
-			
+
 			if (blockName == "Activator") {
 				predefinedBlocks[i].isOn = true;
 			} else if (blockName == "Receiver" && predefinedBlocks[i].color == color) {
@@ -511,7 +511,7 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
     while (i < tools.length && result) {
         if (tools[i].isPlaced && tools[i].x == x && tools[i].y == y) {
             result = false;
-			
+
             if (tools[i].toString() == "Mirror") {
                 switch (tools[i].rotation) {
                     case 0:
@@ -537,8 +537,8 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
                         Drawing.drawLaserBeamFromPosition(x, y, (3 - rotation), color);
                         break;
                 }
-				
-				
+
+
 				tools[i].isOn = true;
             } else if (tools[i].toString() == "Prism") {
                 switch (tools[i].rotation) {
@@ -565,7 +565,7 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
                         }
                         break;
                 }
-				
+
                 if (tools[i].inputs[0].isOn && !tools[i].inputs[1].isOn) {
                     Drawing.drawLaserBeamFromPosition(x, y, tools[i].rotation, tools[i].inputs[0].color);
                 } else if (!tools[i].inputs[0].isOn && tools[i].inputs[1].isOn) {
@@ -573,7 +573,7 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
                 } else if (tools[i].inputs[0].isOn && tools[i].inputs[1].isOn) {
                     Drawing.drawLaserBeamFromPosition(x, y, tools[i].rotation, mixColors(tools[i].inputs[0].color, tools[i].inputs[1].color));
                 }
-				
+
 				tools[i].isOn = true;
             }
         }
@@ -615,6 +615,8 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
     }
     return result;
 };
+
+//Perhaps this should be moved into an own file.
 Drawing.drawToolbox = function() {
     toolsByType = [];
     Util.log('drawing toolbox');
@@ -878,7 +880,7 @@ Drawing.drawCredits = function() {
     ctx.fillStyle = 'white';
 
         ctx.fillText(credits[i].name, c.width*0.2, c.height*0.3 + (i*80));
-    
+
     ctx.font = '24px TS4F';
     ctx.fillStyle = '#365ec4';
 
@@ -974,3 +976,4 @@ Drawing.drawAlert = function() {
 
 
 }
+
