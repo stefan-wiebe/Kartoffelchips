@@ -16,7 +16,7 @@ var fullMouseY = 0;
 var selectedMenuItem = -1;
 var gameState;
 var backButtonHover = false;
-
+var currentAlert;
 
 var menu = [
 {
@@ -177,6 +177,14 @@ function loadSprite(spriteName) {
     sprites[spriteName] = newSprite;
 }
 
+function showAlert(message, title, buttons) {
+    currentAlert = new Alert();
+    currentAlert.message = message;
+    currentAlert.title = title;
+    currentAlert.buttons = buttons;
+}
+
+
 function tick() {
     // CLEAR CANVAS
     ctx.fillStyle = 'white';
@@ -194,10 +202,13 @@ if(document.pointerLockElement === c || document.mozPointerLockElement === c || 
             Drawing.drawPredefinedBlocks();
 			Drawing.drawToolbox();
             Drawing.drawActionButtons();
-			setOffAllElements();
+		    turnOffAllElements();
             Drawing.drawLaserBeam();
 			Drawing.drawTools();
             Drawing.drawMouse();
+            if (currentAlert) {
+                Drawing.drawAlert();
+            }
             break;
         case GameState.HAS_WON:
             Drawing.drawWinScreen();
@@ -216,7 +227,7 @@ if(document.pointerLockElement === c || document.mozPointerLockElement === c || 
     requestAnimationFrame(tick);
 }
 
-function setOffAllElements() {
+function turnOffAllElements() {
 	for (var i = 0; i < predefinedBlocks.length; i++) {
 		if (predefinedBlocks[i].toString() != "Emitter") {
 			predefinedBlocks[i].isOn = false
