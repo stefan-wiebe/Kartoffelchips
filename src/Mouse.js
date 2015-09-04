@@ -154,6 +154,7 @@ Mouse.toggleOption = function() {
         }
         i++;
     }
+    saveOptions();
 };
 Mouse.setBackButton = function() {
      if (fullMouseX >= 80 && fullMouseX <= 150 && fullMouseY >= 50 && fullMouseY <= 150) {

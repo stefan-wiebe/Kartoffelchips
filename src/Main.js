@@ -202,11 +202,8 @@ if(document.pointerLockElement === c || document.mozPointerLockElement === c || 
             Drawing.drawPredefinedBlocks();
 			Drawing.drawToolbox();
             Drawing.drawActionButtons();
-<<<<<<< HEAD
-		    turnOffAllElements();
-=======
+
 			disableAllElements();
->>>>>>> 781c5450e17ae709ecbcd9119a0b562ad8628d11
             Drawing.drawLaserBeam();
 			Drawing.drawTools();
             Drawing.drawMouse();
