@@ -4,5 +4,6 @@ function Emitter() {
 	this.rotation = 0;
 	this.color = 'red';
 	this.isOn = true;
+	this.isPredefined = true;
 };
 Emitter.prototype.toString = function () {return "Emitter"};

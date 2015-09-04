@@ -7,9 +7,10 @@ Mouse.click = function(e) {
     if (document.pointerLockElement === c || document.mozPointerLockElement === c || document.webkitPointerLockElement === c) {
         switch (gameState) {
             case GameState.IS_PLAYING:
-                switch (e.which) {
-                    //Left-click
-                    case 1:
+                //"which" is not standardised, switched it with the "button" attribute.
+                switch (e.button) {
+                    //Main-button (usually the left button)
+                    case 0:
                         if (selectedTool == -1) {
                             // in inventory
                             if (mouseX == 15 && mouseY > 0 && mouseY <= toolsByType.length) {
@@ -32,36 +33,28 @@ Mouse.click = function(e) {
                             else {
                                 for (var i = 0; i < tools.length; i++) {
                                     if (tools[i].x == mouseX && tools[i].y == mouseY) {
-                                        if (tools[i].rotation == 3) {
-                                            tools[i].rotation = 0;
-                                        } else {
-                                            tools[i].rotation++;
-                                        }
-                                        console.log('rotation is' + tools[i].rotation);
+                                        rotateTool(tools[i]);
                                     }
                                 }
                             }
                         } else {
                             var blockExists = blockExistsAt(mouseX, mouseY, tools[selectedTool]);
-                            tools[selectedTool].isPlaced = !blockExists;
-                            //tools[selectedTool].isPlaced = true;
-                            if (!blockExists) selectedTool = -1;
+                            if (!blockExists) {
+                                placeBlock(tools[selectedTool]);
+                                selectedTool = -1;
+                            }
                         }
                         break;
-                    //Right-click
-                    case 3:
+                    //Secondary button (usually the right button)
+                    case 2:
                         console.log('right click');
                         if (selectedTool != -1) {
-                            tools[selectedTool].isPlaced = false;
-                            tools[selectedTool].x = 0;
-                            tools[selectedTool].y = 0;
+                            unplaceBlock(tools[selectedTool]);
                             selectedTool = -1;
                         } else {
                             for (var i = 0; i < tools.length; i++) {
                                 if (tools[i].x == mouseX && tools[i].y == mouseY) {
-                                    tools[i].x = 0;
-                                    tools[i].y = 0;
-                                    tools[i].isPlaced = false;
+                                    unplaceBlock(tools[i]);
                                 }
                             }
                         }
@@ -132,6 +125,9 @@ Mouse.getMenuItemIDForPosition = function(x, y) {
     }
     return -1;
 }
+
+Mouse.getBlockAt
+
 Mouse.toggleOption = function() {
     var i = 0;
     for (var key in options) {
