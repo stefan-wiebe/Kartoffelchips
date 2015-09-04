@@ -171,8 +171,8 @@ Mouse.move = function(e) {
                 break;
             case GameState.IS_PLAYING:
                 if (currentAlert) {
-                selectedMenuItem = Mouse.getOptionIDForPosition(fullMouseX, fullMouseY);
-                console.log('selected index ' + selectedMenuItem);
+                    selectedMenuItem = Mouse.getOptionIDForPosition(fullMouseX, fullMouseY);
+                    console.log('selected index ' + selectedMenuItem);
                 } else if (selectedTool > -1) {
                     tools[selectedTool].isPlaced = !blockExistsAt(mouseX, mouseY, tools[selectedTool]);
                     tools[selectedTool].x = mouseX;
