@@ -31,8 +31,9 @@ function unplaceBlock(block, moveBack) {
 	if (block != undefined && block.isPredefined != true) {
 		map[block.x][block.y].block = undefined;
 		if (moveBack != false) {
-			block.x = 0;
-			block.y = 0;
+			pos = getToolPosInToolBox(block);
+			block.x = pos[0];
+			block.y = pos[1];
 			block.rotation = 0;
 			block.isOn = false;
 			block.isPlaced = false;

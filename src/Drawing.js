@@ -87,70 +87,68 @@ Drawing.drawTools = function() {
 
 Drawing.drawTool = function(tool) {
     if (typeof tool == "object") {
-        if (tool.isPlaced) {
-            var toolType = tool.toString();
-            var offset = 0;
-            var index = 0;
+        var toolType = tool.toString();
+        var offset = 0;
+        var index = 0;
 
-            switch (toolType) {
-                case "Prism":
-                    offset = tool.inputs[0].isOn || tool.inputs[1].isOn ? 4 : 0;
-                    index = offset;
+        switch (toolType) {
+            case "Prism":
+                offset = tool.inputs[0].isOn || tool.inputs[1].isOn ? 4 : 0;
+                index = offset;
 
-                    if (tool.hasOwnProperty('rotation')) {
-                        Util.log('rotation is ' + tool.rotation);
-                        index = tool.rotation + offset;
-                    }
-
-                    break;
-                default:
-                    offset = tool.isOn ? 4 : 0;
-                    index = offset;
-
-                    if (tool.hasOwnProperty('rotation')) {
-                        Util.log('rotation is ' + tool.rotation);
-                        index = tool.rotation + offset;
-                    }
-
-                    break;
-            }
-
-            Util.log('index is ' + index);
-
-            Drawing.drawSprite(toolType, index - offset, tool.x, tool.y);
-
-            if (toolType == "PortalInput" || toolType == "PortalOutput") {
-                var x = tool.x;
-                var y = tool.y;
-
-                var startX = x * spriteSize;
-                var halfX = x * spriteSize + spriteSize / 2;
-                var fullX = startX + spriteSize;
-
-                var startY = y * spriteSize;
-                var halfY = y * spriteSize + spriteSize / 2;
-                var fullY = startY + spriteSize;
-                ctx.fillStyle = tool.color;
-
-                switch (tool.rotation) {
-                    case 0:
-                        ctx.fillRect(startX, halfY, spriteSize, spriteSize / 2);
-                        break;
-                    case 1:
-                        ctx.fillRect(startX, startY, spriteSize / 2, spriteSize);
-                        break;
-                    case 2:
-                        ctx.fillRect(startX, startY, spriteSize, spriteSize / 2);
-                        break;
-                    case 3:
-                        ctx.fillRect(halfX, startY, spriteSize / 2, spriteSize);
-                        break;
+                if (tool.hasOwnProperty('rotation')) {
+                    Util.log('rotation is ' + tool.rotation);
+                    index = tool.rotation + offset;
                 }
-            }
 
-            Drawing.fillAlphaOfBlock(tool);
-            Drawing.drawSprite(toolType, index, tool.x, tool.y);
+                break;
+            default:
+                offset = tool.isOn ? 4 : 0;
+                index = offset;
+
+                if (tool.hasOwnProperty('rotation')) {
+                    Util.log('rotation is ' + tool.rotation);
+                    index = tool.rotation + offset;
+                }
+
+                break;
         }
+
+        Util.log('index is ' + index);
+
+        Drawing.drawSprite(toolType, index - offset, tool.x, tool.y);
+
+        if (toolType == "PortalInput" || toolType == "PortalOutput") {
+            var x = tool.x;
+            var y = tool.y;
+
+            var startX = x * spriteSize;
+            var halfX = x * spriteSize + spriteSize / 2;
+            var fullX = startX + spriteSize;
+
+            var startY = y * spriteSize;
+            var halfY = y * spriteSize + spriteSize / 2;
+            var fullY = startY + spriteSize;
+            ctx.fillStyle = tool.color;
+
+            switch (tool.rotation) {
+                case 0:
+                    ctx.fillRect(startX, halfY, spriteSize, spriteSize / 2);
+                    break;
+                case 1:
+                    ctx.fillRect(startX, startY, spriteSize / 2, spriteSize);
+                    break;
+                case 2:
+                    ctx.fillRect(startX, startY, spriteSize, spriteSize / 2);
+                    break;
+                case 3:
+                    ctx.fillRect(halfX, startY, spriteSize / 2, spriteSize);
+                    break;
+            }
+        }
+
+        Drawing.fillAlphaOfBlock(tool);
+        Drawing.drawSprite(toolType, index, tool.x, tool.y);
     }
 }
 
@@ -532,17 +530,8 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
 
 //Perhaps this should be moved into an own file.
 Drawing.drawToolbox = function() {
-    toolsByType = [];
     Util.log('drawing toolbox');
-    for (var i = 0; i < tools.length; i++) {
-        if (toolsByType[tools[i].toString()] === undefined) {
-            toolsByType.push(tools[i].toString());
-            toolsByType[tools[i].toString()] = new Array();
-            Util.log('creating new index');
-        }
-        Util.log('adding tool no ' + i + ' to ' + tools[i].toString() + 's')
-        toolsByType[tools[i].toString()].push(tools[i]);
-    }
+    
     for (var i = 0; i < toolsByType.length; i++) {
         Util.log('Drawing ' + toolsByType[i].toString() + ' at ' + (i + 1));
         ctx.fillStyle = 'white';
@@ -551,10 +540,11 @@ Drawing.drawToolbox = function() {
         for (var j = 0; j < toolsByType[toolsByType[i]].length; j++) {
             if (toolsByType[toolsByType[i]][j].isPlaced == false) {
                 numberOfNotPlaced++;
+
             }
         }
         if (numberOfNotPlaced > 0) {
-            Drawing.drawSprite(toolsByType[i].toString(), 0, 15, (i + 1));
+            //Drawing.drawSprite(toolsByType[i].toString(), 0, 15, (i + 1));
             ctx.fillText(numberOfNotPlaced, (spriteSize * 16) - 20, (spriteSize * (i + 2)) - 45);
         }
         Drawing.drawSprite('inventory', 0, 15, (i + 1));

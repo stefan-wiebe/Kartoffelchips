@@ -198,11 +198,11 @@ function tick() {
             case GameState.IS_PLAYING:
                 Drawing.drawBoard();
                 Drawing.drawPredefinedBlocks();
-                Drawing.drawToolbox();
                 Drawing.drawActionButtons();
                 disableAllElements();
                 Drawing.drawLaserBeam();
                 Drawing.drawTools();
+                Drawing.drawToolbox();
                 Drawing.drawMouse();
                 if (currentAlert) {
                     Drawing.drawAlert();
@@ -424,9 +424,12 @@ function loadLevel(id) {
             }
             blocks = blocks.concat(predefinedBlocks);
             blocks = blocks.concat(tools);
+
             Util.log('level parsed');
             level = id;
+
             gameState = GameState.IS_PLAYING;
+            initToolBox();
             startTimer();
         }
     }
