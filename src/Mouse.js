@@ -14,20 +14,25 @@ Mouse.click = function(e) {
                         if (selectedTool == -1) {
                             // in inventory
                             if (mouseX == 15 && mouseY > 0 && mouseY <= toolsByType.length) {
-                                var i = 0;
-                                var string;
-                                for (var TL in toolsByType) {
-                                    if (i == (mouseY + toolsByType.length - 1)) {
-                                        string = TL;
-                                    }
-                                    i++;
-                                }
-                                console.log('block clicked, selected tool is  ' + string);
-                                i = 0;
-                                while (i < toolsByType[string].length && toolsByType[string][i].isPlaced == true) {
-                                    i++;
-                                }
-                                selectedTool = tools.indexOf(toolsByType[string][i]);
+                                // var i = 0;
+                                // var string;
+                                // for (var TL in toolsByType) {
+                                //     console.log("TL: " + TL);
+                                //     if (i == (mouseY + toolsByType.length - 1)) {
+                                //         console.log("i: " + i);
+                                //         string = TL;
+                                //     }
+                                //     i++;
+                                // }
+
+                                console.log('block clicked, selected tool is  ' + toolsByType[mouseY - 1]);
+
+                                // i = 0;
+                                // while (i < toolsByType[toolsByType[mouseY - 1]].length && toolsByType[toolsByType[mouseY - 1]][i].isPlaced == true) {
+                                //     i++;
+                                // }
+
+                                Mouse.selectTool(getToolFromToolbox(mouseY - 1));
                             }
                             // is there a block at mouse position that we can pick up? If so, rotate
                             else {
@@ -84,6 +89,7 @@ Mouse.click = function(e) {
     }
     return false;
 };
+
 Mouse.getOptionIDForPosition = function(x, y) {
     if (fullMouseX > (c.width * 0.2) && fullMouseX < (c.width * 0.7)) {
         var index = parseInt((y + 45 - c.height * 0.3) / 45);
@@ -194,3 +200,11 @@ Mouse.move = function(e) {
         }
     }
 };
+
+Mouse.selectTool = function(tool) {
+    if (typeof tool === "object") {
+        selectedTool = tools.indexOf(tool);
+    } else if (typeof tool === "number" && -1 <= tool && tool < tools.length) {
+        selectedTool = tool;
+    }
+}
