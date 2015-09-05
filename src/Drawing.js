@@ -712,6 +712,8 @@ Drawing.drawCredits = function() {
     }
 };
 
+
+
 Drawing.drawAlert = function() {
     // draw background for ligthbox-like alert window
    // ctx.fillStyle = '#39404655';
@@ -780,6 +782,32 @@ Drawing.drawAlert = function() {
     ctx.stroke();
     ctx.closePath();
 
+    ctx.fillStyle = 'white';
+
+    // DRAW TITLE
+    ctx.font = '48px TS4F';
+
+    var boxWidth = c.width *0.7;
+    var titleWidth = ctx.measureText(currentAlert.title).width;
+    var boxLeft = ctx.width*0.15;
+
+    ctx.fillText(currentAlert.title, (c.width - ctx.measureText(currentAlert.title).width) / 2, c.height*0.2 + 48);
+
+
+    // TODO:
+
+    // draw lines of text in alert
+
+    // first split by word
+
+    // then check if lineWidth already exceeds 80% of box width
+
+    // if so, start new line there
+
+
+
+
+    // DRAW BUTTONS
     var buttonWidth = (c.width * 0.7) / currentAlert.buttons.length;
     var buttonHeight = 80;
     ctx.font = '36px TS4F';
