@@ -1,8 +1,10 @@
 var Mouse = function() {
     c.addEventListener('mousedown', Mouse.click);
     c.addEventListener('mousemove', Mouse.move);
+    c.addEventListener('wheel', Mouse.wheel);
     //c.addEventListener('click', lockMouse);
 };
+
 Mouse.click = function(e) {
     if (document.pointerLockElement === c || document.mozPointerLockElement === c || document.webkitPointerLockElement === c) {
         switch (gameState) {
@@ -20,7 +22,7 @@ Mouse.click = function(e) {
                         }
                         if (selectedTool == -1) {
                             // in inventory
-                            if (mouseX == 15 && mouseY > 0 && mouseY <= toolsByType.length) {
+                            if (mouseIsInToolBox()) {
                                 console.log('block clicked, selected tool is  ' + toolsByType[mouseY - 1]);
                                 Mouse.selectTool(getToolFromToolbox(mouseY - 1));
                             }
@@ -86,6 +88,18 @@ Mouse.click = function(e) {
     }
     return false;
 };
+
+Mouse.wheel = function(e) {
+    // if (mouseIsInToolBox) {
+    //     if (selectedTool < 0) {
+    //         hoveredBlocks = toolsByType[mouseY - 1];
+    //
+    //         if (hoveredBlocks == "PortalInput" || hoveredBlocks == "PortalOutput") {
+    //             tools.move(tools.lastOf(toolsByType[hoveredBlocks]), 0);
+    //         }
+    //     }
+    // }
+}
 
 Mouse.getOptionIDForPosition = function(x, y) {
     if (fullMouseX > (c.width * 0.2) && fullMouseX < (c.width * 0.7)) {
