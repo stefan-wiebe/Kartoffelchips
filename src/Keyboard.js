@@ -21,13 +21,13 @@ Keyboard.keydown = function(e) {
                         if (selectedTool != -1) {
                             rotateTool(tools[selectedTool], -1);
                         } else {
-                            rotateTool(placedBlocks[mouseX][mouseY], -1);
+                            rotateTool(map[mouseX][mouseY].block, -1);
                         }
                     } else if (e.keyCode == 82) {
                         if (selectedTool != -1) {
                             rotateTool(tools[selectedTool]);
                         } else {
-                            rotateTool(placedBlocks[mouseX][mouseY]);
+                            rotateTool(map[mouseX][mouseY].block);
                         }
                     }
                 } else if (e.keyCode == 49) {

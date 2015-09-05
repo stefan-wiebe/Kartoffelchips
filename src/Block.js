@@ -24,12 +24,12 @@ function placeBlock(block, x, y) {
 	block.y = y;
 	block.isPlaced = true;
 
-	placedBlocks[x][y] = block;
+	map[x][y].block = block;
 }
 
 function unplaceBlock(block) {
 	if (block != undefined) {
-		placedBlocks[block.x][block.y] = undefined;
+		map[block.x][block.y].block = undefined;
 		block.x = 0;
 		block.y = 0;
 		block.rotation = 0;

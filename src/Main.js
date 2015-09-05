@@ -17,7 +17,6 @@ var fullMouseY = 0;
 var selectedMenuItem = -1;
 var gameState;
 var backButtonHover = false;
-var placedBlocks = [];
 var currentAlert;
 var startTime = 0;
 var timerRunning = false;
@@ -60,8 +59,12 @@ function initGame() {
     if (checkBrowserCompatibility) {
         for (var i = 0; i < 16; i++) {
             map[i] = [];
-            placedBlocks[i] = [];
+
+            for (var j = 0; j < 12; j++) {
+                map[i][j] = new Cell();
+            }
         }
+
         c = document.getElementById('game');
         ctx = c.getContext("2d");
         loadSprite('emitter');
@@ -138,9 +141,8 @@ function resetLevel() {
 function backToMenu() {
     level = null;
     predefinedBlocks.length = 0;
-    tools.length = 0;;
+    tools.length = 0;
     blocks.length = 0;
-    placedBlocks.length = 0;;
 }
 
 function showHelpMessage() {}
@@ -186,7 +188,6 @@ function tick() {
                 break;
             case GameState.IS_PLAYING:
                 Drawing.drawBoard();
-                Drawing.fillAlphaInCells();
                 Drawing.drawPredefinedBlocks();
                 Drawing.drawToolbox();
                 Drawing.drawActionButtons();
@@ -238,9 +239,9 @@ function disableAllElements() {
 }
 
 function blockExistsAt(x, y, obj) {
-    var blockFound = x > 0 && y > 0 && x < width && y < height && map[x][y] != Tiles.CLEAR;
+    var blockFound = x > 0 && y > 0 && x < width && y < height && map[x][y].tile != Tiles.CLEAR;
     if (!blockFound) {
-        blockFound = placedBlocks[x][y] != undefined && placedBlocks[x][y] != obj;
+        blockFound = map[x][y].block != undefined && map[x][y].block != obj;
     }
     return blockFound;
 }
@@ -286,9 +287,13 @@ function loadLevel(id) {
             predefinedBlocks.length = 0;
             tools.length = 0;
             blocks.length = 0;
+
             for (var i = 0; i < 16; i++) {
-                placedBlocks[i].length = 0;
+                for (var j = 0; j < 12; j++) {
+                    map[i][j] = new Cell();
+                }
             }
+
             for (var y = 1; y < lines.length; y++) {
                 var firstChar = lines[y].charAt(0);
                 Util.log('first char is ' + firstChar + ' and we still have ' + lines.length + ' lines and i is ' + i);
@@ -301,13 +306,13 @@ function loadLevel(id) {
                                     case 1:
                                         switch (x) {
                                             case 0:
-                                                map[x][y - 1] = Tiles.CORNER_LEFT_TOP;
+                                                map[x][y - 1].tile = Tiles.CORNER_LEFT_TOP;
                                                 break;
                                             case 15:
-                                                map[x][y - 1] = Tiles.CORNER_RIGHT_TOP;
+                                                map[x][y - 1].tile = Tiles.CORNER_RIGHT_TOP;
                                                 break;
                                             default:
-                                                map[x][y - 1] = Tiles.BORDER_TOP;
+                                                map[x][y - 1].tile = Tiles.BORDER_TOP;
                                                 break;
                                         }
                                         break;
@@ -315,13 +320,13 @@ function loadLevel(id) {
                                     case 12:
                                         switch (x) {
                                             case 0:
-                                                map[x][y - 1] = Tiles.CORNER_LEFT_BOTTOM;
+                                                map[x][y - 1].tile = Tiles.CORNER_LEFT_BOTTOM;
                                                 break;
                                             case 15:
-                                                map[x][y - 1] = Tiles.CORNER_RIGHT_BOTTOM;
+                                                map[x][y - 1].tile = Tiles.CORNER_RIGHT_BOTTOM;
                                                 break;
                                             default:
-                                                map[x][y - 1] = Tiles.BORDER_BOTTOM;
+                                                map[x][y - 1].tile = Tiles.BORDER_BOTTOM;
                                                 break;
                                         }
                                         break;
@@ -329,19 +334,19 @@ function loadLevel(id) {
                                     default:
                                         switch (x) {
                                             case 0:
-                                                map[x][y - 1] = Tiles.BORDER_LEFT;
+                                                map[x][y - 1].tile = Tiles.BORDER_LEFT;
                                                 break;
                                             case 15:
-                                                map[x][y - 1] = Tiles.BORDER_RIGHT;
+                                                map[x][y - 1].tile = Tiles.BORDER_RIGHT;
                                                 break;
                                             default:
-                                                map[x][y - 1] = Tiles.FULL;
+                                                map[x][y - 1].tile = Tiles.FULL;
                                                 break;
                                         }
                                         break;
                                 }
                             } else {
-                                map[x][y - 1] = Tiles.CLEAR;
+                                map[x][y - 1].tile = Tiles.CLEAR;
                             }
                         }
                         break;
