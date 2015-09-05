@@ -164,16 +164,9 @@ Drawing.drawLaserBeam = function() {
             var j = 0;
             var found = false;
 
-            while (!found && j < tools.length) {
-                if (tools[j].toString() == "PortalInput" && tools[j].isPlaced && tools[j].color == blocks[i].color) {
-                    found = true;
-
-                    if (tools[j].input.isOn) {
-                        Drawing.drawLaserBeamFromPosition(blocks[i].x, blocks[i].y, blocks[i].rotation, tools[j].input.color);
-                    }
-                }
-
-                j++;
+            if (portalInputs[blocks[i].color] != undefined && portalInputs[blocks[i].color].input.isOn) {
+                Drawing.drawLaserBeamFromPosition(blocks[i].x, blocks[i].y, blocks[i].rotation, portalInputs[blocks[i].color].input.color);
+                blocks[i].isOn = true;
             }
         }
     }

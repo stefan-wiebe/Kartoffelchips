@@ -9,6 +9,7 @@ var map = [];
 var tools = [];
 var blocks = [];
 var predefinedBlocks = [];
+var portalInputs = [];
 var mouseX = 0;
 var mouseY = 0;
 var selectedTool = -1;
@@ -243,8 +244,11 @@ function disableAllElements() {
             tools[i].inputs[0].color = "";
             tools[i].inputs[1].color = "";
         } else if (tools[i].toString() == "PortalInput") {
+            tools[i].isOn = false;
             tools[i].input.isOn = false;
             tools[i].input.color = "";
+        } else if (tools[i].toString() == "PortalOutput") {
+            tools[i].isOn = false;
         }
     }
 }
@@ -298,6 +302,7 @@ function loadLevel(id) {
             predefinedBlocks.length = 0;
             tools.length = 0;
             blocks.length = 0;
+            portalInputs.length = 0;
 
             for (var i = 0; i < 16; i++) {
                 for (var j = 0; j < 12; j++) {
@@ -397,6 +402,7 @@ function loadLevel(id) {
                     case 'PL-I':
                         var portalinput = new PortalInput();
                         portalinput.color = split[1];
+                        portalInputs[portalinput.color] = portalinput;
                         tools.push(portalinput);
                         break;
                     case 'PL-O':

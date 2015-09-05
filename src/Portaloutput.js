@@ -3,7 +3,7 @@ function PortalOutput() {
 	this.y = 0;
 	this.rotation = 0;
 	this.color = 0;
-	this.isOn = true;
+	this.isOn = false;
 	this.isPlaced = false;
 }
 
