@@ -11,11 +11,24 @@ Mouse.click = function(e) {
                 switch (e.button) {
                     //Main-button (usually the left button)
                     case 0:
+                        if (currentAlert) {
+                            if (fullMouseY < c.height*0.8 && fullMouseY >(c.height*0.8-80)) {
+                                // IN BUTTONS
+                                
+                            }
+
+                        }
                         if (selectedTool == -1) {
                             // in inventory
                             if (mouseX == 15 && mouseY > 0 && mouseY <= toolsByType.length) {
                                 console.log('block clicked, selected tool is  ' + toolsByType[mouseY - 1]);
                                 Mouse.selectTool(getToolFromToolbox(mouseY - 1));
+                            }
+                            if (mouseX == 15 && (mouseY < 11 && mouseY > (10 - actionButtons.length))) {
+
+                                var blockID = mouseY-(height-actionButtons.length) +1 ;
+                                console.log('clicked button ' + blockID);
+                                actionButtons[blockID].action();
                             }
                             // is there a block at mouse position that we can pick up? If so, rotate
                             else {
@@ -53,7 +66,7 @@ Mouse.click = function(e) {
                 menu[Mouse.getMenuItemIDForPosition(fullMouseX, fullMouseY)].action();
                 break;
             case GameState.HAS_WON:
-                loadLevel(++level);
+                loadLevel(++levelID);
                 break;
             case GameState.IN_OPTIONS:
                 if (backButtonHover) {

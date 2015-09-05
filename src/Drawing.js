@@ -42,7 +42,7 @@ Drawing.drawMouse = function() {
         ctx.fillStyle = "rgba(255,0,0,0.3)";
     }
     // If in inventory or actionBlocks
-    if (mouseX == 15 && ((mouseY > 0 && mouseY <= toolsByType.length) || (mouseY < 11 && mouseY > (10 - actionBlocks.length)))) {
+    if (mouseX == 15 && ((mouseY > 0 && mouseY <= toolsByType.length) || (mouseY < 11 && mouseY > (10 - actionButtons.length)))) {
         ctx.fillStyle = "rgba(0, 0,255,0.3)";
     }
     ctx.fillRect(mouseX * spriteSize, mouseY * spriteSize, spriteSize, spriteSize);
@@ -767,7 +767,7 @@ Drawing.drawOptions = function() {
     }
 };
 Drawing.drawActionButtons = function() {
-    for (var i = 0; i < actionBlocks.length; i++) {
+    for (var i = 0; i < actionButtons.length; i++) {
         Drawing.drawSprite('menu', i,15, (height-4)+i);
         Drawing.drawSprite('inventory', 0, 15, (height - 4) + i);
     }
@@ -895,10 +895,10 @@ Drawing.drawAlert = function() {
             currentLine = words[i] + ' ';
         }
     }
-    lines[lines.length-1] = lines[lines.length-1].substring(0, lines[lines.length - 1].length -1);
     lines.push(currentLine);
 
-    console.log(lines);
+    lines[lines.length-1] = lines[lines.length-1].substring(0, lines[lines.length - 1].length -1);
+
     var textTop = c.height * 0.2 + 96;
 
     for (var i=0; i < lines.length; i++) {
@@ -924,8 +924,8 @@ Drawing.drawAlert = function() {
         ctx.fillStyle = '#434b52';
         ctx.fillRect(c.width*0.15 + (i*buttonWidth), c.height*0.8 - buttonHeight, buttonWidth, buttonHeight);
         ctx.fillStyle = 'white';
-        console.log('drawing text at x ' + (c.width*0.15 + (i*buttonWidth) + 10) + ' y ' + (c.height*0.8 - 10));
-        ctx.fillText(currentAlert.buttons[i],c.width*0.15 + (i*buttonWidth) + (buttonWidth - ctx.measureText(currentAlert.buttons[i]).width)/2, c.height*0.8 - (buttonHeight/2 - 18));
+        Util.log('drawing text at x ' + (c.width*0.15 + (i*buttonWidth) + 10) + ' y ' + (c.height*0.8 - 10));
+        ctx.fillText(currentAlert.buttons[i].title,c.width*0.15 + (i*buttonWidth) + (buttonWidth - ctx.measureText(currentAlert.buttons[i].title).width)/2, c.height*0.8 - (buttonHeight/2 - 18));
 
     }
 

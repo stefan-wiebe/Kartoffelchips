@@ -1,4 +1,4 @@
-AUTHOR: StW96
+{name: 'Second level', hint: 'Mit dem Prisma kannst du zwei Laser mischen.', author: 'Stefan Wiebe'}
 ################
 ################
 ####        ####

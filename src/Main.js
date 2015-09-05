@@ -4,6 +4,7 @@ var sprites = [];
 var spriteSize = 64;
 var width = 16;
 var height = 12;
+var levelID;
 var level;
 var map = [];
 var tools = [];
@@ -32,16 +33,8 @@ var menu = [{
     title: "CREDITS",
     action: showCredits
 }];
-var actionBlocks = [{
-    title: 'resetLevel',
-    action: resetLevel
-}, {
-    title: 'helpButton',
-    action: showHelpMessage
-}, {
-    title: 'backToMenu',
-    action: backToMenu
-}];
+var actionButtons = [new Button('resetLevel', resetLevel), new Button('helpButton', showHelpMessage), new Button('backToMenu', backToMenu)];
+
 var credits = [{
     name: 'Dejan Brinker',
     link: 'https://github.com/Dede98',
@@ -139,6 +132,7 @@ function hasWon() {
 }
 
 function resetLevel() {
+    // TODO: Unplace all blocks
     for (obj in tools) {
         obj.x = 0;
         obj.y = 0;
@@ -148,14 +142,23 @@ function resetLevel() {
 }
 
 function backToMenu() {
+    gameState = GameState.IN_MENU;
     level = null;
     predefinedBlocks.length = 0;
     tools.length = 0;
     blocks.length = 0;
+
 }
 
-function showHelpMessage() {}
+function showHelpMessage() {
+    showAlert(level.hint, level.name, [new Button('OKAY', dismissAlert)]);
 
+}
+
+
+function dismissAlert() {
+    currentAlert = null;
+}
 function checkBrowserCompatibility() {
     if (!!('onpointerlockchange' in document || 'onmozpointerlockchange' in document || 'onwebkitpointerlockchange' in document)) {
         return false;
@@ -309,6 +312,7 @@ function loadLevel(id) {
                     map[i][j] = new Cell();
                 }
             }
+            level = JSON.parse(lines[0]);
 
             for (var y = 1; y < lines.length; y++) {
                 var split = lines[y].split(" ");
@@ -426,7 +430,7 @@ function loadLevel(id) {
             blocks = blocks.concat(tools);
 
             Util.log('level parsed');
-            level = id;
+            levelID = id;
 
             gameState = GameState.IS_PLAYING;
             initToolBox();

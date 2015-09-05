@@ -1,4 +1,4 @@
-AUTHOR: Tordarus
+{"name": "First level", "hint": "Mit dem Spiegel kannst du Laser umlenken.", "author": "Timon Ringwald"}
 ################
 ################
 ####        ####

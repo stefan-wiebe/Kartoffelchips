@@ -37,6 +37,7 @@ Keyboard.keydown = function(e) {
                             rotateTool(map[mouseX][mouseY].block);
                         }
                     }
+                // TODO: PLEASE USE THE MATHZS
                 } else if (e.keyCode == 49) {
                     Mouse.selectTool(getToolFromToolbox(0));
                 } else if (e.keyCode == 50) {
