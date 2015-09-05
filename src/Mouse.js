@@ -37,7 +37,12 @@ Mouse.click = function(e) {
                             // is there a block at mouse position that we can pick up? If so, rotate
                             else {
                                 if (map[mouseX][mouseY].block != undefined) {
-                                    rotateTool(map[mouseX][mouseY].block);
+                                    if (!Keyboard.shiftKeyPressed) {
+                                        rotateTool(map[mouseX][mouseY].block);
+                                    } else {
+                                        Mouse.selectTool(map[mouseX][mouseY].block);
+                                        unplaceBlock(map[mouseX][mouseY].block, false);
+                                    }
                                 }
                             }
                         } else {
@@ -55,11 +60,7 @@ Mouse.click = function(e) {
                             unplaceBlock(tools[selectedTool]);
                             selectedTool = -1;
                         } else {
-                            for (var i = 0; i < tools.length; i++) {
-                                if (tools[i].x == mouseX && tools[i].y == mouseY) {
-                                    unplaceBlock(tools[i]);
-                                }
-                            }
+                            unplaceBlock(map[x][y].block);
                         }
 
                         break;

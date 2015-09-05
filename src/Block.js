@@ -27,13 +27,15 @@ function placeBlock(block, x, y) {
 	map[x][y].block = block;
 }
 
-function unplaceBlock(block) {
+function unplaceBlock(block, moveBack) {
 	if (block != undefined) {
 		map[block.x][block.y].block = undefined;
-		block.x = 0;
-		block.y = 0;
-		block.rotation = 0;
-		block.isOn = false;
-		block.isPlaced = false;
+		if (moveBack != false) {
+			block.x = 0;
+			block.y = 0;
+			block.rotation = 0;
+			block.isOn = false;
+			block.isPlaced = false;
+		}
 	}
 }

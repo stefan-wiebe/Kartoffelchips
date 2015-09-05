@@ -171,12 +171,29 @@ Drawing.fillAlphaOfBlock = function(block) {
                 ctx.stroke();
                 ctx.closePath();
             }
+        } else if (blockName == "Receiver") {
+            ctx.fillStyle = block.color;
+            ctx.fillRect(startX + 18, startY + 18, 30, 30);
+
+            ctx.beginPath();
+            ctx.strokeStyle = block.color;
+
+            if (rotation == 0 || rotation == 2) {
+                ctx.moveTo(halfX, startY);
+                ctx.lineTo(halfX, fullY);
+            } else {
+                ctx.moveTo(startX, halfY);
+                ctx.lineTo(fullX, halfY);
+            }
+
+            ctx.stroke();
+            ctx.closePath();
         } else if (blockName == "Mirror") {
             if (rotation == 0 || rotation == 2) {
                 if (block.inputs[0].isOn) {
                     ctx.beginPath();
                     ctx.strokeStyle = block.inputs[0].color;
-                    ctx.moveTo(halfX, y * spriteSize);
+                    ctx.moveTo(halfX, startY);
                     ctx.lineTo(halfX, halfY);
                     ctx.lineTo(fullX, halfY);
                     ctx.stroke();
