@@ -741,20 +741,19 @@ Drawing.drawCredits = function() {
     Drawing.drawBackButton();
 
     for (var i=0; i<credits.length; i++) {
-    ctx.font = '40px TS4F';
-    ctx.fillStyle = 'white';
+        ctx.font = '40px TS4F';
+        ctx.fillStyle = 'white';
 
         ctx.fillText(credits[i].name, c.width*0.2, c.height*0.3 + (i*80));
 
-    ctx.font = '24px TS4F';
-    ctx.fillStyle = '#365ec4';
+        ctx.font = '24px TS4F';
+        ctx.fillStyle = '#365ec4';
 
-    if (i == selectedMenuItem) {
-        ctx.fillStyle = '#80a0fe';
-    }
+        if (i == selectedMenuItem) {
+            ctx.fillStyle = '#80a0fe';
+        }
+
         ctx.fillText(credits[i].link, c.width*0.2, c.height*0.3 + (i*80) + 30);
-
-
     }
 };
 

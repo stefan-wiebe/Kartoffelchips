@@ -14,24 +14,7 @@ Mouse.click = function(e) {
                         if (selectedTool == -1) {
                             // in inventory
                             if (mouseX == 15 && mouseY > 0 && mouseY <= toolsByType.length) {
-                                // var i = 0;
-                                // var string;
-                                // for (var TL in toolsByType) {
-                                //     console.log("TL: " + TL);
-                                //     if (i == (mouseY + toolsByType.length - 1)) {
-                                //         console.log("i: " + i);
-                                //         string = TL;
-                                //     }
-                                //     i++;
-                                // }
-
                                 console.log('block clicked, selected tool is  ' + toolsByType[mouseY - 1]);
-
-                                // i = 0;
-                                // while (i < toolsByType[toolsByType[mouseY - 1]].length && toolsByType[toolsByType[mouseY - 1]][i].isPlaced == true) {
-                                //     i++;
-                                // }
-
                                 Mouse.selectTool(getToolFromToolbox(mouseY - 1));
                             }
                             // is there a block at mouse position that we can pick up? If so, rotate
@@ -103,7 +86,7 @@ Mouse.getOptionIDForPosition = function(x, y) {
 
 Mouse.getCreditIDForPosition = function(x, y) {
     if (x > c.width *0.2 && x < c.width * 0.5) {
-        var index = parseInt((y + 150 - c.height * 0.3) / 150);
+        var index = Math.round((y- 100) / 150);
         if (index < credits.length) {
             return index;
         }
@@ -193,7 +176,7 @@ Mouse.move = function(e) {
                 break;
             case GameState.IN_CREDITS:
                 Mouse.setBackButton();
-                selectedMenuItem = Mouse.getOptionIDForPosition(fullMouseX, fullMouseY);
+                selectedMenuItem = Mouse.getCreditIDForPosition(fullMouseX, fullMouseY);
                 console.log('selectedMenuItem ' + selectedMenuItem);
                 // detect hyperlink
 

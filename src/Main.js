@@ -43,16 +43,24 @@ var actionBlocks = [{
 }];
 var credits = [{
     name: 'Dejan Brinker',
-    link: 'https://github.com/Dede98'
+    link: 'https://github.com/Dede98',
+    pos: [0, 0],
+    size: [0, 0]
 }, {
     name: 'Timon Ringwald',
-    link: 'http://tordarus.net'
+    link: 'http://tordarus.net',
+    pos: [0, 0],
+    size: [0, 0]
 }, {
     name: 'Tobias Timpe',
     link: 'http://tobias.tim.pe',
+    pos: [0, 0],
+    size: [0, 0]
 }, {
     name: 'Stefan Wiebe',
-    link: 'http://5tefan.net'
+    link: 'http://5tefan.net',
+    pos: [0, 0],
+    size: [0, 0]
 }];
 
 function initGame() {
