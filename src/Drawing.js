@@ -33,18 +33,21 @@ Drawing.drawMouse = function() {
         // Drawing.drawSprite(tools[selectedTool].toString(), tools[selectedTool].rotation + offset, mouseX, mouseY);
     }
 
-
-    // default green
-    ctx.fillStyle = "rgba(0,255,0,0.3)";
-
-    // red if already there
-    if (blockExistsAt(mouseX, mouseY)) {
-        ctx.fillStyle = "rgba(255,0,0,0.3)";
-    }
     // If in inventory or actionBlocks
     if (mouseX == 15 && ((mouseY > 0 && mouseY <= toolsByType.length) || (mouseY < 11 && mouseY > (10 - actionBlocks.length)))) {
-        ctx.fillStyle = "rgba(0, 0,255,0.3)";
+        ctx.fillStyle = "rgba(0, 0,255,0.2)";
+    } else if (selectedTool < 0) {
+        ctx.fillStyle = "rgba(255,255,255,0.1)";
+    } else {
+        if (blockExistsAt(mouseX, mouseY)) {
+            // red if invalid
+            ctx.fillStyle = "rgba(255,0,0,0.3)";
+        } else {
+            // green if valid
+            ctx.fillStyle = "rgba(0,255,0,0.3)";
+        }
     }
+
     ctx.fillRect(mouseX * spriteSize, mouseY * spriteSize, spriteSize, spriteSize);
 };
 
@@ -163,7 +166,7 @@ Drawing.drawLaserBeam = function() {
             var found = false;
 
             if (portalInputs[blocks[i].color] != undefined && portalInputs[blocks[i].color].input.isOn) {
-                Drawing.drawLaserBeamFromPosition(blocks[i].x, blocks[i].y, blocks[i].rotation, portalInputs[blocks[i].color].input.color);
+                Drawing.drawLaserBeamFromObject(blocks[i]);
                 blocks[i].isOn = true;
             }
         }
@@ -370,8 +373,35 @@ Drawing.fillAlphaOfBlock = function(block) {
                 ctx.closePath();
             }
         } else if (blockName == "PortalInput" || blockName == "PortalOutput") {
-            ctx.fillStyle = block.color;
-            ctx.fillRect(startX, startY, spriteSize, spriteSize);
+            ctx.beginPath();
+
+            if (blockName == "PortalInput") {
+                ctx.strokeStyle = block.input.color;
+            } else {
+                ctx.strokeStyle = portalInputs[block.color].input.color;
+            }
+
+            if (rotation == 0) {
+                ctx.moveTo(halfX, startY);
+                ctx.lineTo(halfX, halfY);
+                ctx.stroke();
+                ctx.closePath();
+            } else if (rotation == 1) {
+                ctx.moveTo(halfX, halfY);
+                ctx.lineTo(fullX, halfY);
+                ctx.stroke();
+                ctx.closePath();
+            } else if (rotation == 2) {
+                ctx.moveTo(halfX, halfY);
+                ctx.lineTo(halfX, startY);
+                ctx.stroke();
+                ctx.closePath();
+            } else if (rotation == 3) {
+                ctx.moveTo(startX, halfY);
+                ctx.lineTo(halfX, halfY);
+                ctx.stroke();
+                ctx.closePath();
+            }
         }
     }
 }
@@ -531,7 +561,7 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
 //Perhaps this should be moved into an own file.
 Drawing.drawToolbox = function() {
     Util.log('drawing toolbox');
-    
+
     for (var i = 0; i < toolsByType.length; i++) {
         Util.log('Drawing ' + toolsByType[i].toString() + ' at ' + (i + 1));
         ctx.fillStyle = 'white';
@@ -555,24 +585,38 @@ Drawing.drawLaserBeamFromObject = function(obj) {
     // draw to next object
     var nextX = 0;
     var nextY = 0;
+    var color = "";
+
+    if (obj.toString() != "PortalOutput") {
+        color = obj.color;
+    } else {
+        color = portalInputs[obj.color].input.color
+    }
+
     switch (obj.rotation) {
         case 0:
             var i = obj.y;
             beaming = true;
-            if (obj.toString() != "Mirror") Drawing.drawLaserBeamInCell(obj.color, obj.rotation, obj.x, i);
+            if (obj.toString() != "Mirror") {
+                Drawing.drawLaserBeamInCell(color, obj.rotation, obj.x, i);
+            }
+
             i--;
             while (i > 0 && beaming) {
-                beaming = Drawing.drawLaserBeamInCell(obj.color, obj.rotation, obj.x, i);
+                beaming = Drawing.drawLaserBeamInCell(color, obj.rotation, obj.x, i);
                 i--;
             }
             break;
         case 1:
             var i = obj.x;
             beaming = true;
-            if (obj.toString() != "Mirror") Drawing.drawLaserBeamInCell(obj.color, obj.rotation, i, obj.y);
+            if (obj.toString() != "Mirror") {
+                Drawing.drawLaserBeamInCell(color, obj.rotation, i, obj.y);
+            }
+
             i++;
             while (i < width && beaming) {
-                beaming = Drawing.drawLaserBeamInCell(obj.color, obj.rotation, i, obj.y);
+                beaming = Drawing.drawLaserBeamInCell(color, obj.rotation, i, obj.y);
                 i++;
                 Util.log('drawing laser at ' + i + ' ' + obj.y + ' beaming is ' + beaming);
             }
@@ -580,20 +624,26 @@ Drawing.drawLaserBeamFromObject = function(obj) {
         case 2:
             var i = obj.y;
             beaming = true;
-            if (obj.toString() != "Mirror") Drawing.drawLaserBeamInCell(obj.rotation, obj.rotation, obj.x, i);
+            if (obj.toString() != "Mirror") {
+                Drawing.drawLaserBeamInCell(obj.rotation, obj.rotation, obj.x, i);
+            }
+
             i++;
             while (i < height && beaming) {
-                beaming = Drawing.drawLaserBeamInCell(obj.color, obj.rotation, obj.x, i);
+                beaming = Drawing.drawLaserBeamInCell(color, obj.rotation, obj.x, i);
                 i++;
             }
             break;
         case 3:
             var i = obj.x;
             beaming = true;
-            if (obj.toString() != "Mirror") Drawing.drawLaserBeamInCell(obj.rotation, obj.rotation, i, obj.y);
+            if (obj.toString() != "Mirror") {
+                Drawing.drawLaserBeamInCell(obj.rotation, obj.rotation, i, obj.y);
+            }
+
             i--;
             while (i > 0 && beaming) {
-                beaming = Drawing.drawLaserBeamInCell(obj.color, obj.rotation, i, obj.y);
+                beaming = Drawing.drawLaserBeamInCell(color, obj.rotation, i, obj.y);
                 i--;
             }
             break;

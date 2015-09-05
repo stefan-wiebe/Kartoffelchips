@@ -4,9 +4,9 @@ function getToolFromToolbox(tool) {
 	}
 
 	if (tool != undefined && typeof tool === "string") {
-		i = 0;
-		while (i < toolsByType[tool].length && toolsByType[tool][i].isPlaced == true) {
-			i++;
+		i = toolsByType[tool].length - 1;
+		while (0 <= i && toolsByType[tool][i].isPlaced == true) {
+			i--;
 		}
 
 		if (!toolsByType[tool][i].isPlaced) {
@@ -27,6 +27,10 @@ function getToolPosInToolBox(tool) {
 		return false;
 	}
 
+}
+
+function mouseIsInToolBox() {
+	return mouseX == 15 && mouseY > 0 && mouseY <= toolsByType.length;
 }
 
 function initToolBox() {

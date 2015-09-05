@@ -15,4 +15,6 @@ L 5 3 2 0
 X 10 8 3 #ff0000
 M 1
 PL-I #ff0000
-PL-O 5 #ff0000
+PL-I #ff00ff
+PL-O 3 #ff0000
+PL-O 2 #ff00ff
