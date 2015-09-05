@@ -788,15 +788,39 @@ Drawing.drawAlert = function() {
     ctx.font = '48px TS4F';
 
     var boxWidth = c.width *0.7;
-    var titleWidth = ctx.measureText(currentAlert.title).width;
-    var boxLeft = ctx.width*0.15;
 
     ctx.fillText(currentAlert.title, (c.width - ctx.measureText(currentAlert.title).width) / 2, c.height*0.2 + 48);
 
+    ctx.font = '28px TS4F';
 
     // TODO:
 
     // draw lines of text in alert
+
+    var words = currentAlert.message.split(' ');
+    var maxLineWidth = boxWidth * 0.8;
+
+    var lines = [];
+
+    var currentLine = '';
+    for (var i =0; i < words.length; i++) {
+        if (ctx.measureText(currentLine + words[i] + ' ').width < maxLineWidth) {
+            currentLine += words[i] + ' ';
+        } else {
+            lines.push(currentLine);
+            currentLine = words[i] + ' ';
+        }
+    }
+    lines[lines.length-1] = lines[lines.length-1].substring(0, lines[lines.length - 1].length -1);
+    lines.push(currentLine);
+
+    console.log(lines);
+    var textTop = c.height * 0.2 + 96;
+
+    for (var i=0; i < lines.length; i++) {
+        // draw each line
+        ctx.fillText(lines[i], (c.width - maxLineWidth) / 2, textTop + (i*36));
+    }
 
     // first split by word
 
