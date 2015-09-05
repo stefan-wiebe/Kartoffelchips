@@ -32,6 +32,8 @@ function unplaceBlock(block) {
 		placedBlocks[block.x][block.y] = undefined;
 		block.x = 0;
 		block.y = 0;
+		block.rotation = 0;
+		block.isOn = false;
 		block.isPlaced = false;
 	}
 }
