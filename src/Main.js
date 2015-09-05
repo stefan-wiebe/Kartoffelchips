@@ -19,6 +19,9 @@ var gameState;
 var backButtonHover = false;
 var placedBlocks = [];
 var currentAlert;
+var startTime = 0;
+var timerRunning = false;
+
 var menu = [{
     title: "START GAME",
     action: startGame
@@ -84,6 +87,11 @@ function initGame() {
     }
 }
 
+function startTimer() {
+    startTime = new Date().getTime() / 1000;
+    timerRunning = true;
+}
+
 function startGame() {
     loadLevel(1);
 }
@@ -101,6 +109,7 @@ function showCredits() {
 function checkWin() {
     if (hasWon()) {
         gameState = GameState.HAS_WON;
+        timerRunning = false;
     }
 }
 
@@ -397,6 +406,7 @@ function loadLevel(id) {
             Util.log('level parsed');
             level = id;
             gameState = GameState.IS_PLAYING;
+            startTimer();
         }
     }
     xmlhttp.overrideMimeType('text/plain');
