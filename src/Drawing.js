@@ -116,7 +116,38 @@ Drawing.drawTool = function(tool) {
             }
 
             Util.log('index is ' + index);
+
             Drawing.drawSprite(toolType, index - offset, tool.x, tool.y);
+
+            if (toolType == "PortalInput" || toolType == "PortalOutput") {
+                var x = tool.x;
+                var y = tool.y;
+
+                var startX = x * spriteSize;
+                var halfX = x * spriteSize + spriteSize / 2;
+                var fullX = startX + spriteSize;
+
+                var startY = y * spriteSize;
+                var halfY = y * spriteSize + spriteSize / 2;
+                var fullY = startY + spriteSize;
+                ctx.fillStyle = tool.color;
+
+                switch (tool.rotation) {
+                    case 0:
+                        ctx.fillRect(startX, halfY, spriteSize, spriteSize / 2);
+                        break;
+                    case 1:
+                        ctx.fillRect(startX, startY, spriteSize / 2, spriteSize);
+                        break;
+                    case 2:
+                        ctx.fillRect(startX, startY, spriteSize, spriteSize / 2);
+                        break;
+                    case 3:
+                        ctx.fillRect(halfX, startY, spriteSize / 2, spriteSize);
+                        break;
+                }
+            }
+
             Drawing.fillAlphaOfBlock(tool);
             Drawing.drawSprite(toolType, index, tool.x, tool.y);
         }
@@ -124,13 +155,30 @@ Drawing.drawTool = function(tool) {
 }
 
 Drawing.drawLaserBeam = function() {
-    for (var i = 0; i < predefinedBlocks.length; i++) {
-        var emitter = predefinedBlocks[i];
-        Util.log('drawing laser beam from' + emitter.toString());
-        if (emitter.toString() == "Emitter") {
+    for (var i = 0; i < blocks.length; i++) {
+        if (blocks[i].toString() == "Emitter") {
+            var emitter = predefinedBlocks[i];
+            Util.log('drawing laser beam from' + emitter.toString());
             Drawing.drawLaserBeamFromObject(emitter);
+        } else if (blocks[i].toString() == "PortalOutput" && blocks[i].isPlaced) {
+            var j = 0;
+            var found = false;
+
+            while (!found && j < tools.length) {
+                if (tools[j].toString() == "PortalInput" && tools[j].isPlaced && tools[j].color == blocks[i].color) {
+                    found = true;
+
+                    if (tools[j].input.isOn) {
+                        Drawing.drawLaserBeamFromPosition(blocks[i].x, blocks[i].y, blocks[i].rotation, tools[j].input.color);
+                    }
+                }
+
+                j++;
+            }
         }
     }
+
+
 };
 
 Drawing.fillAlphaOfBlocks = function() {
@@ -330,6 +378,9 @@ Drawing.fillAlphaOfBlock = function(block) {
                 ctx.stroke();
                 ctx.closePath();
             }
+        } else if (blockName == "PortalInput" || blockName == "PortalOutput") {
+            ctx.fillStyle = block.color;
+            ctx.fillRect(startX, startY, spriteSize, spriteSize);
         }
     }
 }
@@ -443,6 +494,11 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
                 }
 
     			block.isOn = true;
+            } else if (block.toString() == "PortalInput") {
+                if (rotation == block.rotation) {
+                    block.input.isOn = true;
+                    block.input.color = color;
+                }
             }
         }
     }

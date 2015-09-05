@@ -242,6 +242,9 @@ function disableAllElements() {
             tools[i].inputs[1].isOn = false;
             tools[i].inputs[0].color = "";
             tools[i].inputs[1].color = "";
+        } else if (tools[i].toString() == "PortalInput") {
+            tools[i].input.isOn = false;
+            tools[i].input.color = "";
         }
     }
 }
@@ -303,64 +306,70 @@ function loadLevel(id) {
             }
 
             for (var y = 1; y < lines.length; y++) {
-                var firstChar = lines[y].charAt(0);
-                Util.log('first char is ' + firstChar + ' and we still have ' + lines.length + ' lines and i is ' + i);
-                switch (firstChar) {
-                    case '#':
-                        for (var x = 0; x < lines[y].length; x++) {
-                            if (lines[y].charAt(x) == "#") {
-                                switch (y) {
-                                    // FIRST LINE
-                                    case 1:
-                                        switch (x) {
-                                            case 0:
-                                                map[x][y - 1].tile = Tiles.CORNER_LEFT_TOP;
-                                                break;
-                                            case 15:
-                                                map[x][y - 1].tile = Tiles.CORNER_RIGHT_TOP;
-                                                break;
-                                            default:
-                                                map[x][y - 1].tile = Tiles.BORDER_TOP;
-                                                break;
-                                        }
+                var split = lines[y].split(" ");
+
+                Util.log('The first word is ' + split[0] + ', we still have ' + lines.length + ' lines and i is ' + i);
+
+                var finished = false;
+                var x = 0;
+                while (!finished && x < lines[y].length) {
+                    if (lines[y].charAt(x) == '#') {
+                        switch (y) {
+                            // FIRST LINE
+                            case 1:
+                                switch (x) {
+                                    case 0:
+                                        map[x][y - 1].tile = Tiles.CORNER_LEFT_TOP;
                                         break;
-                                        // LAST LINE
-                                    case 12:
-                                        switch (x) {
-                                            case 0:
-                                                map[x][y - 1].tile = Tiles.CORNER_LEFT_BOTTOM;
-                                                break;
-                                            case 15:
-                                                map[x][y - 1].tile = Tiles.CORNER_RIGHT_BOTTOM;
-                                                break;
-                                            default:
-                                                map[x][y - 1].tile = Tiles.BORDER_BOTTOM;
-                                                break;
-                                        }
+                                    case 15:
+                                        map[x][y - 1].tile = Tiles.CORNER_RIGHT_TOP;
                                         break;
-                                        // EVERYTHING ELSE
                                     default:
-                                        switch (x) {
-                                            case 0:
-                                                map[x][y - 1].tile = Tiles.BORDER_LEFT;
-                                                break;
-                                            case 15:
-                                                map[x][y - 1].tile = Tiles.BORDER_RIGHT;
-                                                break;
-                                            default:
-                                                map[x][y - 1].tile = Tiles.FULL;
-                                                break;
-                                        }
+                                        map[x][y - 1].tile = Tiles.BORDER_TOP;
                                         break;
                                 }
-                            } else {
-                                map[x][y - 1].tile = Tiles.CLEAR;
-                            }
+                                break;
+                                // LAST LINE
+                            case 12:
+                                switch (x) {
+                                    case 0:
+                                        map[x][y - 1].tile = Tiles.CORNER_LEFT_BOTTOM;
+                                        break;
+                                    case 15:
+                                        map[x][y - 1].tile = Tiles.CORNER_RIGHT_BOTTOM;
+                                        break;
+                                    default:
+                                        map[x][y - 1].tile = Tiles.BORDER_BOTTOM;
+                                        break;
+                                }
+                                break;
+                            // EVERYTHING ELSE
+                            default:
+                                switch (x) {
+                                    case 0:
+                                        map[x][y - 1].tile = Tiles.BORDER_LEFT;
+                                        break;
+                                    case 15:
+                                        map[x][y - 1].tile = Tiles.BORDER_RIGHT;
+                                        break;
+                                    default:
+                                        map[x][y - 1].tile = Tiles.FULL;
+                                        break;
+                                }
+                                break;
                         }
-                        break;
+                    } else if (lines[y].charAt(0) == '#') {
+                        map[x][y - 1].tile = Tiles.CLEAR;
+                    } else {
+                        finished = true;
+                    }
+
+                    x++;
+                }
+
+                switch (split[0]) {
                     case 'L':
                         var emitter = new Emitter();
-                        var split = lines[y].split(" ");
                         placeBlock(emitter, parseInt(split[1]), parseInt(split[2]));
                         emitter.rotation = parseInt(split[3]);
                         emitter.color = getStringFromColor(parseInt(split[4]));
@@ -368,7 +377,6 @@ function loadLevel(id) {
                         break;
                     case 'X':
                         var receiver = new Receiver();
-                        var split = lines[y].split(" ");
                         placeBlock(receiver, parseInt(split[1]), parseInt(split[2]));
                         receiver.rotation = parseInt(split[3]);
                         receiver.color = split[4];
@@ -376,36 +384,30 @@ function loadLevel(id) {
                         break;
                     case 'A':
                         var activator = new Activator();
-                        var split = lines[y].split(" ");
                         placeBlock(activator, parseInt(split[1]), parseInt(split[2]));
                         predefinedBlocks.push(activator);
                         break;
                     case 'M':
-                        var split = lines[y].split(" ");
                         var count = parseInt(split[1]);
                         for (var k = 0; k < count; k++) {
                             var mirror = new Mirror();
                             tools.push(mirror);
                         }
                         break;
-                    case 'I':
-                        var split = lines[y].split(" ");
-                        var count = parseInt(split[1]);
-                        for (var k = 0; k < count; k++) {
-                            var portalinput = new PortalInput();
-                            tools.push(portalinput);
-                        }
+                    case 'PL-I':
+                        var portalinput = new PortalInput();
+                        portalinput.color = split[1];
+                        tools.push(portalinput);
                         break;
-                    case 'O':
-                        var split = lines[i].split(" ");
+                    case 'PL-O':
                         var count = parseInt(split[1]);
                         for (var k = 0; k < count; k++) {
                             var portaloutput = new PortalOutput();
+                            portaloutput.color = split[2];
                             tools.push(portaloutput);
                         }
                         break;
                     case 'P':
-                        var split = lines[i].split(" ");
                         var count = parseInt(split[1]);
                         for (var k = 0; k < count; k++) {
                             var prism = new Prism();
