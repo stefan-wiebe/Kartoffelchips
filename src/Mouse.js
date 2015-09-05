@@ -60,7 +60,7 @@ Mouse.click = function(e) {
                             unplaceBlock(tools[selectedTool]);
                             selectedTool = -1;
                         } else {
-                            unplaceBlock(map[x][y].block);
+                            unplaceBlock(map[mouseX][mouseY].block);
                         }
 
                         break;

@@ -28,7 +28,7 @@ function placeBlock(block, x, y) {
 }
 
 function unplaceBlock(block, moveBack) {
-	if (block != undefined) {
+	if (block != undefined && block.isPredefined != true) {
 		map[block.x][block.y].block = undefined;
 		if (moveBack != false) {
 			block.x = 0;

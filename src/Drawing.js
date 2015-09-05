@@ -11,6 +11,7 @@ Drawing.drawSprite = function(spriteName, spriteIndex, x, y) {
     if (sprites[spriteName]) {
         ctx.drawImage(sprites[spriteName], spriteIndex * spriteSize, 0, spriteSize, spriteSize, x * spriteSize, y * spriteSize, 64, 64);
     }
+
     if (options.debug) {
         if (spriteName != 'map') {
             ctx.font = '10px Arial';
@@ -61,7 +62,8 @@ Drawing.drawPredefinedBlocks = function() {
         }
 
         if (blockType == "activator") {
-            index = block.isOn ? 1 : 0;
+            offset = block.isOn ? 1 : 0;
+            index = offset;
         }
 
         if (blockType == "receiver") {
@@ -194,7 +196,8 @@ Drawing.fillAlphaOfBlock = function(block) {
                     ctx.beginPath();
                     ctx.strokeStyle = block.inputs[0].color;
                     ctx.moveTo(halfX, startY);
-                    ctx.lineTo(halfX, halfY);
+                    ctx.lineTo(halfX, halfY - 1);
+                    ctx.moveTo(halfX + 1, halfY);
                     ctx.lineTo(fullX, halfY);
                     ctx.stroke();
                     ctx.closePath();
@@ -213,7 +216,8 @@ Drawing.fillAlphaOfBlock = function(block) {
                     ctx.beginPath();
                     ctx.strokeStyle = block.inputs[0].color;
                     ctx.moveTo(halfX, startY);
-                    ctx.lineTo(halfX, halfY);
+                    ctx.lineTo(halfX, halfY - 1);
+                    ctx.moveTo(halfX - 1, halfY);
                     ctx.lineTo(startX, halfY);
                     ctx.stroke();
                     ctx.closePath();
