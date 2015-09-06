@@ -58,7 +58,9 @@ var credits = [{
 }];
 
 function initGame() {
+    c = document.getElementById('game');
     if (checkBrowserCompatibility) {
+        document.body.style.background = '#000';
         for (var i = 0; i < 16; i++) {
             map[i] = [];
 
@@ -67,7 +69,6 @@ function initGame() {
             }
         }
 
-        c = document.getElementById('game');
         ctx = c.getContext("2d");
         loadSprite('emitter');
         loadSprite('map');
@@ -88,7 +89,8 @@ function initGame() {
         var kHandler = new Keyboard();
         requestAnimationFrame(tick);
     } else {
-        document.body.innerHTML = '<h1>This browser is not supported. Please upgrade!</h1>';
+        c.remove();
+
     }
 }
 

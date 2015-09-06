@@ -1,8 +1,16 @@
+* {margin:0; padding: 0}
+html, body {
+    height: 100%;
+    width: 100%;
+}
+body {
+
+    background: url('textures/rottenPotato.png') center no-repeat #394046;
+}
+@font-face {font-family:"TS4F";src:url("fonts/TkachenkoSketch4F-Regular.eot?") format("eot"),url("fonts/TkachenkoSketch4F-Regular.woff") format("woff"),url("fonts/TkachenkoSketch4F-Regular.ttf") format("truetype"),url("fonts/TkachenkoSketch4F-Regular.svg#TkachenkoSketch4F") format("svg");font-weight:normal;font-style:normal;}
 canvas {
-margin-left: -512px;
-	left: 50%;
-	top: 50%;
-	margin-top:-384px;
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
 	position: absolute;
     image-rendering: optimizeSpeed;
     image-rendering: crisp-edges;
@@ -12,4 +20,20 @@ margin-left: -512px;
     -ms-interpolation-mode: nearest-neighbor;
     box-shadow: 0.02rem 0.02rem 1rem hsla(0,0%,0%,0.5);
 }
-@font-face {font-family:"TS4F";src:url("fonts/TkachenkoSketch4F-Regular.eot?") format("eot"),url("fonts/TkachenkoSketch4F-Regular.woff") format("woff"),url("fonts/TkachenkoSketch4F-Regular.ttf") format("truetype"),url("fonts/TkachenkoSketch4F-Regular.svg#TkachenkoSketch4F") format("svg");font-weight:normal;font-style:normal;}
+
+h1 {
+    position: absolute;
+    top: 70%;
+    color: white;
+    font-family: 'TS4F';
+    font-size: 48px;
+    text-align: center;
+    width: 100%;
+    left:0;
+}
+#game-wrapper {
+    width: 100%;
+    padding-bottom: 75%; /* 4:3 */
+    position: relative;
+    background: black;
+}
