@@ -139,6 +139,7 @@ function resetLevel() {
         obj.isPlaced = 0;
         obj.rotation = 0;
     }
+    loadLevel(levelID); //:D
 }
 
 function backToMenu() {
