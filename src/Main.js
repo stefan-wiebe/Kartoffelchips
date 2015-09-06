@@ -123,6 +123,7 @@ function checkWin() {
     if (hasWon()) {
         gameState = GameState.HAS_WON;
         stopTimer();
+
     }
 }
 
@@ -151,6 +152,7 @@ function resetLevel() {
 }
 
 function backToMenu() {
+
     gameState = GameState.IN_MENU;
     level = null;
     levelID = null;
@@ -205,9 +207,13 @@ function tick() {
     if (document.pointerLockElement === c || document.mozPointerLockElement === c || document.webkitPointerLockElement === c || options.mouseDebug == true) {
         switch (gameState) {
             case GameState.IN_MENU:
+                    SoundEffects.stopLaserSoundEffect();
+
                 Drawing.drawMenuScreen();
                 break;
             case GameState.IS_PLAYING:
+                    SoundEffects.startLaserSoundEffect();
+
                 Drawing.drawBoard();
                 Drawing.drawPredefinedBlocks();
                 Drawing.drawActionButtons();
@@ -222,6 +228,8 @@ function tick() {
                 break;
             case GameState.HAS_WON:
                 Drawing.drawWinScreen();
+                SoundEffects.stopLaserSoundEffect();
+
                 break;
             case GameState.IN_OPTIONS:
                 Drawing.drawOptions();
@@ -443,7 +451,6 @@ function loadLevel(id) {
 
             gameState = GameState.IS_PLAYING;
             initToolBox();
-
             startTimer();
         }
     }
