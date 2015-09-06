@@ -67,6 +67,7 @@ Mouse.click = function(e) {
                 break;
             case GameState.IN_OPTIONS:
                 if (backButtonHover) {
+                    checkOptions();
                     gameState = GameState.IN_MENU;
                 } else {
                     Mouse.toggleOption();
