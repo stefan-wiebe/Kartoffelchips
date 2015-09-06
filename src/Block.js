@@ -12,6 +12,7 @@ function rotateTool(tool, value) {
 		} else if (value > 0) {
 			tool.rotation = (tool.rotation + value) % 4;
 		}
+		
 		console.log('rotation is' + tool.rotation);
 	}
 }

@@ -4,7 +4,6 @@ var Mouse = function() {
     c.addEventListener('wheel', Mouse.wheel);
     //c.addEventListener('click', lockMouse);
 };
-
 Mouse.click = function(e) {
     if (document.pointerLockElement === c || document.mozPointerLockElement === c || document.webkitPointerLockElement === c) {
         switch (gameState) {
@@ -14,21 +13,16 @@ Mouse.click = function(e) {
                     //Main-button (usually the left button)
                     case 0:
                         if (currentAlert) {
-                            if (fullMouseY < c.height*0.8 && fullMouseY >(c.height*0.8-80)) {
-                                // IN BUTTONS
-                                
-                            }
-
-                        }
-                        if (selectedTool == -1) {
+                            selectedMenuItem = Mouse.getOptionIDForPosition(fullMouseX, fullMouseY);
+                            console.log('selected index ' + selectedMenuItem);
+                        } else if (selectedTool == -1) {
                             // in inventory
                             if (mouseIsInToolBox()) {
                                 console.log('block clicked, selected tool is  ' + toolsByType[mouseY - 1]);
                                 Mouse.selectTool(getToolFromToolbox(mouseY - 1));
                             }
                             if (mouseX == 15 && (mouseY < 11 && mouseY > (10 - actionButtons.length))) {
-
-                                var blockID = mouseY-(height-actionButtons.length) +1 ;
+                                var blockID = mouseY - (height - actionButtons.length) + 1;
                                 console.log('clicked button ' + blockID);
                                 actionButtons[blockID].action();
                             }
@@ -51,7 +45,7 @@ Mouse.click = function(e) {
                             }
                         }
                         break;
-                    //Secondary button (usually the right button)
+                        //Secondary button (usually the right button)
                     case 2:
                         console.log('right click');
                         if (selectedTool != -1) {
@@ -60,12 +54,13 @@ Mouse.click = function(e) {
                         } else {
                             unplaceBlock(map[mouseX][mouseY].block);
                         }
-
                         break;
                 }
                 break;
             case GameState.IN_MENU:
-                menu[Mouse.getMenuItemIDForPosition(fullMouseX, fullMouseY)].action();
+                if (selectedMenuItem != -1) {
+                menu[selectedMenuItem].action();
+                }
                 break;
             case GameState.HAS_WON:
                 loadLevel(++levelID);
@@ -78,7 +73,7 @@ Mouse.click = function(e) {
                 }
                 break;
             case GameState.IN_CREDITS:
-               if (backButtonHover) {
+                if (backButtonHover) {
                     gameState = GameState.IN_MENU;
                 }
                 window.open(credits[selectedMenuItem].link);
@@ -88,7 +83,6 @@ Mouse.click = function(e) {
     }
     return false;
 };
-
 Mouse.wheel = function(e) {
     // if (mouseIsInToolBox) {
     //     if (selectedTool < 0) {
@@ -100,7 +94,6 @@ Mouse.wheel = function(e) {
     //     }
     // }
 }
-
 Mouse.getOptionIDForPosition = function(x, y) {
     if (fullMouseX > (c.width * 0.2) && fullMouseX < (c.width * 0.7)) {
         var index = parseInt((y + 45 - c.height * 0.3) / 45);
@@ -110,17 +103,15 @@ Mouse.getOptionIDForPosition = function(x, y) {
         return -1;
     }
 };
-
 Mouse.getCreditIDForPosition = function(x, y) {
-    if (x > c.width *0.2 && x < c.width * 0.5) {
-        var index = Math.round((y- 100) / 150);
+    if (x > c.width * 0.2 && x < c.width * 0.5) {
+        var index = Math.round((y - 100) / 150);
         if (index < credits.length) {
             return index;
         }
         return -1;
     }
 };
-
 Mouse.getMenuItemIDForPosition = function(x, y) {
     if (y > c.height * 0.60 && y < c.height * 0.70) {
         // we can haz menu
@@ -140,14 +131,12 @@ Mouse.getMenuItemIDForPosition = function(x, y) {
     }
     return -1;
 }
-
 Mouse.getButtonIDForPosition = function(x, y) {
     // TODO: MATHS
-    if (x > c.width*0.15 && x <= c.width * 0.85 && y > (c.height*0.8 - buttonHeight) && y < c.height*0.8) {
-        return (x-(c.width*0.15))/(c.width*0.7/currentAlert.buttons.length);
+    if (x > (c.width * 0.15) && x <= (c.width * 0.85) && y > (c.height * 0.8 - buttonHeight) && y < (c.height * 0.8)) {
+        return Math.floor(x - (c.width * 0.15)) / (c.width * 0.7 / currentAlert.buttons.length);
     }
 };
-
 Mouse.toggleOption = function() {
     var i = 0;
     for (var key in options) {
@@ -162,11 +151,11 @@ Mouse.toggleOption = function() {
     saveOptions();
 };
 Mouse.setBackButton = function() {
-     if (fullMouseX >= 80 && fullMouseX <= 150 && fullMouseY >= 50 && fullMouseY <= 150) {
-                    backButtonHover = true;
-                } else {
-                    backButtonHover = false
-                }
+    if (fullMouseX >= 80 && fullMouseX <= 150 && fullMouseY >= 50 && fullMouseY <= 150) {
+        backButtonHover = true;
+    } else {
+        backButtonHover = false
+    }
 }
 Mouse.move = function(e) {
     if (document.pointerLockElement === c || document.mozPointerLockElement === c || document.webkitPointerLockElement === c) {
@@ -206,16 +195,20 @@ Mouse.move = function(e) {
                 selectedMenuItem = Mouse.getCreditIDForPosition(fullMouseX, fullMouseY);
                 console.log('selectedMenuItem ' + selectedMenuItem);
                 // detect hyperlink
-
                 break;
         }
     }
 };
-
 Mouse.selectTool = function(tool) {
     if (typeof tool === "object") {
         selectedTool = tools.indexOf(tool);
     } else if (typeof tool === "number" && -1 <= tool && tool < tools.length) {
         selectedTool = tool;
+    }
+
+    if (selectedTool != -1) {
+        tools[selectedTool].isPlaced = !blockExistsAt(mouseX, mouseY, tools[selectedTool]);
+        tools[selectedTool].x = mouseX;
+        tools[selectedTool].y = mouseY;
     }
 }

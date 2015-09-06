@@ -6,6 +6,12 @@ Util.log = function(str){
     }
 }
 
+Util.getDateString = function(seconds) {
+		var date = new Date(null);
+        date.setSeconds(seconds);
+        return date.toISOString().substr(14, 5);
+}
+
 // document.addEventListener('keydown', function (e) {
 // 	console.log('key pressed');
 // 	if (e.ctrlKey && e.altKey) {
