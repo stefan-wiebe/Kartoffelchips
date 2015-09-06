@@ -1002,8 +1002,8 @@ Drawing.drawFPS = function () {
 		fps = parseInt (1/delta);
 
 		if (options.showFPS == true) {
-			ctx.fillStyle = 'red';
-			ctx.font = "bold "+(36)+"px munroregular";
+			ctx.fillStyle = 'white';
+			ctx.font = "bold "+(36)+"px TS4F";
 			ctx.fillText(fps, c.width - ctx.measureText(fps).width, 30);
 		}
 };
