@@ -1,4 +1,4 @@
-{"name": "Second level", "hint": "Mit dem Prisma kannst du zwei Laser mischen.", "author": "Stefan Wiebe"}
+{"name": "Prismen", "hint": "Die Empfänger nehmen nur Laserstrahlen an, welche dieselbe Farbe haben, welche auch auf dem Empfänger selbst sichtbar ist (hier lila). Um einen lila Laserstrahl zu kriegen kannst du das Prisma verwenden, welches die Farben von zwei Laserstrahlen mischt.", "author": "Stefan Wiebe"}
 ################
 ################
 ####        ####

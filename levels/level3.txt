@@ -1,4 +1,4 @@
-{"name": "Third level", "hint": "Mit dem Prisma kannst du zwei Laser mischen.", "author": "Stefan Wiebe"}
+{"name": "Aktivatoren", "hint": "Um ein Level abschließen zu können, muss mindestens ein Laserstrahl durch jeden Aktivator gehen.", "author": "Stefan Wiebe"}
 ################
 ################
 ####        ####

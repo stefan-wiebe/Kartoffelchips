@@ -22,6 +22,7 @@ var backButtonHover = false;
 var currentAlert;
 var startTime = 0;
 var timerRunning = false;
+var timerElapsed = 0;
 
 var menu = [{
     title: "START GAME",
@@ -83,6 +84,10 @@ function initGame() {
         loadSprite('portalinput');
         loadSprite('portaloutput');
         loadSprite('menu');
+        loadSound('select');
+        loadSound('laser');
+        sounds["laser"].loop = true; // <= Doesn't work.
+        // SoundEffects.loop("laser");
         gameState = GameState.IN_MENU;
         var mHandler = new Mouse();
         var kHandler = new Keyboard();
@@ -93,8 +98,15 @@ function initGame() {
 }
 
 function startTimer() {
+    timerElapsed = 0;
     startTime = new Date().getTime() / 1000;
     timerRunning = true;
+}
+function stopTimer() {
+    if (timerRunning) {
+        timerRunning = false;
+        timerElapsed = (new Date().getTime() / 1000) - startTime;
+    }
 }
 
 function startGame() {
@@ -114,11 +126,14 @@ function showCredits() {
 function checkWin() {
     if (hasWon()) {
         gameState = GameState.HAS_WON;
-        timerRunning = false;
+        stopTimer();
+
     }
 }
 
 function hasWon() {
+    pauseSounds();
+
     if (gameState == GameState.IS_PLAYING && selectedTool == -1) {
         for (var i = 0; i < predefinedBlocks.length; i++) {
             if (predefinedBlocks[i].toString() == "Activator" || predefinedBlocks[i].toString() == "Receiver") {
@@ -133,22 +148,25 @@ function hasWon() {
 
 function resetLevel() {
     // TODO: Unplace all blocks
-    for (obj in tools) {
-        obj.x = 0;
-        obj.y = 0;
-        obj.isPlaced = 0;
-        obj.rotation = 0;
-    }
+    // for (obj in tools) {
+    //     obj.x = 0;
+    //     obj.y = 0;
+    //     obj.isPlaced = 0;
+    //     obj.rotation = 0;
+    // }
+    // (We do all this anyway)
     loadLevel(levelID); //:D
 }
 
 function backToMenu() {
+    pauseSounds();
+
     gameState = GameState.IN_MENU;
     level = null;
+    levelID = null;
     predefinedBlocks.length = 0;
     tools.length = 0;
     blocks.length = 0;
-
 }
 
 function showHelpMessage() {
@@ -197,9 +215,12 @@ function tick() {
     if (document.pointerLockElement === c || document.mozPointerLockElement === c || document.webkitPointerLockElement === c || options.mouseDebug == true) {
         switch (gameState) {
             case GameState.IN_MENU:
+                // SoundEffects.stopLaserSoundEffect();
                 Drawing.drawMenuScreen();
                 break;
             case GameState.IS_PLAYING:
+                // SoundEffects.startLaserSoundEffect();
+
                 Drawing.drawBoard();
                 Drawing.drawPredefinedBlocks();
                 Drawing.drawActionButtons();
@@ -214,6 +235,8 @@ function tick() {
                 break;
             case GameState.HAS_WON:
                 Drawing.drawWinScreen();
+                // SoundEffects.stopLaserSoundEffect();
+
                 break;
             case GameState.IN_OPTIONS:
                 Drawing.drawOptions();
@@ -436,6 +459,7 @@ function loadLevel(id) {
             gameState = GameState.IS_PLAYING;
             initToolBox();
             startTimer();
+            sounds["laser"].play();
         }
     }
     xmlhttp.overrideMimeType('text/plain');
