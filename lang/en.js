@@ -1,5 +1,5 @@
 var translations = {
-    "START_GAME": "SART GAME",
+    "START_GAME": "START GAME",
     "OPTIONS": "OPTIONS",
     "CREDITS": "CREDITS",
     "DEBUG": "debug",

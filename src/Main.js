@@ -27,13 +27,13 @@ var lastCalledTime;
 var fps;
 
 var menu = [{
-    title: translations.START_GAME,
+    title: 'START_GAME',
     action: startGame
 }, {
-    title: translations.OPTIONS,
+    title: 'OPTIONS',
     action: showOptions
 }, {
-    title: translations.CREDITS,
+    title: 'CREDITS',
     action: showCredits
 }];
 var actionButtons = [new Button('resetLevel', resetLevel), new Button('helpButton', showHelpMessage), new Button('backToMenu', backToMenu)];

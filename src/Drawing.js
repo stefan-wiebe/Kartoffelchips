@@ -725,7 +725,7 @@ Drawing.drawMenuScreen = function() {
     var margin = 50;
     var fullLength = 0;
     for (var i = 0; i < menu.length; i++) {
-        var textLength = ctx.measureText(menu[i].title).width * 1.1;
+        var textLength = ctx.measureText(translations[menu[i].title]).width * 1.1;
         fullLength = fullLength + textLength + margin;
     }
     var left = (c.width - fullLength) / 2;
@@ -734,9 +734,9 @@ Drawing.drawMenuScreen = function() {
         if (i == selectedMenuItem) {
             ctx.fillStyle = '#fda900';
         }
-        Drawing.fillTextRotated(menu[i].title, left, c.height * 0.68 + (i * 3), 5);
+        Drawing.fillTextRotated(translations[menu[i].title], left, c.height * 0.68 + (i * 3), 5);
         ctx.fillStyle = 'white';
-        left = left + ctx.measureText(menu[i].title).width * 1.1 + margin;
+        left = left + ctx.measureText(translations[menu[i].title]).width * 1.1 + margin;
     }
 };
 Drawing.drawPointerLockWarning = function() {
