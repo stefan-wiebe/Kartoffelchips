@@ -84,6 +84,10 @@ function initGame() {
         loadSprite('portalinput');
         loadSprite('portaloutput');
         loadSprite('menu');
+        loadSound('select');
+        loadSound('laser');
+        sounds["laser"].loop = true; // <= Doesn't work.
+        // SoundEffects.loop("laser");
         gameState = GameState.IN_MENU;
         var mHandler = new Mouse();
         var kHandler = new Keyboard();
@@ -128,6 +132,8 @@ function checkWin() {
 }
 
 function hasWon() {
+    pauseSounds();
+
     if (gameState == GameState.IS_PLAYING && selectedTool == -1) {
         for (var i = 0; i < predefinedBlocks.length; i++) {
             if (predefinedBlocks[i].toString() == "Activator" || predefinedBlocks[i].toString() == "Receiver") {
@@ -142,16 +148,18 @@ function hasWon() {
 
 function resetLevel() {
     // TODO: Unplace all blocks
-    for (obj in tools) {
-        obj.x = 0;
-        obj.y = 0;
-        obj.isPlaced = 0;
-        obj.rotation = 0;
-    }
+    // for (obj in tools) {
+    //     obj.x = 0;
+    //     obj.y = 0;
+    //     obj.isPlaced = 0;
+    //     obj.rotation = 0;
+    // }
+    // (We do all this anyway)
     loadLevel(levelID); //:D
 }
 
 function backToMenu() {
+    pauseSounds();
 
     gameState = GameState.IN_MENU;
     level = null;
@@ -207,12 +215,11 @@ function tick() {
     if (document.pointerLockElement === c || document.mozPointerLockElement === c || document.webkitPointerLockElement === c || options.mouseDebug == true) {
         switch (gameState) {
             case GameState.IN_MENU:
-                    SoundEffects.stopLaserSoundEffect();
-
+                // SoundEffects.stopLaserSoundEffect();
                 Drawing.drawMenuScreen();
                 break;
             case GameState.IS_PLAYING:
-                    SoundEffects.startLaserSoundEffect();
+                // SoundEffects.startLaserSoundEffect();
 
                 Drawing.drawBoard();
                 Drawing.drawPredefinedBlocks();
@@ -228,7 +235,7 @@ function tick() {
                 break;
             case GameState.HAS_WON:
                 Drawing.drawWinScreen();
-                SoundEffects.stopLaserSoundEffect();
+                // SoundEffects.stopLaserSoundEffect();
 
                 break;
             case GameState.IN_OPTIONS:
@@ -452,6 +459,7 @@ function loadLevel(id) {
             gameState = GameState.IS_PLAYING;
             initToolBox();
             startTimer();
+            sounds["laser"].play();
         }
     }
     xmlhttp.overrideMimeType('text/plain');

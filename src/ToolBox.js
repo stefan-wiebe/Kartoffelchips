@@ -10,6 +10,7 @@ function getToolFromToolbox(tool) {
 		}
 
 		if (!toolsByType[tool][i].isPlaced) {
+			sounds["select"].play();
 			return tools.indexOf(toolsByType[tool][i]);
 		} else {
 			return false;
