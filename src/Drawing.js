@@ -800,14 +800,14 @@ Drawing.drawOptions = function() {
     var i = 0;
     ctx.fillStyle = 'white';
     ctx.font = '36px TS4F';
-    Drawing.drawTitle('Options');
+    Drawing.drawTitle(translations.OPTIONS);
     Drawing.drawBackButton();
     for (var key in options) {
         ctx.fillStyle = "white"
         if (selectedMenuItem == i) {
             ctx.fillStyle = "#fda900";
         }
-        ctx.fillText(key.toUpperCase(), c.width * 0.2, (c.height * 0.3) + (i * 45));
+        ctx.fillText(translations[key.toUpperCase()], c.width * 0.2, (c.height * 0.3) + (i * 45));
         // TODO (?): STRINGS
         switch (typeof options[key]) {
             case 'string':
@@ -832,7 +832,7 @@ Drawing.drawActionButtons = function() {
 Drawing.drawCredits = function() {
     ctx.fillStyle = '#394046';
     ctx.fillRect(0, 0, c.width, c.height);
-    Drawing.drawTitle('CREDITS');
+    Drawing.drawTitle(translations.CREDITS);
     Drawing.drawBackButton();
 
     for (var i=0; i<credits.length; i++) {

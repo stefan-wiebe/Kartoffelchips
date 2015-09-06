@@ -3,5 +3,6 @@ var translations = {
     "OPTIONS": "OPTIONS",
     "CREDITS": "CREDITS",
     "DEBUG": "debug",
-    "SHOWFPS": "Show FPS"
+    "SHOWFPS": "Show FPS",
+    "MOUSEDEBUG": "Mouse debug"
 };
