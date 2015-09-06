@@ -23,6 +23,8 @@ var currentAlert;
 var startTime = 0;
 var timerRunning = false;
 var timerElapsed = 0;
+var lastCalledTime;
+var fps;
 
 var menu = [{
     title: "START GAME",
@@ -252,6 +254,7 @@ function tick() {
         Drawing.drawPointerLockWarning();
     }
     Drawing.drawCursor();
+    Drawing.drawFPS();
     requestAnimationFrame(tick);
 }
 
