@@ -17,13 +17,12 @@ SoundEffects.startLaserSoundEffect = function() {
 	osc.start();
 
 };
-
-SoundEffects.playRotationSoundEffect = function(rotation) {
+SoundEffects.playSoundEffect = function(note) {
 	var osc = window.ac.createOscillator();
 	osc.type = 'sawtooth';
-	osc.frequency.value = 300 + (rotation * 30);
+	osc.frequency.value = Math.pow(1.0594630943592953, key-49) * 440
 	osc.connect(window.ac.destination);
 	var time = ac.currentTime;
 	osc.start(time);
-	osc.stop(time + 0.2);
+	osc.stop(time + 0.1);
 }
