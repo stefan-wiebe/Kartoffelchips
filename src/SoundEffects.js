@@ -20,7 +20,7 @@ SoundEffects.startLaserSoundEffect = function() {
 SoundEffects.playSoundEffect = function(note) {
 	var osc = window.ac.createOscillator();
 	osc.type = 'sawtooth';
-	osc.frequency.value = Math.pow(1.0594630943592953, key-49) * 440
+	osc.frequency.value = Math.pow(1.0594630943592953, note-49) * 440
 	osc.connect(window.ac.destination);
 	var time = ac.currentTime;
 	osc.start(time);
