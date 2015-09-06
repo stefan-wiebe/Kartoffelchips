@@ -25,5 +25,5 @@ SoundEffects.playRotationSoundEffect = function(rotation) {
 	osc.connect(window.ac.destination);
 	var time = ac.currentTime;
 	osc.start(time);
-	osc.stop(0.5);
+	osc.stop(time + 0.5);
 }
