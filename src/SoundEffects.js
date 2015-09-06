@@ -1,20 +1,28 @@
 // SoundEffects.js
 var SoundEffects = function () {
-	this.ac = new AudioContext();
 
 };
-SoundEffects.prototype.startLaserSoundEffect = function() {
-	var filter = this.ac.createBiquadFilter();
+window.ac = new AudioContext();
+
+SoundEffects.startLaserSoundEffect = function() {
+	var filter = ac.createBiquadFilter();
 	filter.type = 'bandpass';
 	filter.Q.value = 0.75390625;
 	filter.frequency.value = 350;
-	var osc = this.ac.createOscillator();
+	var osc = ac.createOscillator();
 	osc.type = 'sawtooth';
 	osc.frequency.value = 95;
 	osc.connect(filter);
-	filter.connect(this.ac.destination);
+	filter.connect(ac.destination);
 	osc.start();
 
-
-
 };
+
+SoundEffects.playRotationSoundEffect = function(rotation) {
+	var osc = window.ac.createOscillator();
+	osc.type = 'sawtooth';
+	osc.frequency.value = 300 + (rotation * 30);
+	osc.connect(window.ac.destination);
+	osc.start();
+	osc.stop(0.5);
+}

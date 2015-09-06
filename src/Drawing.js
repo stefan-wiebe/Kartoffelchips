@@ -753,6 +753,10 @@ Drawing.drawWinScreen = function() {
     ctx.font = '48px TS4F';
     ctx.drawImage(sprites['wonPotato'], (c.width - sprites['wonPotato'].width) / 2, 200);
     Drawing.fillTextCentered('YOU HAZ WON! CLICK TO CONTINUE!', c.height * 0.65);
+        ctx.font = '36px TS4F';
+
+    Drawing.fillTextCentered('Level completed in ' + Util.getDateString(timerElapsed), c.height * 0.8);
+
 };
 // draw boolean
 Drawing.drawBoolean = function(x, y, bool) {

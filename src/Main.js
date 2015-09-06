@@ -22,6 +22,7 @@ var backButtonHover = false;
 var currentAlert;
 var startTime = 0;
 var timerRunning = false;
+var timerElapsed = 0;
 
 var menu = [{
     title: "START GAME",
@@ -93,8 +94,15 @@ function initGame() {
 }
 
 function startTimer() {
+    timerElapsed = 0;
     startTime = new Date().getTime() / 1000;
     timerRunning = true;
+}
+function stopTimer() {
+    if (timerRunning) {
+        timerRunning = false;
+        timerElapsed = (new Date().getTime() / 1000) - startTime;
+    }
 }
 
 function startGame() {
@@ -114,7 +122,7 @@ function showCredits() {
 function checkWin() {
     if (hasWon()) {
         gameState = GameState.HAS_WON;
-        timerRunning = false;
+        stopTimer();
     }
 }
 
@@ -145,10 +153,10 @@ function resetLevel() {
 function backToMenu() {
     gameState = GameState.IN_MENU;
     level = null;
+    levelID = null;
     predefinedBlocks.length = 0;
     tools.length = 0;
     blocks.length = 0;
-
 }
 
 function showHelpMessage() {
@@ -435,6 +443,7 @@ function loadLevel(id) {
 
             gameState = GameState.IS_PLAYING;
             initToolBox();
+
             startTimer();
         }
     }
