@@ -135,7 +135,7 @@ Mouse.getMenuItemIDForPosition = function(x, y) {
 Mouse.getButtonIDForPosition = function(x, y) {
     // TODO: MATHS
     if (x > (c.width * 0.15) && x <= (c.width * 0.85) && y > (c.height * 0.8 - 80/*buttonHeight*/) && y < (c.height * 0.8)) {
-        return Math.floor(x - (c.width * 0.15)) / (c.width * 0.7 / currentAlert.buttons.length);
+        return Math.floor(x - (c.width * 0.15) / (c.width * 0.7 / currentAlert.buttons.length));
     }
 };
 Mouse.toggleOption = function() {
@@ -178,7 +178,7 @@ Mouse.move = function(e) {
                 break;
             case GameState.IS_PLAYING:
                 if (currentAlert) {
-                    selectedMenuItem = Mouse.getOptionIDForPosition(fullMouseX, fullMouseY);
+                    selectedMenuItem = Mouse.getButtonIDForPosition(fullMouseX, fullMouseY);
                     console.log('selected index ' + selectedMenuItem);
                 } else if (selectedTool > -1) {
                     tools[selectedTool].isPlaced = !blockExistsAt(mouseX, mouseY, tools[selectedTool]);

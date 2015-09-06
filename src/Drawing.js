@@ -1,4 +1,4 @@
-﻿function Drawing() {}
+function Drawing() {}
 Drawing.drawBoard = function() {
     for (var x = 0; x < map.length; x++) {
         for (var y = 0; y < map[x].length; y++) {
@@ -769,9 +769,9 @@ Drawing.drawBoolean = function(x, y, bool) {
 Drawing.drawSlider = function(x, y, width, height, number) {
     // first draw slider line
     Util.log('drawing line from ' + x + ' to ' + (x + width));
-    var sliderWidth = 8 * scaleFactor;
+    var sliderWidth = 8;
     ctx.strokeStyle = "white";
-    ctx.lineWidth = 2.5 * scaleFactor;
+    ctx.lineWidth = 2.5;
     ctx.beginPath();
     ctx.moveTo(x, y);
     ctx.lineTo(x + width, y);
@@ -797,14 +797,14 @@ Drawing.drawOptions = function() {
     var i = 0;
     ctx.fillStyle = 'white';
     ctx.font = '36px TS4F';
-    Drawing.drawTitle('Options');
+    Drawing.drawTitle(translations.OPTIONS);
     Drawing.drawBackButton();
     for (var key in options) {
         ctx.fillStyle = "white"
         if (selectedMenuItem == i) {
             ctx.fillStyle = "#fda900";
         }
-        ctx.fillText(key.toUpperCase(), c.width * 0.2, (c.height * 0.3) + (i * 45));
+        ctx.fillText(translations[key.toUpperCase()], c.width * 0.2, (c.height * 0.3) + (i * 45));
         // TODO (?): STRINGS
         switch (typeof options[key]) {
             case 'string':
@@ -829,7 +829,7 @@ Drawing.drawActionButtons = function() {
 Drawing.drawCredits = function() {
     ctx.fillStyle = '#394046';
     ctx.fillRect(0, 0, c.width, c.height);
-    Drawing.drawTitle('CREDITS');
+    Drawing.drawTitle(translations.CREDITS);
     Drawing.drawBackButton();
 
     for (var i=0; i<credits.length; i++) {
@@ -987,3 +987,20 @@ Drawing.drawAlert = function() {
 
 
 }
+
+
+Drawing.drawFPS = function () {
+	if(!lastCalledTime) {
+ 		lastCalledTime = Date.now();
+ 		fps = 0;
+		}
+		delta = (new Date().getTime() - lastCalledTime)/1000;
+		lastCalledTime = Date.now();
+		fps = parseInt (1/delta);
+
+		if (options.showFPS == true) {
+			ctx.fillStyle = 'white';
+			ctx.font = "bold "+(36)+"px TS4F";
+			ctx.fillText(fps, c.width - ctx.measureText(fps).width, 30);
+		}
+};

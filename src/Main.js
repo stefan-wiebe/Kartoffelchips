@@ -23,15 +23,17 @@ var currentAlert;
 var startTime = 0;
 var timerRunning = false;
 var timerElapsed = 0;
+var lastCalledTime;
+var fps;
 
 var menu = [{
-    title: "START GAME",
+    title: translations.START_GAME,
     action: startGame
 }, {
-    title: "OPTIONS",
+    title: translations.OPTIONS,
     action: showOptions
 }, {
-    title: "CREDITS",
+    title: translations.CREDITS,
     action: showCredits
 }];
 var actionButtons = [new Button('resetLevel', resetLevel), new Button('helpButton', showHelpMessage), new Button('backToMenu', backToMenu)];
@@ -61,7 +63,8 @@ var credits = [{
 function initGame() {
     c = document.getElementById('game');
     if (checkBrowserCompatibility) {
-        document.body.style.background = '#000';
+        document.body.style.background = 'none #000';
+        document.getElementById('warning').style.display = 'none';
         for (var i = 0; i < 16; i++) {
             map[i] = [];
 
@@ -255,6 +258,7 @@ function tick() {
         Drawing.drawPointerLockWarning();
     }
     Drawing.drawCursor();
+    Drawing.drawFPS();
     requestAnimationFrame(tick);
 }
 
