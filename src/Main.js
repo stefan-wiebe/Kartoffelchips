@@ -63,7 +63,8 @@ var credits = [{
 function initGame() {
     c = document.getElementById('game');
     if (checkBrowserCompatibility) {
-        document.body.style.background = '#000';
+        document.body.style.background = 'none #000';
+        document.getElementById('warning').style.display = 'none';
         for (var i = 0; i < 16; i++) {
             map[i] = [];
 
