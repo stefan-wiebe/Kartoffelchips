@@ -4,5 +4,11 @@ var translations = {
     "CREDITS": "CREDITS",
     "DEBUG": "debug",
     "SHOWFPS": "Show FPS",
-    "MOUSEDEBUG": "Mouse debug"
+    "MOUSEDEBUG": "Mouse debug",
+    "WIN": "YOU HAS WON! CLICK TO CONTINUE!",
+    "LOCKWARN": "CAN HAS MOUSE?",
+    "MIRROR": "Mirrior",
+    "PRISM": "Prism",
+    "PORTALINPUT": "Portal-Input",
+    "PORTALOUTPUT": "Portal-Output"
 };

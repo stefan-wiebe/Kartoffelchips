@@ -745,7 +745,7 @@ Drawing.drawPointerLockWarning = function() {
     ctx.drawImage(sprites['logo'], (c.width - sprites['logo'].width) / 2, 200);
     ctx.fillStyle = 'white';
     ctx.font = '48px TS4F';
-    Drawing.fillTextCentered('CAN HAZ MOUSE?', c.height * 0.65);
+    Drawing.fillTextCentered(translations.LOCKWARN, c.height * 0.65);
 };
 Drawing.drawWinScreen = function() {
     ctx.fillStyle = '#394046';
@@ -753,7 +753,7 @@ Drawing.drawWinScreen = function() {
     ctx.fillStyle = 'white';
     ctx.font = '48px TS4F';
     ctx.drawImage(sprites['wonPotato'], (c.width - sprites['wonPotato'].width) / 2, 200);
-    Drawing.fillTextCentered('YOU HAZ WON! CLICK TO CONTINUE!', c.height * 0.65);
+    Drawing.fillTextCentered(translations.WIN, c.height * 0.65);
         ctx.font = '36px TS4F';
 
     Drawing.fillTextCentered('Level completed in ' + Util.getDateString(timerElapsed), c.height * 0.8);

@@ -4,5 +4,11 @@ var translations = {
     "CREDITS": "INFO",
     "DEBUG": "Entkäfern",
     "SHOWFPS": "FPS anzeigen",
-    "MOUSEDEBUG": "Maus Entkäferung"
+    "MOUSEDEBUG": "Maus Entkäferung",
+    "WIN": "Du hast Gewonnen! Klicke um weiter zu Spielen!",
+    "LOCKWARN": "Kann ich deine Maus haben?",
+    "MIRROR": "Spiegel",
+    "PRISM": "Prisma",
+    "PORTALINPUT": "Portal-Eingang",
+    "PORTALOUTPUT": "Portal-Augang"
 };
