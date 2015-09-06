@@ -14,7 +14,7 @@ Array.prototype.lastOf = function (elements) {
     var last = -1;
 
     for (var i = 0; i < elements.length; i++) {
-        console.log(this.indexOf(elements[i]));
+        Util.log(this.indexOf(elements[i]));
         if (last < this.indexOf(elements[i])) {
             last = this.indexOf(elements[i]);
         }

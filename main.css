@@ -9,8 +9,9 @@ body {
 }
 @font-face {font-family:"TS4F";src:url("fonts/TkachenkoSketch4F-Regular.eot?") format("eot"),url("fonts/TkachenkoSketch4F-Regular.woff") format("woff"),url("fonts/TkachenkoSketch4F-Regular.ttf") format("truetype"),url("fonts/TkachenkoSketch4F-Regular.svg#TkachenkoSketch4F") format("svg");font-weight:normal;font-style:normal;}
 canvas {
-    position: absolute;
-    top: 0; bottom: 0; left: 0; right: 0;
+    top: 0;
+    left: 15%;
+    height: 100%;
 	position: absolute;
     image-rendering: optimizeSpeed;
     image-rendering: crisp-edges;
@@ -30,10 +31,4 @@ h1 {
     text-align: center;
     width: 100%;
     left:0;
-}
-#game-wrapper {
-    width: 100%;
-    padding-bottom: 75%; /* 4:3 */
-    position: relative;
-    background: black;
 }

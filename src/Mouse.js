@@ -14,16 +14,16 @@ Mouse.click = function(e) {
                     case 0:
                         if (currentAlert) {
                             selectedMenuItem = Mouse.getOptionIDForPosition(fullMouseX, fullMouseY);
-                            console.log('selected index ' + selectedMenuItem);
+                            Util.log('selected index ' + selectedMenuItem);
                         } else if (selectedTool == -1) {
                             // in inventory
                             if (mouseIsInToolBox()) {
-                                console.log('block clicked, selected tool is  ' + toolsByType[mouseY - 1]);
+                                Util.log('block clicked, selected tool is  ' + toolsByType[mouseY - 1]);
                                 Mouse.selectTool(getToolFromToolbox(mouseY - 1));
                             }
                             if (mouseX == 15 && (mouseY < 11 && mouseY > (10 - actionButtons.length))) {
                                 var blockID = mouseY - (height - actionButtons.length) + 1;
-                                console.log('clicked button ' + blockID);
+                                Util.log('clicked button ' + blockID);
                                 actionButtons[blockID].action();
                             }
                             // is there a block at mouse position that we can pick up? If so, rotate
@@ -47,7 +47,7 @@ Mouse.click = function(e) {
                         break;
                         //Secondary button (usually the right button)
                     case 2:
-                        console.log('right click');
+                        Util.log('right click');
                         if (selectedTool != -1) {
                             unplaceBlock(tools[selectedTool]);
                             selectedTool = -1;
@@ -143,7 +143,7 @@ Mouse.toggleOption = function() {
         if (i == selectedMenuItem) {
             if (typeof options[key] == "boolean") {
                 options[key] = !options[key];
-                console.log('toggled ' + key);
+                Util.log('toggled ' + key);
             }
         }
         i++;
@@ -188,12 +188,12 @@ Mouse.move = function(e) {
             case GameState.IN_OPTIONS:
                 Mouse.setBackButton();
                 selectedMenuItem = Mouse.getOptionIDForPosition(fullMouseX, fullMouseY);
-                console.log('selected index ' + selectedMenuItem);
+                Util.log('selected index ' + selectedMenuItem);
                 break;
             case GameState.IN_CREDITS:
                 Mouse.setBackButton();
                 selectedMenuItem = Mouse.getCreditIDForPosition(fullMouseX, fullMouseY);
-                console.log('selectedMenuItem ' + selectedMenuItem);
+                Util.log('selectedMenuItem ' + selectedMenuItem);
                 // detect hyperlink
                 break;
         }
