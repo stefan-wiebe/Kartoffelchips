@@ -167,7 +167,7 @@ Drawing.drawLaserBeam = function() {
             var found = false;
 
             if (portalInputs[blocks[i].color] != undefined && portalInputs[blocks[i].color].input.isOn) {
-                Drawing.drawLaserBeamFromObject(blocks[i]);
+                Drawing.drawLaserBeamFromPosition(blocks[i].x, blocks[i].y, blocks[i].rotation, portalInputs[blocks[i].color].input.color);
                 blocks[i].isOn = true;
             }
         }
@@ -394,7 +394,7 @@ Drawing.fillAlphaOfBlock = function(block) {
                 ctx.closePath();
             } else if (rotation == 2) {
                 ctx.moveTo(halfX, halfY);
-                ctx.lineTo(halfX, startY);
+                ctx.lineTo(halfX, fullY);
                 ctx.stroke();
                 ctx.closePath();
             } else if (rotation == 3) {
@@ -518,6 +518,7 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
     			block.isOn = true;
             } else if (block.toString() == "PortalInput") {
                 if (rotation == block.rotation) {
+                    block.isOn = true;
                     block.input.isOn = true;
                     block.input.color = color;
                 }
@@ -586,13 +587,7 @@ Drawing.drawLaserBeamFromObject = function(obj) {
     // draw to next object
     var nextX = 0;
     var nextY = 0;
-    var color = "";
-
-    if (obj.toString() != "PortalOutput") {
-        color = obj.color;
-    } else {
-        color = portalInputs[obj.color].input.color
-    }
+    var color = obj.color;
 
     switch (obj.rotation) {
         case 0:

@@ -1,0 +1,16 @@
+{"name": "Rotation", "hint": "Mit 'r' (oder einem Linksklick, falls der Block schon platziert ist) kannst du Blöcke rotieren.", "author": "Stefan Wiebe"}
+################
+################
+####        ####
+####   #########
+####        ####
+########    ####
+########    ####
+####        ####
+####    ########
+####        ####
+################
+################
+L 11 2 3 1
+X 11 9 3 #00ff00
+M 6
