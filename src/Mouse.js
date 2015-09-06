@@ -133,7 +133,7 @@ Mouse.getMenuItemIDForPosition = function(x, y) {
 }
 Mouse.getButtonIDForPosition = function(x, y) {
     // TODO: MATHS
-    if (x > (c.width * 0.15) && x <= (c.width * 0.85) && y > (c.height * 0.8 - buttonHeight) && y < (c.height * 0.8)) {
+    if (x > (c.width * 0.15) && x <= (c.width * 0.85) && y > (c.height * 0.8 - 80/*buttonHeight*/) && y < (c.height * 0.8)) {
         return Math.floor(x - (c.width * 0.15)) / (c.width * 0.7 / currentAlert.buttons.length);
     }
 };
