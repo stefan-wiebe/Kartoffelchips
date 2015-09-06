@@ -1,4 +1,4 @@
-{"name": "Developer Level", "hint": "5", author: "Tobias Timpe"}
+{"name": "Developer Level", "hint": "5", "author": "Tobias Timpe"}
 ################
 #              #
 #   #######    #
