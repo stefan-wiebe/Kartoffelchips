@@ -4,21 +4,25 @@ html, body {
     width: 100%;
 }
 body {
-
     background: url('textures/rottenPotato.png') center no-repeat #394046;
 }
 @font-face {font-family:"TS4F";src:url("fonts/TkachenkoSketch4F-Regular.eot?") format("eot"),url("fonts/TkachenkoSketch4F-Regular.woff") format("woff"),url("fonts/TkachenkoSketch4F-Regular.ttf") format("truetype"),url("fonts/TkachenkoSketch4F-Regular.svg#TkachenkoSketch4F") format("svg");font-weight:normal;font-style:normal;}
 canvas {
-    top: 0;
-    left: 15%;
-    height: 100%;
 	position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    width: auto;
+    height: 100%;
     image-rendering: optimizeSpeed;
-    image-rendering: crisp-edges;
+    /*image-rendering: crisp-edges;
     image-rendering: -moz-crisp-edges;
     image-rendering: -o-crisp-edges;
     image-rendering: -webkit-optimize-contrast;
     -ms-interpolation-mode: nearest-neighbor;
+    (Looks bad if not scaled by x-hundred%)*/
     box-shadow: 0.02rem 0.02rem 1rem hsla(0,0%,0%,0.5);
 }
 

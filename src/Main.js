@@ -89,13 +89,16 @@ function initGame() {
         loadSound('laser');
         sounds["laser"].loop = true; // <= Doesn't work.
         // SoundEffects.loop("laser");
+
+        checkOptions();
+
         gameState = GameState.IN_MENU;
         var mHandler = new Mouse();
         var kHandler = new Keyboard();
         requestAnimationFrame(tick);
     } else {
         c.remove();
-
+        document.body.appendChild("<h1>Dein Browser mag keine Kartoffelchips :(</h1>");
     }
 }
 

@@ -442,10 +442,7 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
         if (block.isPredefined == true) {
     		if (blockName == "Activator") {
     			block.isOn = true;
-    		} else if (blockName == "Receiver" && block.color == color) {
-    			result = false;
-    			block.isOn = true;
-    		} else if (blockName == "Mirror") {
+    		} else if (blockName == "Receiver" && block.color == color  && block.rotation == rotation) {
     			result = false;
     			block.isOn = true;
     		} else {
