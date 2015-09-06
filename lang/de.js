@@ -3,5 +3,6 @@ var translations = {
     "OPTIONS": "OPTIONEN",
     "CREDITS": "INFO",
     "DEBUG": "Entkaefern",
-    "SHOWFPS": "FPS anzeigen"
+    "SHOWFPS": "FPS anzeigen",
+    "MOUSEDEBUG": "Maus Entkaeferung"
 };
