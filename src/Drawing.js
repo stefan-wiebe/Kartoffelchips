@@ -560,7 +560,12 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
     return result;
 };
 
-//Perhaps this should be moved into an own file.
+Drawing.drawToolbar = function() {
+    for (var y = 0; y < height; y++) {
+        Drawing.drawSprite('inventory', 1, 15, y);
+    }
+}
+
 Drawing.drawToolbox = function() {
     Util.log('drawing toolbox');
 
@@ -575,11 +580,12 @@ Drawing.drawToolbox = function() {
 
             }
         }
-        if (numberOfNotPlaced > 0) {
-            //Drawing.drawSprite(toolsByType[i].toString(), 0, 15, (i + 1));
-            ctx.fillText(numberOfNotPlaced, (spriteSize * 16) - 20, (spriteSize * (i + 2)) - 45);
-        }
+
         Drawing.drawSprite('inventory', 0, 15, (i + 1));
+
+        if (numberOfNotPlaced > 0) {
+            ctx.fillText(numberOfNotPlaced, (spriteSize * 15.75), (spriteSize * (i + 2)) - spriteSize * 0.15);
+        }
     }
 };
 Drawing.drawLaserBeamFromObject = function(obj) {
