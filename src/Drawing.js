@@ -1,4 +1,4 @@
-﻿function Drawing() {}
+function Drawing() {}
 Drawing.drawBoard = function() {
     for (var x = 0; x < map.length; x++) {
         for (var y = 0; y < map[x].length; y++) {
@@ -772,9 +772,9 @@ Drawing.drawBoolean = function(x, y, bool) {
 Drawing.drawSlider = function(x, y, width, height, number) {
     // first draw slider line
     Util.log('drawing line from ' + x + ' to ' + (x + width));
-    var sliderWidth = 8 * scaleFactor;
+    var sliderWidth = 8;
     ctx.strokeStyle = "white";
-    ctx.lineWidth = 2.5 * scaleFactor;
+    ctx.lineWidth = 2.5;
     ctx.beginPath();
     ctx.moveTo(x, y);
     ctx.lineTo(x + width, y);
@@ -990,3 +990,20 @@ Drawing.drawAlert = function() {
 
 
 }
+
+
+Drawing.drawFPS = function () {
+	if(!lastCalledTime) {
+ 		lastCalledTime = Date.now();
+ 		fps = 0;
+		}
+		delta = (new Date().getTime() - lastCalledTime)/1000;
+		lastCalledTime = Date.now();
+		fps = parseInt (1/delta);
+
+		if (options.showFPS == true) {
+			ctx.fillStyle = 'red';
+			ctx.font = "bold "+(36)+"px munroregular";
+			ctx.fillText(fps, c.width - ctx.measureText(fps).width, 30);
+		}
+};
