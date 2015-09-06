@@ -23,6 +23,7 @@ SoundEffects.playRotationSoundEffect = function(rotation) {
 	osc.type = 'sawtooth';
 	osc.frequency.value = 300 + (rotation * 30);
 	osc.connect(window.ac.destination);
-	osc.start();
+	var time = ac.currentTime;
+	osc.start(time);
 	osc.stop(0.5);
 }

@@ -58,7 +58,9 @@ Mouse.click = function(e) {
                 }
                 break;
             case GameState.IN_MENU:
-                menu[Mouse.getMenuItemIDForPosition(fullMouseX, fullMouseY)].action();
+                if (selectedMenuItem != -1) {
+                menu[selectedMenuItem].action();
+                }
                 break;
             case GameState.HAS_WON:
                 loadLevel(++levelID);
