@@ -13,7 +13,7 @@ Mouse.click = function(e) {
                     //Main-button (usually the left button)
                     case 0:
                         if (currentAlert) {
-                            selectedMenuItem = Mouse.getOptionIDForPosition(fullMouseX, fullMouseY);
+                            selectedMenuItem = Mouse.getButtonIDForPosition(fullMouseX, fullMouseY);
                             Util.log('selected index ' + selectedMenuItem);
                             currentAlert.buttons[selectedMenuItem].action();
                         } else if (selectedTool == -1) {
@@ -106,13 +106,19 @@ Mouse.getOptionIDForPosition = function(x, y) {
     }
 };
 Mouse.getCreditIDForPosition = function(x, y) {
-    if (x > c.width * 0.2 && x < c.width * 0.5) {
-        var index = Math.round((y - 100) / 150);
-        if (index < credits.length) {
-            return index;
+    for (var i = 0; i < credits.length; i++) {
+        if (credits[i].pos[0] <= x && credits[i].pos[1] <= y && x <= (credits[i].pos[0] + credits[i].size[0]) && y <= (credits[i].pos[1] + credits[i].size[1])) {
+            return i;
         }
-        return -1;
     }
+    // Arbitrary bullshit
+    // if (x > c.width * 0.2 && x < c.width * 0.5) {
+    //     var index = Math.round((y - 100) / 150);
+    //     if (index < credits.length) {
+    //         return index;
+    //     }
+    //     return -1;
+    // }
 };
 Mouse.getMenuItemIDForPosition = function(x, y) {
     if (y > c.height * 0.60 && y < c.height * 0.70) {
@@ -202,6 +208,7 @@ Mouse.move = function(e) {
         }
     }
 };
+
 Mouse.selectTool = function(tool) {
     if (typeof tool === "object") {
         selectedTool = tools.indexOf(tool);
@@ -214,4 +221,12 @@ Mouse.selectTool = function(tool) {
         tools[selectedTool].x = mouseX;
         tools[selectedTool].y = mouseY;
     }
+}
+
+Mouse.isInToolBox = function() {
+	return mouseX == 15 && mouseY > 0 && mouseY <= toolsByType.length;
+}
+
+Mouse.isInActionButtonArea = function() {
+    return mouseX == 15 && mouseY < 11 && mouseY > (10 - actionButtons.length);
 }
