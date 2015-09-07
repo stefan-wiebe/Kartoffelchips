@@ -238,12 +238,12 @@ function tick() {
                 break;
             case GameState.IS_PLAYING:
                 // SoundEffects.startLaserSoundEffect();
-
-                disableAllElements();
+;
                 Drawing.drawBoard();
                 Drawing.drawPredefinedBlocks();
+                disableAllElements();
                 Drawing.drawLaserBeam();
-                // Drawing.drawToolbar();
+                Drawing.drawToolbar();
                 Drawing.drawActionButtons();
                 Drawing.drawTools();
                 Drawing.drawToolbox();

@@ -1,0 +1,20 @@
+{"name": "Mehrere Portale", "hint": "Ein Portaleingang kann mehreren Ausgängen zugeordnet sein", "author": "Timon Ringwald"}
+################
+#              #
+#              #
+#              #
+#              #
+#              #
+#              #
+#              #
+#              #
+#              #
+#              #
+################
+L 1 10 1 0
+L 14 10 3 1
+X 2 5 1 #ffff00
+X 13 5 3 #ffff00
+P 1
+PL-I #0080ff
+PL-O 2 #0080ff

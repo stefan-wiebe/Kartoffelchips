@@ -270,6 +270,12 @@ Drawing.fillAlphaOfBlock = function(block) {
 
             ctx.stroke();
             ctx.closePath();
+        } else if (blockName == "Activator") {
+            ctx.fillStyle = block.color;
+            ctx.fillRect(startX, startY, spriteSize / 2 - 1, spriteSize / 2 - 1);
+            ctx.fillRect(halfX + 1, startY, spriteSize / 2 - 1, spriteSize / 2 - 1);
+            ctx.fillRect(startX, halfY + 1, spriteSize / 2 - 1, spriteSize / 2 - 1);
+            ctx.fillRect(halfX + 1, halfY + 1, spriteSize / 2 - 1, spriteSize / 2 - 1);
         } else if (blockName == "Mirror") {
             if (rotation == 0 || rotation == 2) {
                 if (block.inputs[0].isOn) {
@@ -478,11 +484,14 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
 
         if (block.isPredefined == true) {
     		if (blockName == "Activator") {
+                block.color = color;
     			block.isOn = true;
     		} else if (blockName == "Receiver") {
     			result = false;
-                block.input.isOn = true;
-    			block.input.color = color;
+                if (rotation == block.rotation) {
+                    block.input.isOn = true;
+    			    block.input.color = color;
+                }
     		} else {
                 result = false;
             }
