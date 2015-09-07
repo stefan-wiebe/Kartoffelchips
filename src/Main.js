@@ -168,7 +168,7 @@ function resetLevel() {
 
 function backToMenu() {
     pauseSounds();
-
+    
     gameState = GameState.IN_MENU;
     level = null;
     levelID = null;
