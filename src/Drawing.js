@@ -465,7 +465,7 @@ Drawing.fillAlphaOfBlock = function(block) {
 Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
     var result = true;
     var i = 0;
-    rotation = (rotation + 2) % 4;
+    //rotation = (rotation + 2) % 4;
 
     var block = map[x][y].block;
 
@@ -516,16 +516,20 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
 
     			block.isOn = true;
             } else if (block.toString() == "Prism") {
+                var output = false;
+
                 switch (block.rotation) {
                     case 0:
                     case 2:
                         if (rotation == 3 - block.rotation) {
                             block.inputs[0].isOn = true;
                             block.inputs[0].color = color;
+                            output = true;
                         }
                         if (rotation == 1 + block.rotation) {
                             block.inputs[1].isOn = true;
                             block.inputs[1].color = color;
+                            output = true;
                         }
                         break;
                     case 1:
@@ -533,23 +537,27 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
                         if (rotation == (3 + block.rotation) % 4) {
                             block.inputs[0].isOn = true;
                             block.inputs[0].color = color;
+                            output = true;
                         }
                         if (rotation == 3 - block.rotation) {
                             block.inputs[1].isOn = true;
                             block.inputs[1].color = color;
+                            output = true;
                         }
                         break;
                 }
 
-                if (block.inputs[0].isOn && !block.inputs[1].isOn) {
-                    Drawing.drawLaserBeamFromPosition(x, y, block.rotation, block.inputs[0].color);
-                } else if (!block.inputs[0].isOn && block.inputs[1].isOn) {
-                    Drawing.drawLaserBeamFromPosition(x, y, block.rotation, block.inputs[1].color);
-                } else if (block.inputs[0].isOn && block.inputs[1].isOn) {
-                    Drawing.drawLaserBeamFromPosition(x, y, block.rotation, mixColors(block.inputs[0].color, block.inputs[1].color));
-                }
+                if (output) {
+                    if (block.inputs[0].isOn && !block.inputs[1].isOn) {
+                        Drawing.drawLaserBeamFromPosition(x, y, block.rotation, block.inputs[0].color);
+                    } else if (!block.inputs[0].isOn && block.inputs[1].isOn) {
+                        Drawing.drawLaserBeamFromPosition(x, y, block.rotation, block.inputs[1].color);
+                    } else if (block.inputs[0].isOn && block.inputs[1].isOn) {
+                        Drawing.drawLaserBeamFromPosition(x, y, block.rotation, mixColors(block.inputs[0].color, block.inputs[1].color));
+                    }
 
-    			block.isOn = true;
+                    block.isOn = true;
+                }
             } else if (block.toString() == "PortalInput") {
                 if (rotation == block.rotation) {
                     block.isOn = true;
@@ -611,7 +619,6 @@ Drawing.drawToolbox = function() {
         for (var j = 0; j < toolsByType[toolsByType[i]].length; j++) {
             if (toolsByType[toolsByType[i]][j].isPlaced == false) {
                 numberOfNotPlaced++;
-
             }
         }
 
@@ -635,12 +642,12 @@ Drawing.drawLaserBeamFromObject = function(obj) {
             var i = obj.y;
             beaming = true;
             if (obj.toString() != "Mirror") {
-                Drawing.drawLaserBeamInCell(color, obj.rotation, obj.x, i);
+                Drawing.drawLaserBeamInCell(color, (obj.rotation + 2) % 4, obj.x, i);
             }
 
             i--;
             while (i > 0 && beaming) {
-                beaming = Drawing.drawLaserBeamInCell(color, obj.rotation, obj.x, i);
+                beaming = Drawing.drawLaserBeamInCell(color, (obj.rotation + 2) % 4, obj.x, i);
                 i--;
             }
             break;
@@ -648,12 +655,12 @@ Drawing.drawLaserBeamFromObject = function(obj) {
             var i = obj.x;
             beaming = true;
             if (obj.toString() != "Mirror") {
-                Drawing.drawLaserBeamInCell(color, obj.rotation, i, obj.y);
+                Drawing.drawLaserBeamInCell(color, (obj.rotation + 2) % 4, i, obj.y);
             }
 
             i++;
             while (i < width && beaming) {
-                beaming = Drawing.drawLaserBeamInCell(color, obj.rotation, i, obj.y);
+                beaming = Drawing.drawLaserBeamInCell(color, (obj.rotation + 2) % 4, i, obj.y);
                 i++;
                 Util.log('drawing laser at ' + i + ' ' + obj.y + ' beaming is ' + beaming);
             }
@@ -662,12 +669,12 @@ Drawing.drawLaserBeamFromObject = function(obj) {
             var i = obj.y;
             beaming = true;
             if (obj.toString() != "Mirror") {
-                Drawing.drawLaserBeamInCell(obj.rotation, obj.rotation, obj.x, i);
+                Drawing.drawLaserBeamInCell(obj.rotation, (obj.rotation + 2) % 4, obj.x, i);
             }
 
             i++;
             while (i < height && beaming) {
-                beaming = Drawing.drawLaserBeamInCell(color, obj.rotation, obj.x, i);
+                beaming = Drawing.drawLaserBeamInCell(color, (obj.rotation + 2) % 4, obj.x, i);
                 i++;
             }
             break;
@@ -675,12 +682,12 @@ Drawing.drawLaserBeamFromObject = function(obj) {
             var i = obj.x;
             beaming = true;
             if (obj.toString() != "Mirror") {
-                Drawing.drawLaserBeamInCell(obj.rotation, obj.rotation, i, obj.y);
+                Drawing.drawLaserBeamInCell(obj.rotation, (obj.rotation + 2) % 4, i, obj.y);
             }
 
             i--;
             while (i > 0 && beaming) {
-                beaming = Drawing.drawLaserBeamInCell(color, obj.rotation, i, obj.y);
+                beaming = Drawing.drawLaserBeamInCell(color, (obj.rotation + 2) % 4, i, obj.y);
                 i--;
             }
             break;
@@ -696,7 +703,7 @@ Drawing.drawLaserBeamFromPosition = function(x, y, rotation, color) {
             beaming = true;
             i--;
             while (i > 0 && beaming) {
-                beaming = Drawing.drawLaserBeamInCell(color, rotation, x, i);
+                beaming = Drawing.drawLaserBeamInCell(color, (rotation + 2) % 4, x, i);
                 i--;
             }
             break;
@@ -705,7 +712,7 @@ Drawing.drawLaserBeamFromPosition = function(x, y, rotation, color) {
             beaming = true;
             i++;
             while (i < width && beaming) {
-                beaming = Drawing.drawLaserBeamInCell(color, rotation, i, y);
+                beaming = Drawing.drawLaserBeamInCell(color, (rotation + 2) % 4, i, y);
                 i++;
                 Util.log('drawing laser at ' + i + ' ' + y + ' beaming is ' + beaming);
             }
@@ -715,7 +722,7 @@ Drawing.drawLaserBeamFromPosition = function(x, y, rotation, color) {
             beaming = true;
             i++;
             while (i < height && beaming) {
-                beaming = Drawing.drawLaserBeamInCell(color, rotation, x, i);
+                beaming = Drawing.drawLaserBeamInCell(color, (rotation + 2) % 4, x, i);
                 i++;
             }
             break;
@@ -724,7 +731,7 @@ Drawing.drawLaserBeamFromPosition = function(x, y, rotation, color) {
             beaming = true;
             i--;
             while (i > 0 && beaming) {
-                beaming = Drawing.drawLaserBeamInCell(color, rotation, i, y);
+                beaming = Drawing.drawLaserBeamInCell(color, (rotation + 2) % 4, i, y);
                 i--;
             }
             break;
