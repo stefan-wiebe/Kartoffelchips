@@ -714,7 +714,7 @@ Drawing.drawTitle = function(str) {
     ctx.font = oldFont;
 }
 Drawing.drawMenuScreen = function() {
-    ctx.fillStyle = '#394046';
+    ctx.fillStyle = Colors.BACKGROUND_COLOR;
     ctx.fillRect(0, 0, c.width, c.height);
     ctx.drawImage(sprites['logo'], (c.width - sprites['logo'].width) / 2, 200);
     ctx.fillStyle = 'white';
@@ -729,15 +729,15 @@ Drawing.drawMenuScreen = function() {
     for (var i = 0; i < menu.length; i++) {
         ctx.fillStyle = 'white';
         if (i == selectedMenuItem) {
-            ctx.fillStyle = '#fda900';
+            ctx.fillStyle = Colors.MENU_HOVER;
         }
         Drawing.fillTextRotated(translations[menu[i].title], left, c.height * 0.68 + (i * 3), 5);
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = Colors.TEXT_COLOR;
         left = left + ctx.measureText(translations[menu[i].title]).width * 1.1 + margin;
     }
 };
 Drawing.drawPointerLockWarning = function() {
-    ctx.fillStyle = '#394046';
+    ctx.fillStyle = Colors.BACKGROUND_COLOR;
     ctx.fillRect(0, 0, c.width, c.height);
     ctx.drawImage(sprites['logo'], (c.width - sprites['logo'].width) / 2, 200);
     ctx.fillStyle = 'white';
@@ -745,15 +745,15 @@ Drawing.drawPointerLockWarning = function() {
     Drawing.fillTextCentered(translations.LOCKWARN, c.height * 0.65);
 };
 Drawing.drawWinScreen = function() {
-    ctx.fillStyle = '#394046';
+    ctx.fillStyle = Colors.BACKGROUND_COLOR;
     ctx.fillRect(0, 0, c.width, c.height);
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = Colors.TEXT_COLOR;
     ctx.font = '48px TS4F';
     ctx.drawImage(sprites['wonPotato'], (c.width - sprites['wonPotato'].width) / 2, 200);
     Drawing.fillTextCentered(translations.WIN, c.height * 0.65);
         ctx.font = '36px TS4F';
 
-    Drawing.fillTextCentered('Level completed in ' + Util.getDateString(timerElapsed), c.height * 0.8);
+    Drawing.fillTextCentered(translations.TIMER + Util.getDateString(timerElapsed), c.height * 0.8);
 
 };
 // draw boolean
@@ -785,24 +785,24 @@ Drawing.drawBackButton = function() {
     var oldFont = ctx.font;
     ctx.font = '72px TS4F';
     if (backButtonHover) {
-        ctx.fillStyle = "#fda900";
+        ctx.fillStyle = Colors.MENU_HOVER;
     }
     ctx.fillText('<', 100, 100);
     ctx.font = oldFont;
     ctx.fillStyle = 'width';
 }
 Drawing.drawOptions = function() {
-    ctx.fillStyle = '#394046';
+    ctx.fillStyle = Colors.BACKGROUND_COLOR;
     ctx.fillRect(0, 0, c.width, c.height);
     var i = 0;
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = Colors.TEXT_COLOR;
     ctx.font = '36px TS4F';
     Drawing.drawTitle(translations.OPTIONS);
     Drawing.drawBackButton();
     for (var key in options) {
-        ctx.fillStyle = "white";
+        ctx.fillStyle = Colors.TEXT_COLOR;
         if (selectedMenuItem == i) {
-            ctx.fillStyle = "#fda900";
+            ctx.fillStyle = Colors.MENU_HOVER;
         }
         ctx.fillText(translations[key.toUpperCase()], c.width * 0.2, (c.height * 0.3) + (i * 45));
         // TODO (?): STRINGS
@@ -827,14 +827,14 @@ Drawing.drawActionButtons = function() {
 };
 
 Drawing.drawCredits = function() {
-    ctx.fillStyle = '#394046';
+    ctx.fillStyle = Colors.BACKGROUND_COLOR;
     ctx.fillRect(0, 0, c.width, c.height);
     Drawing.drawTitle(translations.CREDITS);
     Drawing.drawBackButton();
 
     for (var i=0; i<credits.length; i++) {
         ctx.font = '40px TS4F';
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = Colors.TEXT_COLOR;
 
         credits[i].pos[0] = c.width * 0.2;
         credits[i].pos[1] = c.height * 0.3 + i * 80;
@@ -844,10 +844,10 @@ Drawing.drawCredits = function() {
         ctx.fillText(credits[i].name, credits[i].pos[0], credits[i].pos[1]);
 
         ctx.font = '24px TS4F';
-        ctx.fillStyle = '#365ec4';
+        ctx.fillStyle = Colors.CREDITS_LINK;
 
         if (i == selectedMenuItem) {
-            ctx.fillStyle = '#80a0fe';
+            ctx.fillStyle = Colors.CREDITS_HOVER;
         }
 
         ctx.fillText(credits[i].link, credits[i].pos[0], credits[i].pos[1] + credits[i].size[1]);
@@ -861,7 +861,7 @@ Drawing.drawAlert = function() {
    // ctx.fillStyle = '#39404655';
    // ctx.fillRect(0, 0, c.width, c.height);
 
-    ctx.fillStyle = '#515b63';
+    ctx.fillStyle = Colors.ALERT_BACKGROUND;
 
     ctx.fillRect(c.width*0.15, c.height*0.2, c.width*0.7, c.height*0.6);
 
@@ -869,7 +869,7 @@ Drawing.drawAlert = function() {
 // borders
 
 // inner border
-    ctx.strokeStyle = '#2f352e';
+    ctx.strokeStyle = Colors.ALERT_INNER_BORDER;
 
 
 
@@ -905,7 +905,7 @@ Drawing.drawAlert = function() {
     ctx.stroke();
     ctx.closePath();
 
-    ctx.strokeStyle = '#252a25';
+    ctx.strokeStyle = Colors.ALERT_OUTER_BORDER;
 
 
     // TOP BORDER
@@ -979,12 +979,13 @@ Drawing.drawAlert = function() {
     ctx.font = '36px TS4F';
 
     for (var i=0; i<currentAlert.buttons.length; i++) {
-        ctx.fillStyle = '#434b52';
+        ctx.fillStyle = Colors.ALERT_BUTTON_BACKGORUND;
         if (i == selectedMenuItem) {
-            ctx.fillStyle = '#373d43';
+
+                    ctx.fillStyle = Colors.ALERT_HOVER
         }
         ctx.fillRect(c.width*0.15 + (i*buttonWidth), c.height*0.8 - buttonHeight, buttonWidth, buttonHeight);
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = Colors.TEXT_COLOR;
         Util.log('drawing text at x ' + (c.width*0.15 + (i*buttonWidth) + 10) + ' y ' + (c.height*0.8 - 10));
         ctx.fillText(currentAlert.buttons[i].title,c.width*0.15 + (i*buttonWidth) + (buttonWidth - ctx.measureText(currentAlert.buttons[i].title).width)/2, c.height*0.8 - (buttonHeight/2 - 18));
 
