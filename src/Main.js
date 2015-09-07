@@ -178,7 +178,7 @@ function resetLevel() {
 
 function backToMenu() {
     pauseSounds();
-    
+
     gameState = GameState.IN_MENU;
     level = null;
     levelID = null;
@@ -188,8 +188,7 @@ function backToMenu() {
 }
 
 function showHelpMessage() {
-    showAlert(level.hint, level.name, [new Button('OKAY', dismissAlert)]);
-
+    showAlert(level.hint, level.name, [new Button('OKAY', dismissAlert)], level.author);
 }
 
 
@@ -218,11 +217,12 @@ function loadSprite(spriteName) {
     sprites[spriteName] = newSprite;
 }
 
-function showAlert(message, title, buttons) {
+function showAlert(message, title, buttons, subtext) {
     currentAlert = new Alert();
     currentAlert.message = message;
     currentAlert.title = title;
     currentAlert.buttons = buttons;
+    currentAlert.subtext = subtext;
 }
 
 function tick() {
