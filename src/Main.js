@@ -34,12 +34,15 @@ var menu = [{
 }, {
     title: 'OPTIONS',
     action: showOptions
-}, {
+},{
+    title: 'LEGEND',
+    action: showLegend
+},{
     title: 'CREDITS',
     action: showCredits
 }];
 var actionButtons = [new Button('resetLevel', resetLevel), new Button('helpButton', showHelpMessage), new Button('backToMenu', backToMenu)];
-
+var allTypes = [new Emitter(), new Receiver(),new Mirror(), new Prism(), new Activator(), new PortalInput(), new PortalOutput()];
 var credits = [{
     name: 'Dejan Brinker',
     link: 'https://github.com/Dede98',
@@ -131,6 +134,13 @@ function showCredits() {
     gameState = GameState.IN_CREDITS;
 }
 
+
+function showLegend() {
+    selectedMenuItem = -1;
+    gameState = GameState.IN_LEGEND;
+
+};
+
 function checkWin() {
     if (hasWon()) {
         gameState = GameState.HAS_WON;
@@ -168,7 +178,7 @@ function resetLevel() {
 
 function backToMenu() {
     pauseSounds();
-
+    
     gameState = GameState.IN_MENU;
     level = null;
     levelID = null;
@@ -228,7 +238,7 @@ function tick() {
                 break;
             case GameState.IS_PLAYING:
                 // SoundEffects.startLaserSoundEffect();
-
+;
                 Drawing.drawBoard();
                 Drawing.drawPredefinedBlocks();
                 disableAllElements();
@@ -243,6 +253,9 @@ function tick() {
                 if (currentAlert) {
                     Drawing.drawAlert();
                 }
+
+                updateReceivers();
+
                 break;
             case GameState.HAS_WON:
                 Drawing.drawWinScreen();
@@ -255,6 +268,9 @@ function tick() {
             case GameState.IN_CREDITS:
                 Drawing.drawCredits();
                 break;
+            case GameState.IN_LEGEND:
+                Drawing.drawLegend();
+                break;
         }
     } else {
         Drawing.drawPointerLockWarning();
@@ -264,12 +280,28 @@ function tick() {
     requestAnimationFrame(tick);
 }
 
-function disableAllElements() {
+function updateReceivers() {
     for (var i = 0; i < predefinedBlocks.length; i++) {
-        if (predefinedBlocks[i].toString() != "Emitter") {
-            predefinedBlocks[i].isOn = false
+        if (predefinedBlocks[i].toString() == "Receiver") {
+            if (predefinedBlocks[i].input.color == predefinedBlocks[i].color && predefinedBlocks[i].input.isOn == true) {
+                predefinedBlocks[i].isOn = true;
+            } else {
+                predefinedBlocks[i].isOn = false;
+            }
         }
     }
+}
+
+function disableAllElements() {
+    for (var i = 0; i < predefinedBlocks.length; i++) {
+        if (predefinedBlocks[i].toString() == "Receiver") {
+            predefinedBlocks[i].input.isOn = false;
+            predefinedBlocks[i].input.color = "";
+        } else if (predefinedBlocks[i].toString() != "Emitter") {
+            predefinedBlocks[i].isOn = false;
+        }
+    }
+
     for (var i = 0; i < tools.length; i++) {
         if (tools[i].toString() == "Mirror") {
             tools[i].isOn = false;

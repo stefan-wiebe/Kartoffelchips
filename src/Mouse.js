@@ -79,6 +79,13 @@ Mouse.click = function(e) {
                     gameState = GameState.IN_MENU;
                 }
                 window.open(credits[selectedMenuItem].link);
+                break;
+            case GameState.IN_LEGEND:
+                if (backButtonHover) {
+                    checkOptions();
+                    gameState = GameState.IN_MENU;
+                }
+                break;
         }
     } else {
         lockMouse();
@@ -205,21 +212,26 @@ Mouse.move = function(e) {
                 Util.log('selectedMenuItem ' + selectedMenuItem);
                 // detect hyperlink
                 break;
+            case GameState.IN_LEGEND:
+               Mouse.setBackButton();
+                break
         }
     }
 };
 
 Mouse.selectTool = function(tool) {
-    if (typeof tool === "object") {
-        selectedTool = tools.indexOf(tool);
-    } else if (typeof tool === "number" && -1 <= tool && tool < tools.length) {
-        selectedTool = tool;
-    }
+    if (selectedTool == -1) {
+        if (typeof tool === "object") {
+            selectedTool = tools.indexOf(tool);
+        } else if (typeof tool === "number" && -1 <= tool && tool < tools.length) {
+            selectedTool = tool;
+        }
 
-    if (selectedTool != -1) {
-        tools[selectedTool].isPlaced = !blockExistsAt(mouseX, mouseY, tools[selectedTool]);
-        tools[selectedTool].x = mouseX;
-        tools[selectedTool].y = mouseY;
+        if (selectedTool != -1) {
+            tools[selectedTool].isPlaced = !blockExistsAt(mouseX, mouseY, tools[selectedTool]);
+            tools[selectedTool].x = mouseX;
+            tools[selectedTool].y = mouseY;
+        }
     }
 }
 

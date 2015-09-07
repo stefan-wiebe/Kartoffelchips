@@ -1,15 +1,15 @@
 {"name": "Mehrere Farben", "hint": "Der Receiver muss mit der richtigen Laserfarbe angesprochen werden", "author": "Timon Ringwald"}
 ################
+######    ######
+######    ######
+######    ######
 #              #
 #              #
 #              #
-#              #
-#              #
-#              #
-#              #
-#              #
-#              #
-#              #
+######    ######
+######    ######
+######    ######
+######    ######
 ################
 L 7 1 2 0
 L 9 9 3 1

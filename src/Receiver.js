@@ -5,5 +5,6 @@ function Receiver() {
 	this.color = 0;
 	this.isOn = false;
 	this.isPredefined = true;
+	this.input = new Input();
 }
 Receiver.prototype.toString = function () {return "Receiver"};

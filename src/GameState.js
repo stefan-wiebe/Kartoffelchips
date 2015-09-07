@@ -3,5 +3,6 @@ var GameState = {
 	IS_PLAYING: 1,
 	HAS_WON: 2,
 	IN_OPTIONS: 3,
-	IN_CREDITS: 4
+	IN_CREDITS: 4,
+	IN_LEGEND:5
 };

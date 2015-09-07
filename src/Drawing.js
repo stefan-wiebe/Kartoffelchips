@@ -270,6 +270,12 @@ Drawing.fillAlphaOfBlock = function(block) {
 
             ctx.stroke();
             ctx.closePath();
+        } else if (blockName == "Activator") {
+            ctx.fillStyle = block.color;
+            ctx.fillRect(startX, startY, spriteSize / 2 - 1, spriteSize / 2 - 1);
+            ctx.fillRect(halfX + 1, startY, spriteSize / 2 - 1, spriteSize / 2 - 1);
+            ctx.fillRect(startX, halfY + 1, spriteSize / 2 - 1, spriteSize / 2 - 1);
+            ctx.fillRect(halfX + 1, halfY + 1, spriteSize / 2 - 1, spriteSize / 2 - 1);
         } else if (blockName == "Mirror") {
             if (rotation == 0 || rotation == 2) {
                 if (block.inputs[0].isOn) {
@@ -478,10 +484,12 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
 
         if (block.isPredefined == true) {
     		if (blockName == "Activator") {
+                block.color = color;
     			block.isOn = true;
-    		} else if (blockName == "Receiver" && block.color == color  && block.rotation == rotation) {
+    		} else if (blockName == "Receiver") {
     			result = false;
-    			block.isOn = true;
+                block.input.isOn = true;
+    			block.input.color = color;
     		} else {
                 result = false;
             }
@@ -1058,4 +1066,26 @@ Drawing.drawFPS = function () {
 			ctx.font = "bold "+(36)+"px Courier New";
 			ctx.fillText(lastShownFps, c.width - ctx.measureText(fps).width - 5, 32);
 		}
+};
+
+Drawing.drawLegend = function() {
+    ctx.fillStyle = Colors.BACKGROUND_COLOR;
+    ctx.fillRect(0, 0, c.width, c.height);
+    Drawing.drawTitle(translations.LEGEND);
+    Drawing.drawBackButton();
+
+    for (var i=0; i<allTypes.length; i++) {
+        Drawing.drawSprite(allTypes[i].toString(), 0, 1, i+3);
+        ctx.fillStyle = Colors.TEXT_COLOR;
+    ctx.font = '36px TS4F';
+
+        ctx.fillText(translations[allTypes[i].toString().toUpperCase()], 140, ((i+4)*64) - 18);
+            ctx.font = '24px TS4F';
+var key = allTypes[i].toString().toUpperCase() + "_DESCRIPTION";
+        ctx.fillText(translations[key],c.width - 48 - ctx.measureText(translations[key]).width, ((i+4)*64) - 12);
+
+        console.log('drawing sprite ' +allTypes[i].toString());
+
+    }
+
 };
