@@ -237,6 +237,7 @@ function tick() {
                 Drawing.drawActionButtons();
                 Drawing.drawTools();
                 Drawing.drawToolbox();
+                Drawing.drawToolTipForToolBoxTool();
                 Drawing.drawMouse();
                 if (currentAlert) {
                     Drawing.drawAlert();
