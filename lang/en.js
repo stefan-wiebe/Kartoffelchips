@@ -13,6 +13,6 @@ var translations = {
     "PORTALOUTPUT": "Portal-Output",
     "FULLSCREEN": "Fullscreen",
     "ON": "On",
-    "OFF": "Aus"
+    "OFF": "Aus",
     "TIME": "Level Completed in "
 };
