@@ -16,6 +16,7 @@ var translations = {
     "RECEIVER": "Sensor",
     "ACTIVATOR": "Aktivator",
     "FULLSCREEN": "Vollbild",
+    "AUTHOR": "Autor",
     "MIRROR_DESCRIPTION": "Lenkt einen Laser um",
     "PRISM_DESCRIPTION": "Mischt 2 verschiedene Laser zu einer Farbe",
     "PORTALINPUT_DESCRIPTION": "Leitet einen Laser zu den gleichfarbigen Portal-Ausgängen",
