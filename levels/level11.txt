@@ -1,4 +1,4 @@
-{"name": "Weiß", "hint": "Erstelle einen komplett weißen Laser", "author": "Timon Ringwald"}
+{"name": "Weiss", "hint": "Erstelle einen komplett weissen Laser", "author": "Timon Ringwald"}
 ################
 #              #
 #              #
