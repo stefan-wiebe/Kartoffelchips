@@ -1,4 +1,4 @@
-{"name": "Mehrere Portale", "hint": "Der Receiver muss mit der richtigen Laserfarbe angesprochen werden", "author": "Timon Ringwald"}
+{"name": "Mehrere Portale", "hint": "Ein Portaleingang kann mehreren Ausgängen zugeordnet sein", "author": "Timon Ringwald"}
 ################
 #              #
 #              #
