@@ -836,7 +836,12 @@ Drawing.drawCredits = function() {
         ctx.font = '40px TS4F';
         ctx.fillStyle = 'white';
 
-        ctx.fillText(credits[i].name, c.width*0.2, c.height*0.3 + (i*80));
+        credits[i].pos[0] = c.width * 0.2;
+        credits[i].pos[1] = c.height * 0.3 + i * 80;
+        credits[i].size[0] = ctx.measureText(credits[i].name).width;
+        credits[i].size[1] = 30;
+
+        ctx.fillText(credits[i].name, credits[i].pos[0], credits[i].pos[1]);
 
         ctx.font = '24px TS4F';
         ctx.fillStyle = '#365ec4';
@@ -845,7 +850,7 @@ Drawing.drawCredits = function() {
             ctx.fillStyle = '#80a0fe';
         }
 
-        ctx.fillText(credits[i].link, c.width*0.2, c.height*0.3 + (i*80) + 30);
+        ctx.fillText(credits[i].link, credits[i].pos[0], credits[i].pos[1] + credits[i].size[1]);
     }
 };
 
@@ -1002,7 +1007,7 @@ Drawing.drawFPS = function () {
 			lastShownFps = fps;
 			lastFpsDraw = Date.now();
 		}
-		
+
 		if (options.showFPS == true) {
 			ctx.fillStyle = 'white';
 			ctx.font = "bold "+(36)+"px TS4F";

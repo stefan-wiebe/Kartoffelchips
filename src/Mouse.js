@@ -106,13 +106,19 @@ Mouse.getOptionIDForPosition = function(x, y) {
     }
 };
 Mouse.getCreditIDForPosition = function(x, y) {
-    if (x > c.width * 0.2 && x < c.width * 0.5) {
-        var index = Math.round((y - 100) / 150);
-        if (index < credits.length) {
-            return index;
+    for (var i = 0; i < credits.length; i++) {
+        if (credits[i].pos[0] <= x && credits[i].pos[1] <= y && x <= (credits[i].pos[0] + credits[i].size[0]) && y <= (credits[i].pos[1] + credits[i].size[1])) {
+            return i;
         }
-        return -1;
     }
+    // Arbitrary bullshit
+    // if (x > c.width * 0.2 && x < c.width * 0.5) {
+    //     var index = Math.round((y - 100) / 150);
+    //     if (index < credits.length) {
+    //         return index;
+    //     }
+    //     return -1;
+    // }
 };
 Mouse.getMenuItemIDForPosition = function(x, y) {
     if (y > c.height * 0.60 && y < c.height * 0.70) {
