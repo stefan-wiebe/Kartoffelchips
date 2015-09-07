@@ -998,9 +998,14 @@ Drawing.drawFPS = function () {
 		lastCalledTime = Date.now();
 		fps = parseInt (1/delta);
 
+		if (new Date().getTime() >= lastFpsDraw + 1000) {
+			lastShownFps = fps;
+			lastFpsDraw = Date.now();
+		}
+		
 		if (options.showFPS == true) {
 			ctx.fillStyle = 'white';
 			ctx.font = "bold "+(36)+"px TS4F";
-			ctx.fillText(fps, c.width - ctx.measureText(fps).width, 30);
+			ctx.fillText(lastShownFps, c.width - ctx.measureText(fps).width, 30);
 		}
 };
