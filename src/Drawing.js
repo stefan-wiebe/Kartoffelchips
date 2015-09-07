@@ -79,13 +79,13 @@ Drawing.drawToolTip = function(x, y, text, xAlign, yAlign) {
 
 Drawing.drawToolTipForToolBoxTool = function() {
     if (Mouse.isInToolBox()) {
-        Drawing.drawToolTip(mouseX * spriteSize - 5, mouseY * spriteSize + spriteSize / 2, toolsByType[mouseY - 1], "right", "center");
+        Drawing.drawToolTip(mouseX * spriteSize - 5, mouseY * spriteSize + spriteSize / 2, translations[toolsByType[mouseY - 1].toUpperCase()], "right", "center");
     }
 }
 
 Drawing.drawToolTipForActionButton = function() {
     if (Mouse.isInActionButtonArea()) {
-        Drawing.drawToolTip(mouseX * spriteSize - 5, mouseY * spriteSize + spriteSize / 2, actionButtons[mouseY - (height - 4)].title, "right", "center");
+        Drawing.drawToolTip(mouseX * spriteSize - 5, mouseY * spriteSize + spriteSize / 2, translations[actionButtons[mouseY - (height - 4)].title.toUpperCase()], "right", "center");
     }
 }
 
