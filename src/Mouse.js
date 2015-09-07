@@ -208,6 +208,7 @@ Mouse.move = function(e) {
         }
     }
 };
+
 Mouse.selectTool = function(tool) {
     if (typeof tool === "object") {
         selectedTool = tools.indexOf(tool);
@@ -220,4 +221,12 @@ Mouse.selectTool = function(tool) {
         tools[selectedTool].x = mouseX;
         tools[selectedTool].y = mouseY;
     }
+}
+
+Mouse.isInToolBox = function() {
+	return mouseX == 15 && mouseY > 0 && mouseY <= toolsByType.length;
+}
+
+Mouse.isInActionButtonArea = function() {
+    return mouseX == 15 && mouseY < 11 && mouseY > (10 - actionButtons.length);
 }

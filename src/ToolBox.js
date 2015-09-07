@@ -31,7 +31,8 @@ function getToolPosInToolBox(tool) {
 }
 
 function mouseIsInToolBox() {
-	return mouseX == 15 && mouseY > 0 && mouseY <= toolsByType.length;
+	Util.log("mouseIsInToolBox() is deprecated, plese use Mouse.isInToolBox()!");
+	return Mouse.isInToolBox();
 }
 
 function initToolBox() {
