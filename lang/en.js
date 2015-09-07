@@ -11,5 +11,7 @@ var translations = {
     "PRISM": "Prism",
     "PORTALINPUT": "Portal-Input",
     "PORTALOUTPUT": "Portal-Output",
-    "FULLSCREEN": "Fullscreen"
+    "FULLSCREEN": "Fullscreen",
+    "ON": "On",
+    "OFF": "Aus"
 };
