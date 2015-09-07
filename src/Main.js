@@ -229,9 +229,9 @@ function tick() {
             case GameState.IS_PLAYING:
                 // SoundEffects.startLaserSoundEffect();
 
+                disableAllElements();
                 Drawing.drawBoard();
                 Drawing.drawPredefinedBlocks();
-                disableAllElements();
                 Drawing.drawLaserBeam();
                 // Drawing.drawToolbar();
                 Drawing.drawActionButtons();
@@ -243,6 +243,9 @@ function tick() {
                 if (currentAlert) {
                     Drawing.drawAlert();
                 }
+
+                updateReceivers();
+
                 break;
             case GameState.HAS_WON:
                 Drawing.drawWinScreen();
@@ -264,12 +267,28 @@ function tick() {
     requestAnimationFrame(tick);
 }
 
-function disableAllElements() {
+function updateReceivers() {
     for (var i = 0; i < predefinedBlocks.length; i++) {
-        if (predefinedBlocks[i].toString() != "Emitter") {
-            predefinedBlocks[i].isOn = false
+        if (predefinedBlocks[i].toString() == "Receiver") {
+            if (predefinedBlocks[i].input.color == predefinedBlocks[i].color && predefinedBlocks[i].input.isOn == true) {
+                predefinedBlocks[i].isOn = true;
+            } else {
+                predefinedBlocks[i].isOn = false;
+            }
         }
     }
+}
+
+function disableAllElements() {
+    for (var i = 0; i < predefinedBlocks.length; i++) {
+        if (predefinedBlocks[i].toString() == "Receiver") {
+            predefinedBlocks[i].input.isOn = false;
+            predefinedBlocks[i].input.color = "";
+        } else if (predefinedBlocks[i].toString() != "Emitter") {
+            predefinedBlocks[i].isOn = false;
+        }
+    }
+
     for (var i = 0; i < tools.length; i++) {
         if (tools[i].toString() == "Mirror") {
             tools[i].isOn = false;

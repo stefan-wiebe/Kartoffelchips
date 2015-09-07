@@ -210,16 +210,18 @@ Mouse.move = function(e) {
 };
 
 Mouse.selectTool = function(tool) {
-    if (typeof tool === "object") {
-        selectedTool = tools.indexOf(tool);
-    } else if (typeof tool === "number" && -1 <= tool && tool < tools.length) {
-        selectedTool = tool;
-    }
+    if (selectedTool == -1) {
+        if (typeof tool === "object") {
+            selectedTool = tools.indexOf(tool);
+        } else if (typeof tool === "number" && -1 <= tool && tool < tools.length) {
+            selectedTool = tool;
+        }
 
-    if (selectedTool != -1) {
-        tools[selectedTool].isPlaced = !blockExistsAt(mouseX, mouseY, tools[selectedTool]);
-        tools[selectedTool].x = mouseX;
-        tools[selectedTool].y = mouseY;
+        if (selectedTool != -1) {
+            tools[selectedTool].isPlaced = !blockExistsAt(mouseX, mouseY, tools[selectedTool]);
+            tools[selectedTool].x = mouseX;
+            tools[selectedTool].y = mouseY;
+        }
     }
 }
 
