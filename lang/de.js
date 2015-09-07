@@ -29,5 +29,6 @@ var translations = {
     "RESETLEVEL": "Level zurücksetzen",
     "HELPBUTTON": "Hilfe",
     "BACKTOMENU": "Zurück zum Menü",
-    "SHOWHINTS": "Hinweise anzeigen"
+    "SHOWHINTS": "Hinweise anzeigen",
+    "AUTHOR": "Autor"
 };
