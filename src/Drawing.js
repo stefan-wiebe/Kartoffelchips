@@ -1025,7 +1025,6 @@ Drawing.drawAlert = function() {
 
 }
 
-
 Drawing.drawFPS = function () {
 	if(!lastCalledTime) {
  		lastCalledTime = Date.now();
