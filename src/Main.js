@@ -25,6 +25,8 @@ var timerRunning = false;
 var timerElapsed = 0;
 var lastCalledTime;
 var fps;
+var lastShownFps;
+var lastFpsDraw = Date.now();
 
 var menu = [{
     title: 'START_GAME',
@@ -177,11 +179,12 @@ function backToMenu() {
 
 function showHelpMessage() {
     showAlert(level.hint, level.name, [new Button('OKAY', dismissAlert)]);
+
 }
 
 
 function dismissAlert() {
-    currentAlert = undefined;
+    currentAlert = null;
 }
 function checkBrowserCompatibility() {
     if (!!('onpointerlockchange' in document || 'onmozpointerlockchange' in document || 'onwebkitpointerlockchange' in document)) {
