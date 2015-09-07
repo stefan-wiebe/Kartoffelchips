@@ -34,12 +34,15 @@ var menu = [{
 }, {
     title: 'OPTIONS',
     action: showOptions
-}, {
+},{
+    title: 'LEGEND',
+    action: showLegend
+},{
     title: 'CREDITS',
     action: showCredits
 }];
 var actionButtons = [new Button('resetLevel', resetLevel), new Button('helpButton', showHelpMessage), new Button('backToMenu', backToMenu)];
-
+var allTypes = [new Emitter(), new Receiver(),new Mirror(), new Prism(), new Activator(), new PortalInput(), new PortalOutput()];
 var credits = [{
     name: 'Dejan Brinker',
     link: 'https://github.com/Dede98',
@@ -131,6 +134,13 @@ function showCredits() {
     gameState = GameState.IN_CREDITS;
 }
 
+
+function showLegend() {
+    selectedMenuItem = -1;
+    gameState = GameState.IN_LEGEND;
+
+};
+
 function checkWin() {
     if (hasWon()) {
         gameState = GameState.HAS_WON;
@@ -168,7 +178,7 @@ function resetLevel() {
 
 function backToMenu() {
     pauseSounds();
-
+    
     gameState = GameState.IN_MENU;
     level = null;
     levelID = null;
@@ -257,6 +267,9 @@ function tick() {
                 break;
             case GameState.IN_CREDITS:
                 Drawing.drawCredits();
+                break;
+            case GameState.IN_LEGEND:
+                Drawing.drawLegend();
                 break;
         }
     } else {

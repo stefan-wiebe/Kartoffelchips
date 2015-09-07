@@ -1067,3 +1067,25 @@ Drawing.drawFPS = function () {
 			ctx.fillText(lastShownFps, c.width - ctx.measureText(fps).width - 5, 32);
 		}
 };
+
+Drawing.drawLegend = function() {
+    ctx.fillStyle = Colors.BACKGROUND_COLOR;
+    ctx.fillRect(0, 0, c.width, c.height);
+    Drawing.drawTitle(translations.LEGEND);
+    Drawing.drawBackButton();
+
+    for (var i=0; i<allTypes.length; i++) {
+        Drawing.drawSprite(allTypes[i].toString(), 0, 1, i+3);
+        ctx.fillStyle = Colors.TEXT_COLOR;
+    ctx.font = '36px TS4F';
+
+        ctx.fillText(translations[allTypes[i].toString().toUpperCase()], 140, ((i+4)*64) - 18);
+            ctx.font = '24px TS4F';
+var key = allTypes[i].toString().toUpperCase() + "_DESCRIPTION";
+        ctx.fillText(translations[key],c.width - 48 - ctx.measureText(translations[key]).width, ((i+4)*64) - 12);
+
+        console.log('drawing sprite ' +allTypes[i].toString());
+
+    }
+
+};

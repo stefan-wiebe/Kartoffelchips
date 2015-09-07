@@ -79,6 +79,13 @@ Mouse.click = function(e) {
                     gameState = GameState.IN_MENU;
                 }
                 window.open(credits[selectedMenuItem].link);
+                break;
+            case GameState.IN_LEGEND:
+                if (backButtonHover) {
+                    checkOptions();
+                    gameState = GameState.IN_MENU;
+                }
+                break;
         }
     } else {
         lockMouse();
@@ -205,6 +212,9 @@ Mouse.move = function(e) {
                 Util.log('selectedMenuItem ' + selectedMenuItem);
                 // detect hyperlink
                 break;
+            case GameState.IN_LEGEND:
+               Mouse.setBackButton();
+                break
         }
     }
 };
