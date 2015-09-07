@@ -8,8 +8,11 @@ var levelID;
 var level;
 var map = [];
 var tools = [];
-var blocks = [];
+var toolsByType = [];
 var predefinedBlocks = [];
+var predefinedBlocksByType = [];
+var blocks = [];
+var blocksByType = [];
 var portalInputs = [];
 var mouseX = 0;
 var mouseY = 0;
@@ -238,23 +241,24 @@ function tick() {
                 break;
             case GameState.IS_PLAYING:
                 // SoundEffects.startLaserSoundEffect();
-;
                 Drawing.drawBoard();
                 Drawing.drawPredefinedBlocks();
                 disableAllElements();
                 Drawing.drawLaserBeam();
                 Drawing.drawToolbar();
                 Drawing.drawActionButtons();
+                Drawing.drawPortalOutputs();
                 Drawing.drawTools();
                 Drawing.drawToolbox();
                 Drawing.drawToolTipForToolBoxTool();
                 Drawing.drawToolTipForActionButton();
                 Drawing.drawMouse();
+
+                laterUpdate();
+
                 if (currentAlert) {
                     Drawing.drawAlert();
                 }
-
-                updateReceivers();
 
                 break;
             case GameState.HAS_WON:
@@ -280,7 +284,30 @@ function tick() {
     requestAnimationFrame(tick);
 }
 
-function updateReceivers() {
+// function lateUpdate() {
+//     for (var i = 0; i < blocks.length; i++) {
+//         if (blocks[i].isPlaced) {
+//             if (blocks[i].toString() == "Prism") {
+//                 if (blocks[i].inputs[0].isOn && blocks[i].inputs[1].isOn) {
+//                    blocks[i].output.isOn = true;
+//                    blocks[i].output.color = mixColors(blocks[i].inputs[0].color, blocks[i].inputs[1].color);
+//                 } else if (blocks[i].inputs[0].isOn && !blocks[i].inputs[1].isOn) {
+//                     blocks[i].output.isOn = true;
+//                     blocks[i].output.color = blocks[i].inputs[0].color;
+//                 } else if (blocks[i].inputs[1].isOn) {
+//                     blocks[i].output.isOn = true;
+//                     blocks[i].output.color = blocks[i].inputs[1].color;
+//                 }
+//
+//                 if (blocks[i].output.isOn) {
+//                     Drawing.drawLaserBeamFromPosition(blocks[i].x, blocks[i].y, blocks[i].rotation, blocks[i].output.color);
+//                 }
+//             }
+//         }
+//     }
+// }
+
+function laterUpdate() {
     for (var i = 0; i < predefinedBlocks.length; i++) {
         if (predefinedBlocks[i].toString() == "Receiver") {
             if (predefinedBlocks[i].input.color == predefinedBlocks[i].color && predefinedBlocks[i].input.isOn == true) {
@@ -305,15 +332,17 @@ function disableAllElements() {
     for (var i = 0; i < tools.length; i++) {
         if (tools[i].toString() == "Mirror") {
             tools[i].isOn = false;
-            tools[i].inputs[0].isOn = false;
-            tools[i].inputs[1].isOn = false;
-            tools[i].inputs[0].color = "";
-            tools[i].inputs[1].color = "";
+            for (var j = 0; j < tools[i].interfaces.length; j++) {
+                tools[i].interfaces[j].isOn = false;
+                tools[i].interfaces[j].color = "";
+            }
         } else if (tools[i].toString() == "Prism") {
-            tools[i].inputs[0].isOn = false;
-            tools[i].inputs[1].isOn = false;
-            tools[i].inputs[0].color = "";
-            tools[i].inputs[1].color = "";
+            for (var j = 0; j < tools[i].inputs.length; j++) {
+                tools[i].inputs[j].isOn = false;
+                tools[i].inputs[j].color = "";
+            }
+            tools[i].output.isOn = false;
+            tools[i].output.color = "";
         } else if (tools[i].toString() == "PortalInput") {
             tools[i].isOn = false;
             tools[i].input.isOn = false;
@@ -370,10 +399,28 @@ function loadLevel(id) {
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             var lines = xmlhttp.responseText.match(/[^\r\n]+/g);
+
+            if (toolsByType[PortalOutput.prototype.toString()] != undefined) {
+                for (var i = 0; i < toolsByType[PortalOutput.prototype.toString()].length; i++) {
+                    toolsByType[PortalOutput.prototype.toString()][i].output.isOn = false;
+                    delete toolsByType[PortalOutput.prototype.toString()][i].output;
+                }
+            }
+
             predefinedBlocks.length = 0;
+            predefinedBlocksByType.length = 0;
             tools.length = 0;
+            toolsByType.length = 0;
             blocks.length = 0;
+            blocksByType.length = 0;
             portalInputs.length = 0;
+
+            predefinedBlocksByType.push(Emitter.prototype.toString());
+            predefinedBlocksByType[Emitter.prototype.toString()] = new Array();
+            predefinedBlocksByType.push(Receiver.prototype.toString());
+            predefinedBlocksByType[Receiver.prototype.toString()] = new Array();
+            predefinedBlocksByType.push(Activator.prototype.toString());
+            predefinedBlocksByType[Activator.prototype.toString()] = new Array();
 
             for (var i = 0; i < 16; i++) {
                 for (var j = 0; j < 12; j++) {
@@ -450,7 +497,10 @@ function loadLevel(id) {
                         placeBlock(emitter, parseInt(split[1]), parseInt(split[2]));
                         emitter.rotation = parseInt(split[3]);
                         emitter.color = getStringFromColor(parseInt(split[4]));
+                        emitter.output.color = emitter.color;
+                        emitter.output.isOn = true;
                         predefinedBlocks.push(emitter);
+                        predefinedBlocksByType[Emitter.prototype.toString()].push(emitter);
                         break;
                     case 'X':
                         var receiver = new Receiver();
@@ -458,11 +508,13 @@ function loadLevel(id) {
                         receiver.rotation = parseInt(split[3]);
                         receiver.color = split[4];
                         predefinedBlocks.push(receiver);
+                        predefinedBlocksByType[Receiver.prototype.toString()].push(receiver);
                         break;
                     case 'A':
                         var activator = new Activator();
                         placeBlock(activator, parseInt(split[1]), parseInt(split[2]));
                         predefinedBlocks.push(activator);
+                        predefinedBlocksByType[Activator.prototype.toString()].push(activator);
                         break;
                     case 'M':
                         var count = parseInt(split[1]);
@@ -474,6 +526,7 @@ function loadLevel(id) {
                     case 'PL-I':
                         var portalinput = new PortalInput();
                         portalinput.color = split[1];
+
                         portalInputs[portalinput.color] = portalinput;
                         tools.push(portalinput);
                         break;
@@ -497,16 +550,31 @@ function loadLevel(id) {
             blocks = blocks.concat(predefinedBlocks);
             blocks = blocks.concat(tools);
 
+            initToolBox();
+
+            blocksByType = blocksByType.concat(predefinedBlocksByType);
+            blocksByType = blocksByType.concat(toolsByType);
+
             Util.log('level parsed');
             levelID = id;
 
             gameState = GameState.IS_PLAYING;
-            initToolBox();
             if (options.showHints) {
                 showHelpMessage();
             }
             startTimer();
-            sounds["laser"].play();
+            // sounds["laser"].play();
+
+            //Link portals
+            if (portalInputs != undefined && toolsByType[PortalOutput.prototype.toString()] != undefined) {
+                for (var color in portalInputs) {
+                    for (var i = 0; i < toolsByType[PortalOutput.prototype.toString()].length; i++) {
+                        if (color == toolsByType[PortalOutput.prototype.toString()][i].color) {
+                            toolsByType[PortalOutput.prototype.toString()][i].output = portalInputs[color].input;
+                        }
+                    }
+                }
+            }
         }
     }
     xmlhttp.overrideMimeType('text/plain');

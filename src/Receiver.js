@@ -5,6 +5,6 @@ function Receiver() {
 	this.color = 0;
 	this.isOn = false;
 	this.isPredefined = true;
-	this.input = new Interface();
+	this.input = new Interface(0);
 }
 Receiver.prototype.toString = function () {return "Receiver"};

@@ -194,28 +194,16 @@ Drawing.drawTool = function(tool) {
 }
 
 Drawing.drawLaserBeam = function() {
-    for (var i = 0; i < blocks.length; i++) {
-        if (blocks[i].toString() == "Emitter") {
-            var emitter = predefinedBlocks[i];
-            Util.log('drawing laser beam from' + emitter.toString());
-            Drawing.drawLaserBeamFromObject(emitter);
-        } else if (blocks[i].toString() == "PortalOutput" && blocks[i].isPlaced) {
-            var j = 0;
-            var found = false;
-
-            if (portalInputs[blocks[i].color] != undefined && portalInputs[blocks[i].color].input.isOn) {
-                Drawing.drawLaserBeamFromPosition(blocks[i].x, blocks[i].y, blocks[i].rotation, portalInputs[blocks[i].color].input.color);
-                blocks[i].isOn = true;
-            }
-        }
+    for (var i = 0; i < predefinedBlocksByType[Emitter.prototype.toString()].length; i++) {
+        var emitter = predefinedBlocksByType[Emitter.prototype.toString()][i];
+        Util.log('drawing laser beam from' + emitter.toString());
+        Drawing.drawLaserBeamFromObject(emitter);
     }
-
-
 };
 
 Drawing.fillAlphaOfBlocks = function() {
 	for (var i = 0; i < blocks.length; i++) {
-		fillAlphaOfTool(blocks[i]);
+		fillAlphaOfTool(block);
 	}
 
 }
@@ -238,38 +226,12 @@ Drawing.fillAlphaOfBlock = function(block) {
         var fullY = startY + spriteSize;
 
         if (blockName == "Emitter") {
-            if (rotation == 0 || rotation == 2) {
-                ctx.beginPath();
-                ctx.strokeStyle = block.color;
-                ctx.moveTo(halfX, startY);
-                ctx.lineTo(halfX, fullY);
-                ctx.stroke();
-                ctx.closePath();
-            } else {
-                ctx.beginPath();
-                ctx.strokeStyle = block.color;
-                ctx.moveTo(startX, halfY);
-                ctx.lineTo(fullX, halfY);
-                ctx.stroke();
-                ctx.closePath();
-            }
+            drawFromInterfacesToCenter(block);
         } else if (blockName == "Receiver") {
             ctx.fillStyle = block.color;
             ctx.fillRect(startX + 18, startY + 18, 30, 30);
 
-            ctx.beginPath();
-            ctx.strokeStyle = block.color;
-
-            if (rotation == 0 || rotation == 2) {
-                ctx.moveTo(halfX, startY);
-                ctx.lineTo(halfX, fullY);
-            } else {
-                ctx.moveTo(startX, halfY);
-                ctx.lineTo(fullX, halfY);
-            }
-
-            ctx.stroke();
-            ctx.closePath();
+            drawFromInterfacesToCenter(block);
         } else if (blockName == "Activator") {
             ctx.fillStyle = block.color;
             ctx.fillRect(startX, startY, spriteSize / 2 - 1, spriteSize / 2 - 1);
@@ -277,175 +239,11 @@ Drawing.fillAlphaOfBlock = function(block) {
             ctx.fillRect(startX, halfY + 1, spriteSize / 2 - 1, spriteSize / 2 - 1);
             ctx.fillRect(halfX + 1, halfY + 1, spriteSize / 2 - 1, spriteSize / 2 - 1);
         } else if (blockName == "Mirror") {
-            if (rotation == 0 || rotation == 2) {
-                if (block.inputs[0].isOn) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = block.inputs[0].color;
-                    ctx.moveTo(halfX, startY);
-                    ctx.lineTo(halfX, halfY - 1);
-                    ctx.moveTo(halfX + 1, halfY);
-                    ctx.lineTo(fullX, halfY);
-                    ctx.stroke();
-                    ctx.closePath();
-                }
-                if (block.inputs[1].isOn) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = block.inputs[1].color;
-                    ctx.moveTo(halfX, fullY);
-                    ctx.lineTo(halfX, halfY);
-                    ctx.lineTo(startX, halfY);
-                    ctx.stroke();
-                    ctx.closePath();
-                }
-            } else {
-                if (block.inputs[0].isOn) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = block.inputs[0].color;
-                    ctx.moveTo(halfX, startY);
-                    ctx.lineTo(halfX, halfY - 1);
-                    ctx.moveTo(halfX - 1, halfY);
-                    ctx.lineTo(startX, halfY);
-                    ctx.stroke();
-                    ctx.closePath();
-                }
-                if (block.inputs[1].isOn) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = block.inputs[1].color;
-                    ctx.moveTo(halfX, fullY);
-                    ctx.lineTo(halfX, halfY);
-                    ctx.lineTo(fullX, halfY);
-                    ctx.stroke();
-                    ctx.closePath();
-                }
-            }
+            drawFromInterfacesToCenter(block, true);
         } else if (blockName == "Prism") {
-            if (rotation == 0) {
-                if (block.inputs[0].isOn) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = block.inputs[0].color;
-                    ctx.moveTo(startX, halfY);
-                    ctx.lineTo(halfX, halfY);
-                    ctx.stroke();
-                    ctx.closePath();
-                }
-                if (block.inputs[1].isOn) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = block.inputs[1].color;
-                    ctx.moveTo(fullX, halfY);
-                    ctx.lineTo(halfX, halfY);
-                    ctx.stroke();
-                    ctx.closePath();
-                }
-
-                ctx.beginPath();
-                ctx.strokeStyle = mixColors(block.inputs[0].color, block.inputs[1].color);
-                ctx.moveTo(halfX, halfY);
-                ctx.lineTo(halfX, startY);
-                ctx.stroke();
-                ctx.closePath();
-            } else if (rotation == 1) {
-                if (block.inputs[0].isOn) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = block.inputs[0].color;
-                    ctx.moveTo(halfX, startY);
-                    ctx.lineTo(halfX, halfY);
-                    ctx.stroke();
-                    ctx.closePath();
-                }
-                if (block.inputs[1].isOn) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = block.inputs[1].color;
-                    ctx.moveTo(halfX, halfY);
-                    ctx.lineTo(halfX, fullY);
-                    ctx.stroke();
-                    ctx.closePath();
-                }
-
-                ctx.beginPath();
-                ctx.strokeStyle = mixColors(block.inputs[0].color, block.inputs[1].color);
-                ctx.moveTo(halfX, halfY);
-                ctx.lineTo(fullX, halfY);
-                ctx.stroke();
-                ctx.closePath();
-            } else if (rotation == 2) {
-                if (block.inputs[0].isOn) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = block.inputs[0].color;
-                    ctx.moveTo(fullX, halfY);
-                    ctx.lineTo(halfX, halfY);
-                    ctx.stroke();
-                    ctx.closePath();
-                }
-                if (block.inputs[1].isOn) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = block.inputs[1].color;
-                    ctx.moveTo(halfX, halfY);
-                    ctx.lineTo(startX, halfY);
-                    ctx.stroke();
-                    ctx.closePath();
-                }
-
-                ctx.beginPath();
-                ctx.strokeStyle = mixColors(block.inputs[0].color, block.inputs[1].color);
-                ctx.moveTo(halfX, halfY);
-                ctx.lineTo(halfX, fullY);
-                ctx.stroke();
-                ctx.closePath();
-            } else if (rotation == 3) {
-                if (block.inputs[0].isOn) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = block.inputs[0].color;
-                    ctx.moveTo(halfX, halfY);
-                    ctx.lineTo(halfX, fullY);
-                    ctx.stroke();
-                    ctx.closePath();
-                }
-                if (block.inputs[1].isOn) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = block.inputs[1].color;
-                    ctx.moveTo(halfX, startY);
-                    ctx.lineTo(halfX, halfY);
-                    ctx.stroke();
-                    ctx.closePath();
-                }
-
-                ctx.beginPath();
-                ctx.strokeStyle = mixColors(block.inputs[0].color, block.inputs[1].color);
-                ctx.moveTo(startX, halfY);
-                ctx.lineTo(halfX, halfY);
-                ctx.stroke();
-                ctx.closePath();
-            }
+            drawFromInterfacesToCenter(block);
         } else if (blockName == "PortalInput" || blockName == "PortalOutput") {
-            ctx.beginPath();
-
-            if (blockName == "PortalInput") {
-                ctx.strokeStyle = block.input.color;
-            } else {
-                ctx.strokeStyle = portalInputs[block.color].input.color;
-            }
-
-            if (rotation == 0) {
-                ctx.moveTo(halfX, startY);
-                ctx.lineTo(halfX, halfY);
-                ctx.stroke();
-                ctx.closePath();
-            } else if (rotation == 1) {
-                ctx.moveTo(halfX, halfY);
-                ctx.lineTo(fullX, halfY);
-                ctx.stroke();
-                ctx.closePath();
-            } else if (rotation == 2) {
-                ctx.moveTo(halfX, halfY);
-                ctx.lineTo(halfX, fullY);
-                ctx.stroke();
-                ctx.closePath();
-            } else if (rotation == 3) {
-                ctx.moveTo(startX, halfY);
-                ctx.lineTo(halfX, halfY);
-                ctx.stroke();
-                ctx.closePath();
-            }
+            drawFromInterfacesToCenter(block);
         }
     }
 }
@@ -487,9 +285,12 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
                 block.color = color;
     			block.isOn = true;
     		} else if (blockName == "Receiver") {
-    			result = false;
-                block.input.isOn = true;
-    			block.input.color = color;
+                result = false;
+
+                if (rotation == (block.rotation + block.input.offset) % 4) {
+                    block.input.isOn = true;
+        			block.input.color = color;
+                }
     		} else {
                 result = false;
             }
@@ -498,77 +299,45 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
 
             if (block.toString() == "Mirror") {
                 for (var i = 0; i < block.interfaces.length; i++) {
-                    
-                }
+                    // if (rotation == i && block.interfaces[i].isOn == false) {
+                    if (rotation == i) {
+                        block.isOn = true;
+                        block.interfaces[i].isOn = true;
+                        block.interfaces[i].color = color;
 
-                switch (block.rotation) {
-                    case 0:
-                    case 2:
-    					if (rotation == 0 || rotation == 1) {
-    						block.inputs[0].isOn = true;
-    						block.inputs[0].color = color;
-    					} else if (rotation == 2 || rotation == 3) {
-    						block.inputs[1].isOn = true;
-    						block.inputs[1].color = color;
-    					}
-                        Drawing.drawLaserBeamFromPosition(x, y, (5 - rotation) % 4, color);
-                        break;
-                    case 1:
-                    case 3:
-    					if (rotation == 0 || rotation == 3) {
-    						block.inputs[0].isOn = true;
-    						block.inputs[0].color = color;
-    					} else if (rotation == 1 || rotation == 2) {
-    						block.inputs[1].isOn = true;
-    						block.inputs[1].color = color;
-    					}
-                        Drawing.drawLaserBeamFromPosition(x, y, (3 - rotation), color);
-                        break;
-                }
+                        // if (block.interfaces[block.getLinkedInterface(i)].isOn == false)
+                        block.interfaces[block.getLinkedInterface(i)].isOn = true;
+                        block.interfaces[block.getLinkedInterface(i)].color = color;
 
-    			block.isOn = true;
+                        Drawing.drawLaserBeamFromPosition(x, y, block.getLinkedInterface(i), color);
+                    }
+                }
             } else if (block.toString() == "Prism") {
-                var output = false;
+                var drawLaser = false;
 
-                switch (block.rotation) {
-                    case 0:
-                    case 2:
-                        if (rotation == 3 - block.rotation) {
-                            block.inputs[0].isOn = true;
-                            block.inputs[0].color = color;
-                            output = true;
-                        }
-                        if (rotation == 1 + block.rotation) {
-                            block.inputs[1].isOn = true;
-                            block.inputs[1].color = color;
-                            output = true;
-                        }
-                        break;
-                    case 1:
-                    case 3:
-                        if (rotation == (3 + block.rotation) % 4) {
-                            block.inputs[0].isOn = true;
-                            block.inputs[0].color = color;
-                            output = true;
-                        }
-                        if (rotation == 3 - block.rotation) {
-                            block.inputs[1].isOn = true;
-                            block.inputs[1].color = color;
-                            output = true;
-                        }
-                        break;
+                for (var i = 0; i < block.inputs.length; i++) {
+                    // if (rotation == (block.rotation + block.inputs[i].offset) % 4 && block.inputs[i].isOn == false) {
+                    if (rotation == (block.rotation + block.inputs[i].offset) % 4) {
+                        block.isOn = true;
+                        block.inputs[i].isOn = true;
+                        block.inputs[i].color = color;
+                        drawLaser = true;
+                    }
                 }
 
-                if (output) {
-                    if (block.inputs[0].isOn && !block.inputs[1].isOn) {
-                        Drawing.drawLaserBeamFromPosition(x, y, block.rotation, block.inputs[0].color);
-                    } else if (!block.inputs[0].isOn && block.inputs[1].isOn) {
-                        Drawing.drawLaserBeamFromPosition(x, y, block.rotation, block.inputs[1].color);
-                    } else if (block.inputs[0].isOn && block.inputs[1].isOn) {
-                        Drawing.drawLaserBeamFromPosition(x, y, block.rotation, mixColors(block.inputs[0].color, block.inputs[1].color));
+                if (drawLaser) {
+                    if (block.inputs[0].isOn && block.inputs[1].isOn) {
+                       block.output.isOn = true;
+                       block.output.color = mixColors(block.inputs[0].color, block.inputs[1].color);
+                    } else if (block.inputs[0].isOn && !block.inputs[1].isOn) {
+                        block.output.isOn = true;
+                        block.output.color = block.inputs[0].color;
+                    } else if (block.inputs[1].isOn) {
+                        block.output.isOn = true;
+                        block.output.color = block.inputs[1].color;
                     }
 
-                    block.isOn = true;
+                    Drawing.drawLaserBeamFromPosition(block.x, block.y, block.rotation, block.output.color);
                 }
             } else if (block.toString() == "PortalInput") {
                 if (rotation == block.rotation) {
@@ -613,6 +382,40 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
 
     return result;
 };
+
+Drawing.drawPortalOutputs = function() {
+    // if (toolsByType[PortalOutput.prototype.toString()] != undefined) {
+    //     for (var i = 0; i < toolsByType[PortalOutput.prototype.toString()].length; i++) {
+    //         var block = toolsByType[PortalOutput.prototype.toString()][i];
+    //
+    //         if (portalInputs[block.color] != undefined) {
+    //             block.output.color = portalInputs[block.color].input.color;
+    //             // console.log("block.output.color = portalInputs[block.color].input.color");
+    //             // console.log(block.output.color + " = " + portalInputs[block.color].input.color);
+    //             block.output.isOn = portalInputs[block.color].input.isOn;
+    //             // console.log("block.output.isOn = portalInputs[block.color].input.isOn");
+    //             // console.log(block.output.isOn + " = " + portalInputs[block.color].input.isOn);
+    //
+    //             if (block.isPlaced && block.output.isOn) {
+    //                 block.isOn = true;
+    //                 Drawing.drawLaserBeamFromPosition(block.x, block.y, block.rotation, block.output.color);
+    //             }
+    //         }
+    //     }
+    // }
+
+    if (toolsByType[PortalOutput.prototype.toString()] != undefined) {
+        for (var i = 0; i < toolsByType[PortalOutput.prototype.toString()].length; i++) {
+            block = toolsByType[PortalOutput.prototype.toString()][i];
+
+            // console.log(i + ": isPlaced = " + block.isPlaced + ", isOn = " + block.output.isOn);
+            if (block.isPlaced && block.output.isOn) {
+                block.isOn = true;
+                Drawing.drawLaserBeamFromPosition(block.x, block.y, block.rotation, block.output.color);
+            }
+        }
+    }
+}
 
 Drawing.drawToolbar = function() {
     for (var y = 0; y < height; y++) {
