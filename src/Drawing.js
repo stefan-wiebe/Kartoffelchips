@@ -753,7 +753,7 @@ Drawing.drawWinScreen = function() {
     Drawing.fillTextCentered(translations.WIN, c.height * 0.65);
         ctx.font = '36px TS4F';
 
-    Drawing.fillTextCentered('Level completed in ' + Util.getDateString(timerElapsed), c.height * 0.8);
+    Drawing.fillTextCentered(translations.TIMER + Util.getDateString(timerElapsed), c.height * 0.8);
 
 };
 // draw boolean
