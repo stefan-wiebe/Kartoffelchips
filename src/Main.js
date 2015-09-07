@@ -502,6 +502,9 @@ function loadLevel(id) {
 
             gameState = GameState.IS_PLAYING;
             initToolBox();
+            if (options.showHints) {
+                showHelpMessage();
+            }
             startTimer();
             sounds["laser"].play();
         }

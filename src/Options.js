@@ -3,7 +3,8 @@ options = {
 	"debug": false,
 	"showFPS": true,
 	"mouseDebug": false,
-	"fullscreen": true
+	"fullscreen": true,
+	"showHints": true,
 };
 
 if (localStorage.getItem('options') != null) {

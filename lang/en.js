@@ -28,5 +28,6 @@ var translations = {
     "TIME": "Level Completed in ",
     "RESETLEVEL": "Reset level",
     "HELPBUTTON": "Help",
-    "BACKTOMENU": "Back to menu"
+    "BACKTOMENU": "Back to menu",
+    "SHOWHINTS": "Show hints"
 };
