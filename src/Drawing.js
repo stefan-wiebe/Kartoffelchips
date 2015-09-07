@@ -1084,7 +1084,7 @@ Drawing.drawLegend = function() {
         ctx.fillText(translations[allTypes[i].toString().toUpperCase()], 140, ((i+4)*64) - 18);
             ctx.font = '24px TS4F';
 var key = allTypes[i].toString().toUpperCase() + "_DESCRIPTION";
-        ctx.fillText(translations[key],c.width - 48 - ctx.measureText(translations[key]).width, ((i+4)*64) - 12);
+        ctx.fillText(translations[key],140, ((i+4)*64) + 7);
 
 
     }
