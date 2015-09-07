@@ -836,7 +836,12 @@ Drawing.drawCredits = function() {
         ctx.font = '40px TS4F';
         ctx.fillStyle = Colors.TEXT_COLOR;
 
-        ctx.fillText(credits[i].name, c.width*0.2, c.height*0.3 + (i*80));
+        credits[i].pos[0] = c.width * 0.2;
+        credits[i].pos[1] = c.height * 0.3 + i * 80;
+        credits[i].size[0] = ctx.measureText(credits[i].name).width;
+        credits[i].size[1] = 30;
+
+        ctx.fillText(credits[i].name, credits[i].pos[0], credits[i].pos[1]);
 
         ctx.font = '24px TS4F';
         ctx.fillStyle = Colors.CREDITS_LINK;
@@ -845,7 +850,7 @@ Drawing.drawCredits = function() {
             ctx.fillStyle = Colors.CREDITS_HOVER;
         }
 
-        ctx.fillText(credits[i].link, c.width*0.2, c.height*0.3 + (i*80) + 30);
+        ctx.fillText(credits[i].link, credits[i].pos[0], credits[i].pos[1] + credits[i].size[1]);
     }
 };
 
@@ -976,7 +981,8 @@ Drawing.drawAlert = function() {
     for (var i=0; i<currentAlert.buttons.length; i++) {
         ctx.fillStyle = Colors.ALERT_BUTTON_BACKGORUND;
         if (i == selectedMenuItem) {
-                    ctx.fillStyle = Colors.ALERT_HOVER;
+
+                    ctx.fillStyle = Colors.ALERT_HOVER
         }
         ctx.fillRect(c.width*0.15 + (i*buttonWidth), c.height*0.8 - buttonHeight, buttonWidth, buttonHeight);
         ctx.fillStyle = Colors.TEXT_COLOR;
