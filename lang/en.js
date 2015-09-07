@@ -25,7 +25,7 @@ var translations = {
     "FULLSCREEN": "Fullscreen",
     "AUTHOR": "Author",
     "ON": "On",
-    "OFF": "Aus",
+    "OFF": "Off",
     "TIME": "Level Completed in ",
     "RESETLEVEL": "Reset level",
     "HELPBUTTON": "Help",
