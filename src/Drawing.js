@@ -759,9 +759,9 @@ Drawing.drawWinScreen = function() {
 // draw boolean
 Drawing.drawBoolean = function(x, y, bool) {
     ctx.fillStyle = "white";
-    var label = "OFF";
+    var label = translations["OFF"];
     if (bool) {
-        label = "ON"
+        label = translations["ON"];
     }
     ctx.fillText(label, x, y);
 };
@@ -800,7 +800,7 @@ Drawing.drawOptions = function() {
     Drawing.drawTitle(translations.OPTIONS);
     Drawing.drawBackButton();
     for (var key in options) {
-        ctx.fillStyle = "white"
+        ctx.fillStyle = "white";
         if (selectedMenuItem == i) {
             ctx.fillStyle = "#fda900";
         }
