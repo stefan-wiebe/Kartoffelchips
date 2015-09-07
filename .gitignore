@@ -4,3 +4,7 @@ ehthumbs.db
 
 # Folder config file
 Desktop.ini
+
+# Node
+node_modules/
+dist/

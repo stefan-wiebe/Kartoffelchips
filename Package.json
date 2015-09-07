@@ -1,0 +1,13 @@
+{
+  "name": "kartoffelchips",
+  "description": "Best game ever",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "grunt-pngmin":"*",
+    "grunt-cli": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-imagemin": "*"
+
+  }
+}
