@@ -1,14 +1,17 @@
 var translations = {
     "START_GAME": "SPIEL STARTEN",
     "OPTIONS": "OPTIONEN",
-    "CREDITS": "INFO",
+    "CREDITS": "CREDITS",
     "DEBUG": "Entkäfern",
     "SHOWFPS": "FPS anzeigen",
     "MOUSEDEBUG": "Maus Entkäferung",
-    "WIN": "Du hast Gewonnen! Klicke um weiter zu Spielen!",
+    "WIN": "Du hast gewonnen! Klicke, um weiter zu Spielen!",
     "LOCKWARN": "Kann ich deine Maus haben?",
     "MIRROR": "Spiegel",
     "PRISM": "Prisma",
     "PORTALINPUT": "Portal-Eingang",
-    "PORTALOUTPUT": "Portal-Augang"
+    "PORTALOUTPUT": "Portal-Augang",
+    "FULLSCREEN": "Vollbild",
+    "ON": "An",
+    "OFF": "Aus"
 };

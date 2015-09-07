@@ -10,5 +10,8 @@ var translations = {
     "MIRROR": "Mirrior",
     "PRISM": "Prism",
     "PORTALINPUT": "Portal-Input",
-    "PORTALOUTPUT": "Portal-Output"
+    "PORTALOUTPUT": "Portal-Output",
+    "FULLSCREEN": "Fullscreen",
+    "ON": "On",
+    "OFF": "Aus"
 };
