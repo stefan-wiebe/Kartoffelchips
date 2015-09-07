@@ -13,7 +13,7 @@ Mouse.click = function(e) {
                     //Main-button (usually the left button)
                     case 0:
                         if (currentAlert) {
-                            selectedMenuItem = Mouse.getOptionIDForPosition(fullMouseX, fullMouseY);
+                            selectedMenuItem = Mouse.getButtonIDForPosition(fullMouseX, fullMouseY);
                             Util.log('selected index ' + selectedMenuItem);
                         } else if (selectedTool == -1) {
                             // in inventory

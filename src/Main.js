@@ -177,12 +177,11 @@ function backToMenu() {
 
 function showHelpMessage() {
     showAlert(level.hint, level.name, [new Button('OKAY', dismissAlert)]);
-
 }
 
 
 function dismissAlert() {
-    currentAlert = null;
+    currentAlert = undefined;
 }
 function checkBrowserCompatibility() {
     if (!!('onpointerlockchange' in document || 'onmozpointerlockchange' in document || 'onwebkitpointerlockchange' in document)) {
