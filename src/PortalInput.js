@@ -5,7 +5,7 @@ function PortalInput() {
 	this.color = 0;
 	this.isOn = false;
 	this.isPlaced = false;
-	this.input = new Input();
+	this.input = new Interface();
 }
 
 PortalInput.prototype.toString = function () {return "PortalInput"};

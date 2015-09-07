@@ -499,6 +499,10 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
             result = false;
 
             if (block.toString() == "Mirror") {
+                for (var i = 0; i < block.interfaces.length; i++) {
+                    
+                }
+
                 switch (block.rotation) {
                     case 0:
                     case 2:
