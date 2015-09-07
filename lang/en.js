@@ -30,5 +30,6 @@ var translations = {
     "RESETLEVEL": "Reset level",
     "HELPBUTTON": "Help",
     "BACKTOMENU": "Back to menu",
-    "SHOWHINTS": "Show hints"
+    "SHOWHINTS": "Show hints",
+    "AUTHOR": "Author",
 };
