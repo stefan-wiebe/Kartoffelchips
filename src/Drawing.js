@@ -488,10 +488,8 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
     			block.isOn = true;
     		} else if (blockName == "Receiver") {
     			result = false;
-                if (rotation == block.rotation) {
-                    block.input.isOn = true;
-    			    block.input.color = color;
-                }
+                block.input.isOn = true;
+    			block.input.color = color;
     		} else {
                 result = false;
             }
@@ -1025,8 +1023,10 @@ Drawing.drawAlert = function() {
 
     // if so, start new line there
 
-
-
+    //Draw author
+    ctx.textBaseline = "bottom";
+    ctx.fillText(currentAlert.subtext, (c.width * 0.85) - ctx.measureText(currentAlert.subtext).width - 10, c.height * 0.7 - 10);
+    ctx.textBaseline = "alphabetic";
 
     // DRAW BUTTONS
     var buttonWidth = (c.width * 0.7) / currentAlert.buttons.length;
