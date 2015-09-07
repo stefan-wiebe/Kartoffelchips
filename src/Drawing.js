@@ -622,6 +622,7 @@ Drawing.drawToolbox = function() {
         }
     }
 };
+
 Drawing.drawLaserBeamFromObject = function(obj) {
     Util.log('drawing laser beam from ' + obj.toString());
     // draw to next object

@@ -293,7 +293,7 @@ function disableAllElements() {
 }
 
 function blockExistsAt(x, y, obj) {
-    var blockFound = x > 0 && y > 0 && x < width && y < height && map[x][y].tile != Tiles.CLEAR;
+    var blockFound = 0 <= x && 0 <= y && x < width && y < height && map[x][y].tile != Tiles.CLEAR;
     if (!blockFound) {
         blockFound = map[x][y].block != undefined && map[x][y].block != obj;
     }
