@@ -15,6 +15,7 @@ Mouse.click = function(e) {
                         if (currentAlert) {
                             selectedMenuItem = Mouse.getButtonIDForPosition(fullMouseX, fullMouseY);
                             Util.log('selected index ' + selectedMenuItem);
+                            currentAlert.buttons[selectedMenuItem].action();
                         } else if (selectedTool == -1) {
                             // in inventory
                             if (mouseIsInToolBox()) {
