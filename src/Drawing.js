@@ -52,6 +52,37 @@ Drawing.drawMouse = function() {
     ctx.fillRect(mouseX * spriteSize, mouseY * spriteSize, spriteSize, spriteSize);
 };
 
+Drawing.drawToolTip = function(x, y, text, xAlign, yAlign) {
+    var backgroundColor = 'rgba(81, 91, 99, 0.8)';
+    var textColor = 'white';
+    var padding = 5;
+    ctx.font = "14px Courier New";
+    var width = ctx.measureText(text).width + 2 * padding;
+    var height = 14 + 2 * padding;
+    if (xAlign == "center") {
+        x -= width / 2;
+    } else if (xAlign == "right") {
+        x -= width;
+    }
+    if (yAlign == "center") {
+        y-= height / 2;
+    } else if (yAlign == "bottom") {
+        y -= height;
+    }
+    ctx.fillStyle = backgroundColor;
+    ctx.fillRect(x, y, width, height);
+    ctx.textBaseline = "top";
+    ctx.fillStyle = textColor;
+    ctx.fillText(text, x + padding, y + padding);
+    ctx.textBaseline = "alphabetic";
+}
+
+Drawing.drawToolTipForToolBoxTool = function() {
+    if (mouseIsInToolBox()) {
+        Drawing.drawToolTip(mouseX * spriteSize - 5, mouseY * spriteSize + spriteSize / 2, toolsByType[mouseY - 1], "right", "center");
+    }
+}
+
 Drawing.drawPredefinedBlocks = function() {
     for (var i = 0; i < predefinedBlocks.length; i++) {
         var block = predefinedBlocks[i];
