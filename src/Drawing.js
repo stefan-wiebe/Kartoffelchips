@@ -1041,8 +1041,8 @@ Drawing.drawFPS = function () {
 		}
 
 		if (options.showFPS == true) {
-			ctx.fillStyle = 'white';
-			ctx.font = "bold "+(36)+"px TS4F";
-			ctx.fillText(lastShownFps, c.width - ctx.measureText(fps).width, 30);
+			ctx.fillStyle = gameState == GameState.IS_PLAYING ? '#394046' : 'white';
+			ctx.font = "bold "+(36)+"px Courier New";
+			ctx.fillText(lastShownFps, c.width - ctx.measureText(fps).width - 5, 32);
 		}
 };

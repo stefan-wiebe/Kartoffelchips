@@ -25,7 +25,7 @@ var timerRunning = false;
 var timerElapsed = 0;
 var lastCalledTime;
 var fps;
-var lastShownFps;
+var lastShownFps = 0;
 var lastFpsDraw = Date.now();
 
 var menu = [{
