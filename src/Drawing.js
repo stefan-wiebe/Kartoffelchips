@@ -976,7 +976,7 @@ Drawing.drawAlert = function() {
     for (var i=0; i<currentAlert.buttons.length; i++) {
         ctx.fillStyle = '#434b52';
         if (i == selectedMenuItem) {
-                    ctx.fillStyle = '#515b63';
+            ctx.fillStyle = '#373d43';
         }
         ctx.fillRect(c.width*0.15 + (i*buttonWidth), c.height*0.8 - buttonHeight, buttonWidth, buttonHeight);
         ctx.fillStyle = 'white';
