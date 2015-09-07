@@ -35,7 +35,7 @@ Drawing.drawMouse = function() {
 
     // If in inventory or actionBlocks
 
-    if (mouseX == 15 && ((mouseY > 0 && mouseY <= toolsByType.length) || (mouseY < 11 && mouseY > (10 - actionButtons.length)))) {
+    if (Mouse.isInToolBox() || Mouse.isInActionButtonArea()) {
         ctx.fillStyle = "rgba(0, 0,255,0.2)";
     } else if (selectedTool < 0) {
         ctx.fillStyle = "rgba(255,255,255,0.1)";
