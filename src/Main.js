@@ -25,7 +25,7 @@ var timerRunning = false;
 var timerElapsed = 0;
 var lastCalledTime;
 var fps;
-var lastShownFps;
+var lastShownFps = 0;
 var lastFpsDraw = Date.now();
 
 var menu = [{
@@ -238,6 +238,7 @@ function tick() {
                 Drawing.drawTools();
                 Drawing.drawToolbox();
                 Drawing.drawToolTipForToolBoxTool();
+                Drawing.drawToolTipForActionButton();
                 Drawing.drawMouse();
                 if (currentAlert) {
                     Drawing.drawAlert();
@@ -292,7 +293,7 @@ function disableAllElements() {
 }
 
 function blockExistsAt(x, y, obj) {
-    var blockFound = x > 0 && y > 0 && x < width && y < height && map[x][y].tile != Tiles.CLEAR;
+    var blockFound = 0 <= x && 0 <= y && x < width && y < height && map[x][y].tile != Tiles.CLEAR;
     if (!blockFound) {
         blockFound = map[x][y].block != undefined && map[x][y].block != obj;
     }
