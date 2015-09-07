@@ -1002,7 +1002,7 @@ Drawing.drawFPS = function () {
 			lastShownFps = fps;
 			lastFpsDraw = Date.now();
 		}
-		
+
 		if (options.showFPS == true) {
 			ctx.fillStyle = 'white';
 			ctx.font = "bold "+(36)+"px TS4F";
