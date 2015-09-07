@@ -1077,7 +1077,6 @@ Drawing.drawLegend = function() {
 var key = allTypes[i].toString().toUpperCase() + "_DESCRIPTION";
         ctx.fillText(translations[key],c.width - 48 - ctx.measureText(translations[key]).width, ((i+4)*64) - 12);
 
-        console.log('drawing sprite ' +allTypes[i].toString());
 
     }
 
