@@ -488,10 +488,8 @@ Drawing.drawLaserBeamInCell = function(color, rotation, x, y) {
     			block.isOn = true;
     		} else if (blockName == "Receiver") {
     			result = false;
-                if (rotation == block.rotation) {
-                    block.input.isOn = true;
-    			    block.input.color = color;
-                }
+                block.input.isOn = true;
+    			block.input.color = color;
     		} else {
                 result = false;
             }
@@ -1029,8 +1027,10 @@ Drawing.drawAlert = function() {
 
     // if so, start new line there
 
-
-
+    //Draw author
+    ctx.textBaseline = "bottom";
+    ctx.fillText(currentAlert.subtext, (c.width * 0.85) - ctx.measureText(currentAlert.subtext).width - 10, c.height * 0.7 - 10);
+    ctx.textBaseline = "alphabetic";
 
     // DRAW BUTTONS
     var buttonWidth = (c.width * 0.7) / currentAlert.buttons.length;
@@ -1088,9 +1088,8 @@ Drawing.drawLegend = function() {
         ctx.fillText(translations[allTypes[i].toString().toUpperCase()], 140, ((i+4)*64) - 18);
             ctx.font = '24px TS4F';
 var key = allTypes[i].toString().toUpperCase() + "_DESCRIPTION";
-        ctx.fillText(translations[key],c.width - 48 - ctx.measureText(translations[key]).width, ((i+4)*64) - 12);
+        ctx.fillText(translations[key],140, ((i+4)*64) + 7);
 
-        console.log('drawing sprite ' +allTypes[i].toString());
 
     }
 

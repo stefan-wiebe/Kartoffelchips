@@ -178,7 +178,7 @@ function resetLevel() {
 
 function backToMenu() {
     pauseSounds();
-    
+
     gameState = GameState.IN_MENU;
     level = null;
     levelID = null;
@@ -188,8 +188,7 @@ function backToMenu() {
 }
 
 function showHelpMessage() {
-    showAlert(level.hint, level.name, [new Button('OKAY', dismissAlert)]);
-
+    showAlert(level.hint, level.name, [new Button('OKAY', dismissAlert)], translations["AUTHOR"] + ": " + level.author);
 }
 
 
@@ -218,11 +217,12 @@ function loadSprite(spriteName) {
     sprites[spriteName] = newSprite;
 }
 
-function showAlert(message, title, buttons) {
+function showAlert(message, title, buttons, subtext) {
     currentAlert = new Alert();
     currentAlert.message = message;
     currentAlert.title = title;
     currentAlert.buttons = buttons;
+    currentAlert.subtext = subtext;
 }
 
 function tick() {
@@ -502,6 +502,9 @@ function loadLevel(id) {
 
             gameState = GameState.IS_PLAYING;
             initToolBox();
+            if (options.showHints) {
+                showHelpMessage();
+            }
             startTimer();
             sounds["laser"].play();
         }
