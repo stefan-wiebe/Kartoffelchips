@@ -25,9 +25,10 @@ var translations = {
     "FULLSCREEN": "Fullscreen",
     "AUTHOR": "Author",
     "ON": "On",
-    "OFF": "Aus",
+    "OFF": "Off",
     "TIME": "Level Completed in ",
     "RESETLEVEL": "Reset level",
     "HELPBUTTON": "Help",
-    "BACKTOMENU": "Back to menu"
+    "BACKTOMENU": "Back to menu",
+    "SHOWHINTS": "Show hints"
 };
