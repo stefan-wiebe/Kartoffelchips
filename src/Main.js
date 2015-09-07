@@ -188,7 +188,7 @@ function backToMenu() {
 }
 
 function showHelpMessage() {
-    showAlert(level.hint, level.name, [new Button('OKAY', dismissAlert)], level.author);
+    showAlert(level.hint, level.name, [new Button('OKAY', dismissAlert)], translations["AUTHOR"] + ": " + level.author);
 }
 
 

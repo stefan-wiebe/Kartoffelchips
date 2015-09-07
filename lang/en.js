@@ -23,6 +23,7 @@ var translations = {
     "RECEIVER_DESCRIPTION": "Has to be activated by a laser in order to complete the level",
     "AVCTIVATOR_DESCRIPTION": "Has to be activated by a laser",
     "FULLSCREEN": "Fullscreen",
+    "AUTHOR": "Author",
     "ON": "On",
     "OFF": "Aus",
     "TIME": "Level Completed in ",
