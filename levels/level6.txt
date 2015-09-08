@@ -1,4 +1,4 @@
-{"name": "Mehrere Farben", "hint": "Der Receiver muss mit der richtigen Laserfarbe angesprochen werden", "author": "Timon Ringwald"}
+{"name": "Spiegel 2", "hint": "Spiegel leiten Laserstrahlen von beiden Seiten weiter.", "author": "Timon Ringwald"}
 ################
 ######    ######
 ######    ######
