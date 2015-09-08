@@ -1,4 +1,4 @@
-{"name": "Easy Peasy", "hint": "Triff ins Ziel", "author": "Fabian Marcel Küppers"}
+{"name": "Easy Peasy", "hint": "Denk an die mehreren Portal-Ausgänge.", "author": "Fabian Marcel Küppers"}
 ################
 #              #
 #              #
