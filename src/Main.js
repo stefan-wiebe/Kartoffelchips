@@ -245,7 +245,7 @@ function tick() {
                 Drawing.drawPredefinedBlocks();
                 disableAllElements();
                 Drawing.drawLaserBeam();
-                Drawing.drawToolbar();
+                // F THIS Drawing.drawToolbar();
                 Drawing.drawActionButtons();
                 Drawing.drawPortalOutputs();
                 Drawing.drawTools();
@@ -378,20 +378,17 @@ function getStringFromColor(color) {
 };
 
 function mixColors(color1, color2) {
-    var r1 = parseInt(color1.substring(1, 3), 16);
-    var g1 = parseInt(color1.substring(3, 5), 16);
-    var b1 = parseInt(color1.substring(5, 7), 16);
-    var r2 = parseInt(color2.substring(1, 3), 16);
-    var g2 = parseInt(color2.substring(3, 5), 16);
-    var b2 = parseInt(color2.substring(5, 7), 16);
-    var r3 = parseInt((r1 + r2) / 2);
-    var g3 = parseInt((g1 + g2) / 2);
-    var b3 = parseInt((b1 + b2) / 2);
-    var factor = 255 / Math.max(r3, g3, b3);
-    r3 *= factor;
-    g3 *= factor;
-    b3 *= factor;
-    return "#" + ("00" + r3.toString(16)).slice(-2) + ("00" + g3.toString(16)).slice(-2) + ("00" + b3.toString(16)).slice(-2);
+    color1 = Colors.parseFromString(color1);
+    color2 = Colors.parseFromString(color2);
+    var color3 = {r: 0, g: 0, b:0};
+    color3.r = parseInt((color1.r + color2.r) / 2);
+    color3.g = parseInt((color1.g + color2.g) / 2);
+    color3.b = parseInt((color1.b + color2.b) / 2);
+    var factor = 255 / Math.max(color3.r, color3.g, color3.b);
+    color3.r *= factor;
+    color3.g *= factor;
+    color3.b *= factor;
+    return "#" + ("00" + color3.r.toString(16)).slice(-2) + ("00" + color3.g.toString(16)).slice(-2) + ("00" + color3.b.toString(16)).slice(-2);
 }
 
 function loadLevel(id) {
