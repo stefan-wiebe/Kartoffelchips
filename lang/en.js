@@ -34,5 +34,5 @@ var translations = {
     "HELPBUTTON": "Help",
     "BACKTOMENU": "Back to menu",
     "SHOWHINTS": "Show hints",
-    "AUTHOR": "Author",
+    "AUTHOR": "Author"
 };
