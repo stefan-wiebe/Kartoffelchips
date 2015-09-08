@@ -28,6 +28,7 @@ var translations = {
     "ON": "An",
     "OFF": "Aus",
     "TIME": "Level Geschafft in ",
+    "POINTS": "Punkte"
     "RESETLEVEL": "Level zurücksetzen",
     "HELPBUTTON": "Hilfe",
     "BACKTOMENU": "Zurück zum Menü",

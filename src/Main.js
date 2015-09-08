@@ -30,6 +30,7 @@ var lastCalledTime;
 var fps;
 var lastShownFps = 0;
 var lastFpsDraw = Date.now();
+var score = 0;
 
 var menu = [{
     title: 'START_GAME',
@@ -40,10 +41,6 @@ var menu = [{
 },{
     title: 'LEGEND',
     action: showLegend
-},
-{
-    title: 'CONTROLS',
-    action: showControls
 },
 {
     title: 'CREDITS',
@@ -125,6 +122,7 @@ function stopTimer() {
     if (timerRunning) {
         timerRunning = false;
         timerElapsed = (new Date().getTime() / 1000) - startTime;
+        score = Math.min(Math.floor(10000 / timerElapsed), 10000);
     }
 }
 
@@ -148,10 +146,7 @@ function showLegend() {
     gameState = GameState.IN_LEGEND;
 
 };
-function showControls() {
-    selectedMenuItem = -1;
-    gameState = GameState.IN_CONTROLS;
-};
+
 
 function checkWin() {
     if (hasWon()) {
