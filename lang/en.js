@@ -7,6 +7,7 @@ var translations = {
     "DEBUG": "debug",
     "SHOWFPS": "Show FPS",
     "MOUSEDEBUG": "Mouse Debug",
+    "SHOWSCORE": "Show Score"
     "WIN": "YOU HAVE WON! CLICK TO CONTINUE!",
     "LOCKWARN": "CAN I HAVE YOUR MOUSE?",
     "MIRROR": "Mirror",

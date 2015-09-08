@@ -7,6 +7,7 @@ var translations = {
     "DEBUG": "Entkäfern",
     "SHOWFPS": "FPS anzeigen",
     "MOUSEDEBUG": "Mausentkäferung",
+    "SHOWSCORE": "Punkte anzeigen",
     "WIN": "Du hast gewonnen! Klicke, um weiter zu Spielen!",
     "LOCKWARN": "Kann ich deine Maus haben?",
     "MIRROR": "Spiegel",

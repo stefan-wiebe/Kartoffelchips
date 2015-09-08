@@ -5,6 +5,7 @@ options = {
 	"mouseDebug": false,
 	"fullscreen": true,
 	"showHints": true,
+	"showScore": true,
 };
 
 if (localStorage.getItem('options') != null) {
