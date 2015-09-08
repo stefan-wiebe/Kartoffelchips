@@ -1,0 +1,29 @@
+{"name": "Misch Experte", "hint": "Mix die Farben", "author": "Dejan Brinker"}
+################
+#              #
+#              #
+#              #
+#              #
+#              #
+#              #
+#              #
+#              #
+#              #
+#              #
+################
+L 1 1 1 0
+L 3 1 1 1
+L 5 1 1 2
+X 2 10 0 #ff0000
+X 4 10 0 #ffff00
+X 6 10 0 #00ff00
+X 8 10 0 #00ffff
+X 10 10 0 #0000ff
+X 12 10 0 #ff00ff
+P 3
+PL-I #ff0000
+PL-O 3 #ff0000
+PL-I #00ff00
+PL-O 3 #00ff00
+PL-I #0000ff
+PL-O 3 #0000ff
