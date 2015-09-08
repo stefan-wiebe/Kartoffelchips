@@ -31,6 +31,7 @@ var fps;
 var lastShownFps = 0;
 var lastFpsDraw = Date.now();
 var score = 0;
+var totalScore= 0;
 
 var menu = [{
     title: 'START_GAME',
@@ -131,6 +132,7 @@ function stopTimer() {
         timerRunning = false;
         timerElapsed = (new Date().getTime() / 1000) - startTime;
         score = Math.min(Math.floor(10000 / timerElapsed), 10000);
+        totalScore += score;
     }
 }
 
