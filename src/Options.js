@@ -1,9 +1,9 @@
 // Options.js
 options = {
 	"debug": false,
-	"showFPS": true,
+	"showFPS": false,
 	"mouseDebug": false,
-	"fullscreen": true,
+	"fullscreen": false,
 	"showHints": true,
 	"showScore": true,
 };

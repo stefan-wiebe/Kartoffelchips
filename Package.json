@@ -7,7 +7,8 @@
     "grunt-pngmin":"*",
     "grunt-cli": "*",
     "grunt-contrib-uglify": "*",
-    "grunt-contrib-imagemin": "*"
-
+    "grunt-contrib-imagemin": "*",
+    "grunt-contrib-cssmin": "*",
+    "grunt-contrib-copy": "*"
   }
 }
