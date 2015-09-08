@@ -1,4 +1,4 @@
-{"name": "Prismen", "hint": "Die Empfänger nehmen nur Laserstrahlen an, welche dieselbe Farbe haben, welche auch auf dem Empfänger selbst sichtbar ist (hier lila). Um einen lila Laserstrahl zu erhalten, kannst du das Prisma verwenden, welches die Farben der beiden Laserstrahlen mischt, die zu seinen beiden Seiten eintreffen. Auch das Prisma findest du rechts im Inventar.", "author": "Stefan Wiebe"}
+{"name": "Prismen", "hint": "Wie du siehst, verlangt der Sensor einen lila Laserstrahl. Um Farben zu mischen musst du ein Prisma benutzen, welches seitlich zwei Eingänge akzeptiert und die Mischung der beiden Laserstrahlen nach vorn wieder ausgibt. Beispiele: Rot + Grün = Gelb, Rot + Blau = Lila, Grün + Blau = Türkis.", "author": "Stefan Wiebe"}
 ################
 ################
 ####        ####

@@ -1,4 +1,4 @@
-{"name": "Aktivatoren", "hint": "Um ein Level abschließen zu können, muss mindestens ein Laserstrahl beliebiger Farbe durch jeden Aktivator gehen und die Empfänger müssen mit der jeweils richtigen Farbe von der richtigen Seite angesprochen werden.", "author": "Stefan Wiebe"}
+{"name": "Aktivatoren", "hint": "Sollten im Level Aktivatoren existieren, muss mindestens ein Laser beliebiger Farbe durch sie gehen, bevor man das Level beenden kann.", "author": "Stefan Wiebe"}
 ################
 ################
 ####        ####
