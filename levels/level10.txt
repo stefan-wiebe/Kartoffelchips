@@ -1,4 +1,4 @@
-{"name": "Mehrere Farben & Ein Aktivator", "hint": "Der Receiver muss mit der richtigen Laserfarbe angesprochen werden & der Aktivator muss Aktiv sein!", "author": "Dejan Brinker"}
+{"name": "Mehrere Farben & Ein Aktivator", "hint": "Der Empfänger muss mit der richtigen Laserfarbe angesprochen werden & der Aktivator muss Aktiv sein!", "author": "Dejan Brinker"}
 ################
 #              #
 # ##############
