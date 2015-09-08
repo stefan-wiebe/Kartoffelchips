@@ -1,4 +1,4 @@
-{"name": "Rotation", "hint": "Mit 'r' (oder einem Linksklick, falls der Block schon platziert ist) kannst du Blöcke drehen.", "author": "Stefan Wiebe"}
+{"name": "Rotation", "hint": "Mit 'r' kannst den Block drehen, auf den du gerade mit der Maus zeigst. Wenn der Block schon platziert wurde, kann auch durch ein Linksklick gedreht werden.", "author": "Stefan Wiebe"}
 ################
 ################
 ####        ####

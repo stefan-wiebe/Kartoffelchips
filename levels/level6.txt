@@ -1,4 +1,4 @@
-{"name": "Mehrere Farben", "hint": "Der Receiver muss mit der richtigen Laserfarbe angesprochen werden", "author": "Timon Ringwald"}
+{"name": "Mehrere Farben", "hint": "Der Empfänger muss mit der richtigen Laserfarbe angesprochen werden, die an seinem seitlichen Streifen zu erkennen ist. Die Seite des Streifens gibt zusätzlich an, von welcher Richtung der Laser kommen muss.", "author": "Timon Ringwald"}
 ################
 ######    ######
 ######    ######

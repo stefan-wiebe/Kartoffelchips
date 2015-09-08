@@ -1,4 +1,4 @@
-{"name": "Spiegel", "hint": "Versuche den Laserstrahl in den Empfänger (das Viereck mit dem X) zu bekommen, indem du den Laserstrahl mit dem Spiegel umlenkst.", "author": "Timon Ringwald"}
+{"name": "Spiegel", "hint": "Versuche, den Laserstrahl in den Empfänger (das Viereck mit dem X) zu bekommen, indem du den Laserstrahl mit dem Spiegel aus deinem Inventar auf der rechten Seite umlenkst.", "author": "Timon Ringwald"}
 ################
 ################
 ####        ####

@@ -1,4 +1,4 @@
-{"name": "Weiss", "hint": "Erstelle einen komplett weissen Laser", "author": "Timon Ringwald"}
+{"name": "Um die Ecke denken", "hint": "Versuche, 2 Aktivatoren mit einem Spiegel anzusprechen", "author": "Timon Ringwald"}
 ################
 #      ##      #
 #      ##      #
