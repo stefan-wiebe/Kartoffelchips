@@ -1,17 +1,18 @@
-{"name": "Portale", "hint": "Was in einen Portal-Eingang hineingeht, kommt aus dem Portal-Ausgang wieder hinaus. Du kannst die beiden an dem Pfeil unterscheiden - zeigt der Pfeil auf die breitere Seite des Portales, dann ist es ein Eingang, ansonsten ist es ein Ausgang.", "author": "Stefan Wiebe"}
+{"name": "Prismen", "hint": "Wie du siehst, verlangt der Sensor einen lila Laserstrahl. Um Farben zu mischen musst du ein Prisma benutzen, welches seitlich zwei Eingänge akzeptiert und die Mischung der beiden Laserstrahlen nach vorn wieder ausgibt. Beispiele: Rot + Grün = Gelb, Rot + Blau = Lila, Grün + Blau = Türkis.", "author": "Stefan Wiebe"}
 ################
 ################
 ####        ####
-####  ##########
-####  #     ####
-####  #     ####
-####  #     ####
-####  #     ####
-####  ##########
+####        ####
+####        ####
+####        ####
+####        ####
+####        ####
+####        ####
 ####        ####
 ################
 ################
-L 4 2 2 0
-X 11 4 2 #ff0000
-PL-I #0080ff
-PL-O 1 #0080ff
+L 5 3 2 0
+L 10 8 3 2
+X 7 3 2 #ff00ff
+M 1
+P 1

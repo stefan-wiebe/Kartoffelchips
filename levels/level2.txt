@@ -1,4 +1,4 @@
-{"name": "Prismen", "hint": "Wie du siehst, verlangt der Sensor einen lila Laserstrahl. Um Farben zu mischen musst du ein Prisma benutzen, welches seitlich zwei Eingänge akzeptiert und die Mischung der beiden Laserstrahlen nach vorn wieder ausgibt. Beispiele: Rot + Grün = Gelb, Rot + Blau = Lila, Grün + Blau = Türkis.", "author": "Stefan Wiebe"}
+{"name": "Spiegel", "hint": "Blöcke kannst du mit 'r' oder einem Linksklick, falls er schon platziert ist, drehen. Außerdem kannst du bereits platzierte Blöcke mit einem Shift-Klick neu platzieren. (Shift = Umschalttaste, über Steuerung)", "author": "Stefan Wiebe"}
 ################
 ################
 ####        ####
@@ -11,8 +11,6 @@
 ####        ####
 ################
 ################
-L 5 3 2 0
-L 10 8 3 2
-X 7 3 2 #ff00ff
+L 10 3 2 0
+X 5 8 1 #ff0000
 M 1
-P 1

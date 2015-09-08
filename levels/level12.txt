@@ -1,4 +1,4 @@
-{"name": "Portale für Experten", "hint": "Alle Reciever müssen mit den richtigen Farben beschossen werden & zur hilfe hat man 3 verschiedene Portal-Inputs", "author": "Dejan Brinker"}
+{"name": "Portale für Experten", "hint": "Alle Empfänger müssen mit den richtigen Farben beschossen werden. Zur hilfe hat man 3 verschiedene Portal-Inputs", "author": "Dejan Brinker"}
 ################
 #              #
 #              #
