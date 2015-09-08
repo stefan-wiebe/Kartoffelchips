@@ -245,7 +245,7 @@ function tick() {
                 Drawing.drawPredefinedBlocks();
                 disableAllElements();
                 Drawing.drawLaserBeam();
-                Drawing.drawToolbar();
+                // F THIS Drawing.drawToolbar();
                 Drawing.drawActionButtons();
                 Drawing.drawPortalOutputs();
                 Drawing.drawTools();
