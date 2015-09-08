@@ -30,6 +30,7 @@ var translations = {
     "OFF": "Off",
     "TIME": "Level Completed in ",
     "POINTS": "Points",
+    "TOTALPOINTS": "Total points",
     "RESETLEVEL": "Reset level",
     "HELPBUTTON": "Help",
     "BACKTOMENU": "Back to menu",

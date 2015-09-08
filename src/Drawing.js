@@ -616,7 +616,11 @@ Drawing.drawWinScreen = function() {
     Drawing.fillTextCentered(translations.TIME + Util.getDateString(timerElapsed), c.height * 0.8);
     if (options.showScore) {
         Drawing.fillTextCentered(score + ' ' + translations.POINTS, c.height * 0.85);
+        Drawing.fillTextCentered(totalScore + ' ' + translations.TOTALPOINTS, c.height * 0.9);
     }
+
+
+
 
 };
 // draw boolean
