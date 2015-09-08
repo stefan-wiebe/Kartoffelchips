@@ -614,6 +614,9 @@ Drawing.drawWinScreen = function() {
         ctx.font = '36px TS4F';
 
     Drawing.fillTextCentered(translations.TIME + Util.getDateString(timerElapsed), c.height * 0.8);
+    if (Options.showScore) {
+        Drawing.fillTextCentered(score + ' ' + translations.POINTS, c.height * 0.85);
+    }
 
 };
 // draw boolean
@@ -897,3 +900,5 @@ var key = allTypes[i].toString().toUpperCase() + "_DESCRIPTION";
     }
 
 };
+
+
