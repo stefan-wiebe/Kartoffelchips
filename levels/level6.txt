@@ -1,18 +1,21 @@
-{"name": "Spiegel 2", "hint": "Spiegel leiten Laserstrahlen von beiden Seiten weiter.", "author": "Timon Ringwald"}
+{"name": "Portal-Farben", "hint": "Vielleicht hast du bemerkt, dass Portale Farben haben. Wenn Portale dieselbe Farbe haben, dann sind sie verbunden. Beispiel: Ein grüner Portal-Eingang leitet Laserstrahlen nur an grüne Portal-Ausgänge weiter!", "author": "Stefan Wiebe"}
 ################
-######    ######
-######    ######
-######    ######
-#              #
-#              #
-#              #
-######    ######
-######    ######
-######    ######
-######    ######
 ################
-L 7 1 2 0
-L 9 9 3 1
-X 2 5 1 #00ff00
-X 13 5 3 #ff0000
-M 2
+##     #     ###
+##     #     ###
+##     #     ###
+##     #     ###
+##     #     ###
+##     #     ###
+##     #     ###
+##     #     ###
+################
+################
+L 4 2 2 0
+L 10 2 2 2
+X 4 9 0 #0000ff
+X 10 9 0 #ff0000
+PL-I #00ff00
+PL-O 1 #00ff00
+PL-I #00ffff
+PL-O 1 #00ffff

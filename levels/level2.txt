@@ -1,4 +1,4 @@
-{"name": "Prismen", "hint": "Die Empfänger nehmen nur Laserstrahlen an, welche dieselbe Farbe haben, welche auch auf dem Empfänger selbst sichtbar ist (hier lila). Um einen lila Laserstrahl zu erhalten, kannst du das Prisma verwenden, welches die Farben der beiden Laserstrahlen mischt, die zu seinen beiden Seiten eintreffen. Auch das Prisma findest du rechts im Inventar.", "author": "Stefan Wiebe"}
+{"name": "Spiegel", "hint": "Blöcke kannst du mit 'r' oder einem Linksklick, falls er schon platziert ist, drehen. Außerdem kannst du bereits platzierte Blöcke mit einem Shift-Klick neu platzieren. (Shift = Umschalttaste, über Steuerung)", "author": "Stefan Wiebe"}
 ################
 ################
 ####        ####
@@ -11,8 +11,6 @@
 ####        ####
 ################
 ################
-L 5 3 2 0
-L 10 8 3 2
-X 7 3 2 #ff00ff
+L 10 3 2 0
+X 5 8 1 #ff0000
 M 1
-P 1

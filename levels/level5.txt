@@ -1,16 +1,17 @@
-{"name": "Rotation", "hint": "Mit 'r' kannst den Block drehen, auf den du gerade mit der Maus zeigst. Wenn der Block schon platziert wurde, kann auch durch ein Linksklick gedreht werden.", "author": "Stefan Wiebe"}
+{"name": "Portale", "hint": "Was in einen Portal-Eingang hineingeht, kommt aus dem Portal-Ausgang wieder hinaus. Du kannst die beiden an dem Pfeil unterscheiden - zeigt der Pfeil auf die breitere Seite des Portales, dann ist es ein Eingang, ansonsten ist es ein Ausgang.", "author": "Stefan Wiebe"}
 ################
 ################
 ####        ####
-####   #########
-####        ####
-########    ####
-########    ####
-####        ####
-####    ########
+####  ##########
+####  #     ####
+####  #     ####
+####  #     ####
+####  #     ####
+####  ##########
 ####        ####
 ################
 ################
-L 11 2 3 1
-X 11 9 3 #00ff00
-M 6
+L 4 2 2 0
+X 11 4 2 #ff0000
+PL-I #0080ff
+PL-O 1 #0080ff

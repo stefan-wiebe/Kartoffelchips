@@ -1,4 +1,4 @@
-{"name": "Spiegel", "hint": "Versuche, den Laserstrahl in den Empfänger (das Viereck mit dem X) zu bekommen, indem du den Laserstrahl mit dem Spiegel aus deinem Inventar auf der rechten Seite umlenkst.", "author": "Timon Ringwald"}
+{"name": "Spiegel", "hint": "Um ein Level abzuschließen, müssen alle Empfänger (die Quadrate mit dem X) mit der richtigen Farbe beschossen werden. Welche Farbe passt, erkennst du an der Kreuz- und Streifenfarbe, wobei der Streifen auch zeigt, aus welcher Richtung Laserstrahlen kommen müssen. Im Inventar (oben rechts) hast du einen Spiegel, welcher Laserstrahlen in andere Richtungen leiten kann. Durch einen Linksklick kannst du ihn platzieren.", "author": "Timon Ringwald"}
 ################
 ################
 ####        ####

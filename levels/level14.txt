@@ -1,4 +1,4 @@
-{"name": "Misch Experte", "hint": "Mix die Farben", "author": "Dejan Brinker"}
+{"name": "Misch Experte", "hint": "Mit den Portal-Ausgängen kannst du mehrere Laserstrahlen einer Farbe erstellen.", "author": "Dejan Brinker"}
 ################
 #              #
 #              #
