@@ -139,32 +139,31 @@ Mouse.getCreditIDForPosition = function(x, y) {
             return i;
         }
     }
-    // Arbitrary bullshit
-    // if (x > c.width * 0.2 && x < c.width * 0.5) {
-    //     var index = Math.round((y - 100) / 150);
-    //     if (index < credits.length) {
-    //         return index;
-    //     }
-    //     return -1;
-    // }
 };
+
 Mouse.getMenuItemIDForPosition = function(x, y) {
-    if (y > c.height * 0.60 && y < c.height * 0.70) {
-        // we can haz menu
-        var margin = 50;
-        var fullLength = 0;
-        for (var i = 0; i < menu.length; i++) {
-            var textLength = ctx.measureText(menu[i].title).width * 1.1;
-            fullLength = fullLength + textLength + margin;
-        }
-        var left = (c.width - fullLength) / 2;
-        for (var i = 0; i < menu.length; i++) {
-            if (x > left && fullMouseX < left + ctx.measureText(menu[i].title).width * 1.1 + margin) {
-                return i;
-            }
-            left = left + ctx.measureText(menu[i].title).width * 1.1 + margin;
+    for (var i = 0; i < menu.length; i++) {
+        if (menu[i].pos[0] <= x && menu[i].pos[1] <= y && x <= (menu[i].pos[0] + menu[i].size[0]) && y <= (menu[i].pos[1] + menu[i].size[1])) {
+            return i;
         }
     }
+
+    // if (y > c.height * 0.60 && y < c.height * 0.70) {
+    //     // we can haz menu
+    //     var margin = 50;
+    //     var fullLength = 0;
+    //     for (var i = 0; i < menu.length; i++) {
+    //         var textLength = ctx.measureText(menu[i].title).width * 1.1;
+    //         fullLength = fullLength + textLength + margin;
+    //     }
+    //     var left = (c.width - fullLength) / 2;
+    //     for (var i = 0; i < menu.length; i++) {
+    //         if (x > left && fullMouseX < left + ctx.measureText(menu[i].title).width * 1.1 + margin) {
+    //             return i;
+    //         }
+    //         left = left + ctx.measureText(menu[i].title).width * 1.1 + margin;
+    //     }
+    // }
     return -1;
 }
 Mouse.getButtonIDForPosition = function(x, y) {

@@ -34,17 +34,25 @@ var score = 0;
 
 var menu = [{
     title: 'START_GAME',
-    action: startGame
+    action: startGame,
+    pos: [0, 0],
+    size: [0, 0]
 }, {
     title: 'OPTIONS',
-    action: showOptions
+    action: showOptions,
+    pos: [0, 0],
+    size: [0, 0]
 },{
     title: 'LEGEND',
-    action: showLegend
+    action: showLegend,
+    pos: [0, 0],
+    size: [0, 0]
 },
 {
     title: 'CREDITS',
-    action: showCredits
+    action: showCredits,
+    pos: [0, 0],
+    size: [0, 0]
 }];
 var actionButtons = [new Button('resetLevel', resetLevel), new Button('helpButton', showHelpMessage), new Button('backToMenu', backToMenu)];
 var allTypes = [new Emitter(), new Receiver(),new Mirror(), new Prism(), new Activator(), new PortalInput(), new PortalOutput()];

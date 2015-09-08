@@ -578,20 +578,34 @@ Drawing.drawMenuScreen = function() {
     ctx.fillRect(0, 0, c.width, c.height);
     ctx.drawImage(sprites['logo'], (c.width - sprites['logo'].width) / 2, 200);
     ctx.fillStyle = 'white';
-    ctx.font = '36px TS4F';
+
+    var fontSize = 36;
+    ctx.font = fontSize + 'px TS4F';
+
     var margin = 50;
     var fullLength = 0;
     for (var i = 0; i < menu.length; i++) {
-        var textLength = ctx.measureText(translations[menu[i].title]).width * 1.1;
+        menu[i].size[0] = ctx.measureText(translations[menu[i].title]).width;
+        menu[i].size[1] = fontSize * 1.5;
+        var textLength = menu[i].size[0] * 1.1;
         fullLength = fullLength + textLength + margin;
     }
+
     var left = (c.width - fullLength) / 2;
+    var angle = 5;
+    var slope = Math.tan(5 * (Math.PI / 180));
+
     for (var i = 0; i < menu.length; i++) {
         ctx.fillStyle = 'white';
         if (i == selectedMenuItem) {
             ctx.fillStyle = Colors.MENU_HOVER;
         }
-        Drawing.fillTextRotated(translations[menu[i].title], left, c.height * 0.68 + (i * 3), 5);
+
+        menu[i].pos[0] = left;
+        menu[i].pos[1] = c.height * 0.68 + (i * 3);
+        Drawing.fillTextRotated(translations[menu[i].title], menu[i].pos[0], menu[i].pos[1], angle);
+        menu[i].pos[1] -= menu[i].pos[0] * slope;
+        menu[i].pos[1] -= 30;
         ctx.fillStyle = Colors.TEXT_COLOR;
         left = left + ctx.measureText(translations[menu[i].title]).width * 1.1 + margin;
     }
