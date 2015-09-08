@@ -214,7 +214,7 @@ Mouse.move = function(e) {
                 break;
             case GameState.IN_LEGEND:
                Mouse.setBackButton();
-                break
+                break;
         }
     }
 };

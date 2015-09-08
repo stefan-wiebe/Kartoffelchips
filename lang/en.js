@@ -3,6 +3,7 @@ var translations = {
     "OPTIONS": "OPTIONS",
     "CREDITS": "CREDITS",
     "LEGEND": "LEGEND",
+    "CONTROLS": "CONTROLS",
     "DEBUG": "debug",
     "SHOWFPS": "Show FPS",
     "MOUSEDEBUG": "Mouse Debug",

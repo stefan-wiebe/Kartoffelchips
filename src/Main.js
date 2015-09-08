@@ -40,7 +40,12 @@ var menu = [{
 },{
     title: 'LEGEND',
     action: showLegend
-},{
+},
+{
+    title: 'CONTROLS',
+    action: showControls
+},
+{
     title: 'CREDITS',
     action: showCredits
 }];
@@ -142,6 +147,10 @@ function showLegend() {
     selectedMenuItem = -1;
     gameState = GameState.IN_LEGEND;
 
+};
+function showControls() {
+    selectedMenuItem = -1;
+    gameState = GameState.IN_CONTROLS;
 };
 
 function checkWin() {

@@ -3,6 +3,7 @@ var translations = {
     "OPTIONS": "OPTIONEN",
     "CREDITS": "CREDITS",
     "LEGEND": "LEGENDE",
+    "CONTROLS": "STEUERUNG",
     "DEBUG": "Entkäfern",
     "SHOWFPS": "FPS anzeigen",
     "MOUSEDEBUG": "Mausentkäferung",
