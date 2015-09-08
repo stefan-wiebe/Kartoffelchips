@@ -1,4 +1,4 @@
-{"name": "Prismen", "hint": "Die Empfänger nehmen nur Laserstrahlen an, welche dieselbe Farbe haben, welche auch auf dem Empfänger selbst sichtbar ist (hier lila). Um einen lila Laserstrahl zu kriegen kannst du das Prisma verwenden, welches die Farben von zwei Laserstrahlen mischt.", "author": "Stefan Wiebe"}
+{"name": "Prismen", "hint": "Die Empfänger nehmen nur Laserstrahlen an, welche dieselbe Farbe haben, welche auch auf dem Empfänger selbst sichtbar ist (hier lila). Um einen lila Laserstrahl zu erhalten, kannst du das Prisma verwenden, welches die Farben der beiden Laserstrahlen mischt, die zu seinen beiden Seiten eintreffen. Auch das Prisma findest du rechts im Inventar.", "author": "Stefan Wiebe"}
 ################
 ################
 ####        ####

@@ -1,4 +1,4 @@
-{"name": "Portale", "hint": "Laserstrahlen, welche in einen Portaleingang gehen, kommen aus jedem Portalausgang mit derselben Farbe wie der Portaleingang wieder heraus. Portal-Eingang und -Ausgang kannst du am Pfeil unterscheiden. Zeigt er auf die breitere Seite des Portals, dann ist es ein Eingang, andernfalls ist es ein Ausgang.", "author": "Stefan Wiebe"}
+{"name": "Portale", "hint": "Laserstrahlen, welche in einen Portaleingang gehen, kommen aus jedem Portalausgang mit derselben Farbe wie der Portaleingang wieder heraus. Portal-Eingang und -Ausgang kannst du am Pfeil unterscheiden. Zeigt er auf die breitere Seite des Portals, dann ist es ein Eingang, andernfalls ist es ein Ausgang. Die Portalfarben stellen nur die Zuordnung von Ein- und Ausgang dar.", "author": "Stefan Wiebe"}
 ################
 ################
 ####        ####

@@ -1,4 +1,4 @@
-{"name": "Mehrere Farben 2", "hint": "Der Receiver muss mit der richtigen Laserfarbe angesprochen werden", "author": "Timon Ringwald"}
+{"name": "Mehrere Farben 2", "hint": "Wenn mehrere Laser aufeinander treffen, wird immer nur einer dargestellt. Es müssen beide Empfänger mit der entsprechenden Laserfarbe angesprochen werden.", "author": "Timon Ringwald"}
 ################
 #              #
 #####      #####
