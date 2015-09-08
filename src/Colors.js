@@ -12,8 +12,12 @@ var Colors = {
     CREDITS_HOVER: "#80a0fe",
     TOOLTIPS_BACKGROUND: "",
     TOOLTIPS_COLOR: ""
-
-
-
-
 };
+
+Colors.parseFromString = function(color) {
+  var colorObject = {r: 0, g: 0, b: 0};
+  colorObject.r = parseInt(color.substring(1, 3), 16);
+  colorObject.g = parseInt(color.substring(3, 5), 16);
+  colorObject.b = parseInt(color.substring(5, 7), 16);
+  return colorObject;
+}

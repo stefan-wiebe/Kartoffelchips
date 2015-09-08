@@ -793,7 +793,7 @@ Drawing.drawAlert = function() {
 
     ctx.fillText(currentAlert.title, (c.width - ctx.measureText(currentAlert.title).width) / 2, c.height*0.2 + 48);
 
-    ctx.font = '28px TS4F';
+    ctx.font = '16px Open Sans';
 
     // TODO:
 
@@ -872,7 +872,7 @@ Drawing.drawFPS = function () {
 
 		if (options.showFPS == true) {
 			ctx.fillStyle = gameState == GameState.IS_PLAYING ? '#394046' : 'white';
-			ctx.font = "bold "+(36)+"px Courier New";
+			ctx.font = "bold "+(36)+"px Open Sans";
 			ctx.fillText(lastShownFps, c.width - ctx.measureText(fps).width - 5, 32);
 		}
 };
@@ -889,7 +889,7 @@ Drawing.drawLegend = function() {
     ctx.font = '36px TS4F';
 
         ctx.fillText(translations[allTypes[i].toString().toUpperCase()], 140, ((i+4)*64) - 18);
-            ctx.font = '24px TS4F';
+            ctx.font = '16px Open Sans';
 var key = allTypes[i].toString().toUpperCase() + "_DESCRIPTION";
         ctx.fillText(translations[key],140, ((i+4)*64) + 7);
 

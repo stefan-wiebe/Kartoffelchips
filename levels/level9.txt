@@ -1,4 +1,4 @@
-{"name": "Weiss", "hint": "Erstelle einen komplett weißen Laser", "author": "Tobias Timpe"}
+{"name": "Weiss", "hint": "Erstelle einen komplett weißen Laser, indem du die jeweiligen Grundfarben Rot, Grün und Blau mischst.", "author": "Tobias Timpe"}
 ################
 #              #
 #   #######    #
