@@ -11,7 +11,7 @@ var translations = {
     "MIRROR": "Spiegel",
     "PRISM": "Prisma",
     "PORTALINPUT": "Portal-Eingang",
-    "PORTALOUTPUT": "Portal-Augang",
+    "PORTALOUTPUT": "Portal-Ausgang",
     "EMITTER": "Laser",
     "RECEIVER": "Sensor",
     "ACTIVATOR": "Aktivator",
