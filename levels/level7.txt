@@ -1,14 +1,14 @@
 {"name": "Mehrere Farben 2", "hint": "Der Receiver muss mit der richtigen Laserfarbe angesprochen werden", "author": "Timon Ringwald"}
 ################
 #              #
+#####      #####
+#####      #####
 #              #
 #              #
 #              #
-#              #
-#              #
-#              #
-#              #
-#              #
+#####      #####
+#####      #####
+#####      #####
 #              #
 ################
 L 1 1 1 0
