@@ -26,7 +26,7 @@ var translations = {
     "ACTIVATOR_DESCRIPTION": "Muss durch einen Laser beliebiger Farbe aktiviert werden",
     "ON": "An",
     "OFF": "Aus",
-    "TIMER": "Level Geschafft in ",
+    "TIME": "Level Geschafft in ",
     "RESETLEVEL": "Level zurücksetzen",
     "HELPBUTTON": "Hilfe",
     "BACKTOMENU": "Zurück zum Menü",
