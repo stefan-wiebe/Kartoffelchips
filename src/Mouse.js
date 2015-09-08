@@ -40,11 +40,32 @@ Mouse.click = function(e) {
                             }
                         } else {
                             var blockExists = blockExistsAt(mouseX, mouseY, tools[selectedTool]);
-                            if (!blockExists) {
-                                placeBlock(tools[selectedTool]);
-                                selectedTool = -1;
+                                if (!blockExists) {
+                                    placeBlock(tools[selectedTool]);
+
+                                    if (Keyboard.shiftKeyPressed) {
+                                        var toolOfSameType;
+                                        var i = 0;
+
+                                        while (toolOfSameType == undefined && i < toolsByType[tools[selectedTool].toString()].length) {
+                                            var tool = toolsByType[tools[selectedTool].toString()][i];
+                                            if (!tool.isPlaced) {
+                                                toolOfSameType = tool;
+                                            }
+                                            i++;
+                                        }
+
+                                        if (toolOfSameType != undefined) {
+                                            tool.rotation = tools[selectedTool].rotation;
+                                            selectedTool = tools.indexOf(toolOfSameType);
+                                        } else {
+                                            selectedTool = -1;
+                                        }
+                                    } else {
+                                        selectedTool = -1;
+                                    }
+                                }
                             }
-                        }
                         break;
                         //Secondary button (usually the right button)
                     case 2:
