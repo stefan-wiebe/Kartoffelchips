@@ -856,6 +856,13 @@ Drawing.drawAlert = function() {
     ctx.fillText(currentAlert.subtext, (c.width * 0.85) - ctx.measureText(currentAlert.subtext).width - 10, c.height * 0.7 - 10);
     ctx.textBaseline = "alphabetic";
 
+
+	// Draw Level ID (fix #20)
+	
+    ctx.textBaseline = "bottom";
+    ctx.fillText(currentAlert.rightSubtext, c.width* 0.15 + 10, c.height * 0.7 - 10);
+	ctx.textBaseline = "alphabetic";
+
     // DRAW BUTTONS
     var buttonWidth = (c.width * 0.7) / currentAlert.buttons.length;
     var buttonHeight = 80;

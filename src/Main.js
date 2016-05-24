@@ -205,7 +205,7 @@ function backToMenu() {
 }
 
 function showHelpMessage() {
-    showAlert(level.hint, level.name, [new Button('OKAY', dismissAlert)], translations["AUTHOR"] + ": " + level.author);
+    showAlert(level.hint, level.name, [new Button('OKAY', dismissAlert)], translations["AUTHOR"] + ": " + level.author, levelID);
 }
 
 
@@ -234,12 +234,13 @@ function loadSprite(spriteName) {
     sprites[spriteName] = newSprite;
 }
 
-function showAlert(message, title, buttons, subtext) {
+function showAlert(message, title, buttons, subtext, levelID) {
     currentAlert = new Alert();
     currentAlert.message = message;
     currentAlert.title = title;
     currentAlert.buttons = buttons;
     currentAlert.subtext = subtext;
+	currentAlert.rightSubtext = 'Level ' + levelID;
 }
 
 function tick() {
